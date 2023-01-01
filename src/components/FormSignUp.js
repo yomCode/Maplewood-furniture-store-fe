@@ -1,7 +1,6 @@
-
-
+import "./Signup.css";
 import React, { useState } from "react";
-import bgImg from "../assets/img1.jpg";
+//import bgImg from "../assets/img1.jpg";
 import { useForm } from "react-hook-form";
 import SignUpService from "../services/SignUpService";
 
