@@ -109,25 +109,16 @@ import SignUpService from "../services/SignUpService";
                 <option value="OTHER">OTHER</option>
               </select>
 
-              {/* <input
-              type="text"
-              name="gender"
-              value={user.gender}
-              onChange={(e) => handleChange(e)}
-              //  {...register("lastname")}
-              placeholder="Gender"
-            /> */}
-              <label > Date of birth </label>
               <input
                 type="date"
-
+                placeholder="Date of birth"
                 name="date_of_birth"
                 value={user.date_of_birth}
+              
                 onChange={(e) => handleChange(e)}
                 // {...register("date")}
               />
              
-
               <input
                 type="text"
                 name="phoneNumber"
