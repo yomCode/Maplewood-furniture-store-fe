@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import NavBar from './components/NavBar/NavBar';
 import HomePage from './screens/Home/Hompage';
 import ContactUs from './screens/ContactUs/ContactUs';
+import Page404 from './screens/404Page/Page404';
 
 function App(){
     return(
@@ -13,7 +14,7 @@ function App(){
                 <NavBar />
                 <Routes>
                     <Route index element={<HomePage />  } />
-                    <Route path="/" element={<HomePage />} />
+                    <Route path="/" element={<Page404 />} />
                     <Route path="/contactus" element={ <ContactUs /> } />
 
                 </Routes>
