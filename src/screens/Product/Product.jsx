@@ -1,8 +1,10 @@
+
 import ProductItem from '../../components/ProductCard/ProductItem'
-import './favorites.css'
+import './product.css'
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd'
 import useProduct from '../../hooks/useProduct';
+import Categories from '../../components/CategoryCard/Categories';
 
 
 const items = [
@@ -26,7 +28,7 @@ const items = [
 
   const favoritesUrl = ``
 
-const Favorites = () => {
+const Product = () => {
     const { products, setProducts } = useProduct()
 
     const onClick = ({ key }) => {
@@ -52,7 +54,7 @@ const Favorites = () => {
     <section className="favorites-section">
         <div className="products-info">
             <p>Showing 1 - 9 of {products.length} results</p>
-            <h1>Favorites</h1>
+            <h1>Products</h1>
             <Dropdown menu={{ items, onClick,}}>
                 <a onClick={(e) => e.preventDefault()} href={favoritesUrl} id="dropdown-link">
                 <Space>
@@ -63,20 +65,26 @@ const Favorites = () => {
             </Dropdown>
         </div>
 
-            { products.length > 0  ?
+        <div className="encompassing-div">
+          <Categories />
+
+            { products.length > 0 &&
               <div className="favorites-div">
               { 
                   products.map((product, index) => 
-                      <ProductItem product={ product } key={index} isEditable={true}/>
+                      <ProductItem product={ product } key={index} isEditable={false}/>
               )}
               </div>
-              :
+            }
+
+        { products.length === 0 &&
           <div className="favorites-div" style={{minHeight: "40vh"}}>
             "No data"
           </div>
         }
+        </div>
     </section>
   )
 }
 
-export default Favorites
+export default Product

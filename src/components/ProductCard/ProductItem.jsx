@@ -5,22 +5,21 @@ import useProduct from '../../hooks/useProduct';
 
 const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
 
-const ProductItem = ({ product }) => {
-  const { name, price, imageUrl } = product
-  const [value, setValue] = useState(3);
+const ProductItem = ({ product, isEditable }) => {
+  const{ name, price, imageUrl } = product
+  const[value, setValue] = useState(3);
   const[isHover, setIsHover] = useState(false)
     
   const { products, setProducts } = useProduct()
-  const handleHover = () => setIsHover(true)
-  const handleHoverLeave = () => setIsHover(false)
+  const handleHover = () => isEditable && setIsHover(true)
+  const handleHoverLeave = () => isEditable && setIsHover(false)
 
   const deleteProduct = (name) => 
     setProducts([...products.filter(x  => name !== x.name)])
   
 
   return ( 
-    <div className="product-container" onMouseOver={handleHover} 
-        onMouseLeave={handleHoverLeave}>
+    <div className="product-container" onMouseOver={handleHover} onMouseLeave={handleHoverLeave}>
         <img src={ imageUrl } alt={ name } />
         <h5 className="product-name">{ name.toUpperCase() }</h5>
         <span>
