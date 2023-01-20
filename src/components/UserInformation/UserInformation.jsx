@@ -64,12 +64,10 @@ const UserInformation = () =>{
                     </div>
 
                     <div>
-                        <a className="text-[red] mt-[2rem]" onClick={() => setOpenChangePassword(!openChangePassoword)} >Change password</a>
+                        <a className="text-[red] mt-[2rem]" onClick={() => setOpenChangePassword(true)} >Change password</a>
                     </div>
-                    <div>
-                        <ChangePassword open={openChangePassoword} />
-                    </div>
-
+                    {openChangePassoword && <ChangePassword closeModal={() => setOpenChangePassword(false)} />}
+                        
                     <button className="btn-success w-[50px] self-center border-sm mt-2 p-1"> Save </button>
 
                 </form>
