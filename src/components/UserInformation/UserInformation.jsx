@@ -1,10 +1,23 @@
 import { useState } from "react";
-import Input from "../Input/Input";
+import ChangePassword from "./ChangePassword";
+// import Input from "../Input/Input";
 // import './UserInformation.css';
 
 const UserInformation = () =>{
 
-    const [field, setField] = useState('');
+    const[openChangePassoword, setOpenChangePassword] = useState(false);
+
+    const [user, setUser] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        dob: "",
+        address: "",
+        phone: ""
+    });
+
+    
+
 
     const onChange = () => {
         
@@ -50,7 +63,15 @@ const UserInformation = () =>{
                         <label htmlFor="phone">Mobile</label>
                     </div>
 
+                    <div>
+                        <a className="text-[red] mt-[2rem]" onClick={() => setOpenChangePassword(!openChangePassoword)} >Change password</a>
+                    </div>
+                    <div>
+                        <ChangePassword open={openChangePassoword} />
+                    </div>
+
                     <button className="btn-success w-[50px] self-center border-sm mt-2 p-1"> Save </button>
+
                 </form>
             </div>
         </div>
