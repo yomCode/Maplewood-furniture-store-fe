@@ -27,7 +27,7 @@ const Navbar = () => {
 
             {/* =========================LARGE SCREEN============================================ */}
             
-            <div className='fixed shadow-sm z-10 bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] mb-[50rem] p-2'>
+            <div className='fixed shadow-sm z-50 bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] mb-[50rem] p-2'>
                 <div onClick={handleSideBar} className='hidden md:block self-center w-[115px]'>
                     {sideBar ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
                 </div>
@@ -35,7 +35,7 @@ const Navbar = () => {
                     <li className=''><a href='/'>HOME</a></li>
                     <li className=''><a href='/'>ABOUT US</a></li>
                     <li className=''><a href='/'>PAGES</a></li>
-                    <li className=''><a href='/'>SHOP</a></li>
+                    <li className=''><a href='/shop'>SHOP</a></li>
                 </ul>
                 <ul className='items-center hidden lg:block'>
                     <li className='w-full text-4xl font-bold text-[#403414]'>OAKLAND</li>
@@ -92,19 +92,15 @@ const Navbar = () => {
                                     <a className='text-white' href='/'><BsInstagram /></a>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-                
-
             </div>
             
                     
                     {/* =========================MEDIUM SCREEN=========================== */}
 
-            <div className='fixed shadow-sm z-10 flex justify-between w-[100%] px-4 py-2 top-0 bg-white sm:hidden md:flex lg:hidden'>
+            <div className='fixed shadow-sm z-50 flex justify-between w-[100%] px-4 py-2 top-0 bg-white sm:hidden md:flex lg:hidden'>
                 
                 <div onClick={handleNav} className='hidden md:block lg:hidden self-center'>
                     {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
@@ -145,7 +141,7 @@ const Navbar = () => {
             {/* ==============================SMALL SCREEN====================================================== */}
 
             {/* flex justify-between w-[100%] px-4 py-2 top-0 bg-white sm:hidden md:flex lg:hidden */}
-            <div className='fixed shadow-sm z-10 flex justify-between w-[100%] md:hidden items-center  px-4 py-1 bg-[white]'>
+            <div className='fixed shadow-sm z-50 flex justify-between w-[100%] md:hidden items-center  px-4 py-1 bg-[white]'>
                 <div onClick={handleNav} className='md:hidden'>
                     {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
                 </div>
