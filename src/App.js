@@ -24,7 +24,6 @@ function App(){
                     <Route path="/shop" element={<Product />} />
                     <Route path="/product" element={<SingleProduct />} />
 
-
                 </Routes>
                 <BackToTop />  
                 <Footer />     
