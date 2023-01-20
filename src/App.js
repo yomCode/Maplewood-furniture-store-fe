@@ -9,6 +9,7 @@ import ContactUs from './screens/ContactUs/ContactUs';
 import Page404 from './screens/404Page/Page404';
 import Product from './screens/Product/Product';
 import SingleProduct from './screens/Product/SingleProduct';
+import UserInformation from './components/UserInformation/UserInformation';
 
 function App(){
     return(
@@ -23,6 +24,7 @@ function App(){
                     <Route path="/favorites" element={<Favorites />} />
                     <Route path="/shop" element={<Product />} />
                     <Route path="/product" element={<SingleProduct />} />
+                    <Route path='/accountInfo' element={<UserInformation />} />
 
                 </Routes>
                 <BackToTop />  
