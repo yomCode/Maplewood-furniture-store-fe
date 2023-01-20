@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 
 
@@ -20,11 +20,9 @@ const ChangePassword = ({openModal, closeModal}) =>{
 
     }, [handleClickOutside]);
 
-    // if(!openModal) return null
-
     return(
         <div className="w-[100vw] h-[100vh] flex flex-col justify-center items-center mx-auto p-4 shadow-md rounded-md fixed bg-[#21334f] bg-opacity-[0.3] bg-op z-10 top-0 left-0 ">
-            <div ref={modalRef} className="flex flex-col w-[70%] lg:w-[50%] bg-[white] py-3 rounded-md">
+            <div ref={modalRef} className="flex flex-col w-[70%] md:w-[50%] bg-[white] py-3 rounded-md">
                 <div className="flex justify-end">
                     <h1 onClick={closeModal} className="text-3xl mr-6 cursor-pointer">X</h1>
                 </div>
@@ -42,7 +40,7 @@ const ChangePassword = ({openModal, closeModal}) =>{
                         <label htmlFor="confirmNewPassword">Confirm New Password</label>
                     </div>
                     <div className="flex justify-center items-center">
-                        <button className="btn-success w-[50px] border-sm mt-2 p-1"> Save </button>
+                        <button type="submit" className="btn-success w-[50px] border-sm mt-2 p-1"> Save </button>
                     </div>
                 </form>
             </div>

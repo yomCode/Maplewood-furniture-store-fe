@@ -26,7 +26,7 @@ const UserInformation = () =>{
 
 
     return(
-        <div className="flex flex-col gap-4 lg:w-[50%] h-[100vh] p-5 ">
+        <div className="flex flex-col gap-4 md:w-[50%] h-[100vh] p-5 ">
             <h1 className="mx-auto text-[2rem] self-center">User Information</h1>
             <div className="bg-[white] p-3 flex flex-col gap-3">
                 <h2 className="text-2xl">Edit account Information</h2>
