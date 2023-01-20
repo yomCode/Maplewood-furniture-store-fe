@@ -14,7 +14,7 @@ function App(){
                 <Routes>
                     <Route index element={<HomePage />  } />
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/contactus" element={ <ContactUs /> } />
+                    <Route path="/c" element={ <ContactUs /> } />
 
                 </Routes>
                 <BackToTop />  
