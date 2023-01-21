@@ -6,6 +6,8 @@ import './Navbar.css'
 import { ImFacebook2 } from 'react-icons/im';
 import { BsClock, BsInstagram, BsTelephone, BsTwitter } from 'react-icons/bs';
 
+import { Link } from 'react-router-dom'
+
 
 const Navbar = () => {
 
@@ -35,7 +37,7 @@ const Navbar = () => {
                     <li className=''><a href='/'>HOME</a></li>
                     <li className=''><a href='/'>ABOUT US</a></li>
                     <li className=''><a href='/'>PAGES</a></li>
-                    <li className=''><a href='/'>SHOP</a></li>
+                    <li className=''><Link to='/shop'>SHOP</Link></li>
                 </ul>
                 <ul className='items-center hidden lg:block'>
                     <li className='w-full text-4xl font-bold text-[#403414]'>OAKLAND</li>

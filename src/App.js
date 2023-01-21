@@ -19,12 +19,11 @@ function App(){
                     <Route index element={<HomePage />  } />
                     <Route path="/" element={<HomePage />} />
                     <Route path="/contactus" element={ <ContactUs /> } />
-                    <Route path="/404" element={<Page404 />} />
                     <Route path="/favorites" element={<Favorites />} />
-                    <Route path="/shop" element={<Product />} />
-                    <Route path="/product" element={<SingleProduct />} />
-
-
+                    <Route path="/shop" element={<Product />}>
+                        <Route path="/shop/product" element={<SingleProduct /> } />
+                    </Route>
+                    <Route path="*" element={<Page404 />} />
                 </Routes>
                 <BackToTop />  
                 <Footer />     
