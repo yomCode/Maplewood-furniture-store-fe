@@ -58,14 +58,13 @@ const UserInformation = () =>{
                         <input className="border-b border-l px-1 " type="text" name="phone" id="" onChange={(e) => onChange(e)} placeholder="Phone Number" />
                         <label htmlFor="phone">Mobile</label>
                     </div>
-
-                    <div>
-                        <p className="text-[red] mt-[2rem] cursor-pointer" onClick={() => setOpenChangePassword(true)} >Change password</p>
+                    <div className="w-[140px] mt-2">
+                        <p className="text-[red] cursor-pointer" onClick={() => setOpenChangePassword(true)} >Change password</p>
                     </div>
                     {openChangePassoword && <ChangePassword closeModal={() => setOpenChangePassword(false)} />}
-                        
-                    <button type="submit" className="btn-success w-[50px] self-center border-sm mt-2 p-1"> Save </button>
-
+                    <div className="flex justify-center">
+                        <button type="submit" className="bg-[green] py-2 px-4 rounded-md">Save</button>
+                    </div>
                 </form>
             </div>
         </div>
