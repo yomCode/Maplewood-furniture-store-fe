@@ -9,6 +9,8 @@ import ReactPaginate from 'react-paginate';
 import { ArrowLeftTwoTone, ArrowRightAltOutlined,  } 
 from '@mui/icons-material';
 
+import { Link } from 'react-router-dom'
+
 
 const items = [
     {
@@ -83,7 +85,9 @@ const Product = () => {
                 <div className="favorites-div">
                 { 
                     products.map((product, index) => 
-                        <ProductItem product={ product } key={index} isEditable={false} />
+                        <Link to={`products/${product.id}`} key={index}> 
+                          <ProductItem product={ product } isEditable={false} /> 
+                        </Link>
                 )}
                 </div>
                 <ReactPaginate 

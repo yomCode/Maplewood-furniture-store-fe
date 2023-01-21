@@ -10,6 +10,7 @@ import Page404 from './screens/404Page/Page404';
 import Product from './screens/Product/Product';
 import SingleProduct from './screens/Product/SingleProduct';
 import UserInformation from './components/UserInformation/UserInformation';
+import FAQPage from './screens/FAQ/FAQPage';
 
 function App(){
     return(
@@ -19,11 +20,12 @@ function App(){
                 <Routes>
                     <Route index element={<HomePage />  } />
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/contactus" element={ <ContactUs /> } />
-                    <Route path="/favorites" element={<Favorites />} />
-                    <Route path="/shop" element={<Product />}>
-                        <Route path="/shop/product" element={<SingleProduct /> } />
-                    </Route>
+                    <Route path="contactus" element={ <ContactUs /> } />
+                    <Route path="favorites" element={<Favorites />} />
+                    <Route path="frequently-asked-questions" element={<FAQPage />} />
+
+                    <Route path="/shop" element={<Product />} />
+                    <Route path="/shop/products/:id" element={<SingleProduct /> } />
                     <Route path="*" element={<Page404 />} />
                     <Route path='/accountInfo' element={<UserInformation />} />
 
