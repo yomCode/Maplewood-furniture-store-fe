@@ -8,22 +8,6 @@
   /* outline: orange; */
 }
 
-body {
-  background: #7a7a7a; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #d5d5d7,
-    #d5d5d7,
-    #909093
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #e4e4e4,
-    #d5d5d7,
-    #d5d5d7
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
 .signup_bg_image {
   display: flex;
   justify-content: center;
