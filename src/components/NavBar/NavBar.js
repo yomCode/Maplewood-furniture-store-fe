@@ -61,7 +61,7 @@ const Navbar = () => {
                     </li>
                 </ul>
                 <ul className='hidden lg:flex'>
-                    <li className=''><a href='/'>SIGNUP</a></li>
+                    <li className=''><a href='/signup'>SIGNUP</a></li>
                     <li className=''><a href='/'>SIGNIN</a></li>
                 </ul>
                 <div className={sideBar ? 'fixed w-[600px] left-0 top-0 pr-[6rem] hidden rounded-b-sm lg:block bg-gray-800 shadow-sm ease-in-out duration-500 text-white z-10' : 'fixed left-[-100%] ease-in-out duration-500'}>
