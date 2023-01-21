@@ -1,5 +1,5 @@
-import CategoryItem from '../../components/CategoryCard/CategoryItem';
-import Card from '../../components/Card/Card'
+import CategoryItem from './CategoryItem';
+import Card from '../Card/Card'
 
 
 const Categories = () => {
