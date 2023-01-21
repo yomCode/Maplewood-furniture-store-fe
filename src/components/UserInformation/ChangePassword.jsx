@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 
 
 
-const ChangePassword = ({openModal, closeModal}) =>{
+const ChangePassword = ({closeModal}) =>{
 
     const modalRef = useRef(null);
 
@@ -39,8 +39,8 @@ const ChangePassword = ({openModal, closeModal}) =>{
                         <input className="border-b border-l px-1 " type="password" name="confirmNewPassword" id="" placeholder="Confirm New Password" />
                         <label htmlFor="confirmNewPassword">Confirm New Password</label>
                     </div>
-                    <div className="flex justify-center items-center">
-                        <button type="submit" className="btn-success w-[50px] border-sm mt-2 p-1"> Save </button>
+                    <div className="flex justify-center">
+                        <button type="submit" className="bg-[green] py-2 px-4 rounded-md">Save</button>
                     </div>
                 </form>
             </div>

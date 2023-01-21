@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ChangePassword from "./ChangePassword";
-// import './UserInformation.css';
 
 const UserInformation = () =>{
 
@@ -15,11 +14,9 @@ const UserInformation = () =>{
         phone: ""
     });
 
-    
-
-
-    const onChange = () => {
-        
+    const onChange = (e) => {
+        e.preventDefault();
+        setUser({...user, [e.target.name]: e.target.value});
     }
 
     return(
@@ -36,37 +33,36 @@ const UserInformation = () =>{
                     <Input type='text' placeholder='Phone' id='phone' label='Phone Number'/> */}
 
                     <div className="flex flex-col g-3">
-                        <input className="border-b border-l px-1 " type="text" name="firstName" id="" value={onChange} placeholder="First Name" />
+                        <input className="border-b border-l px-1 " type="text" name="firstName" id=""  onChange={(e) => onChange(e)} placeholder="First Name" />
                         <label htmlFor="firstName">First Name</label>
                     </div>
                     <div className="flex flex-col g-3">
-                        <input className="border-b border-l px-1 " type="text" name="lastName" id="" value={onChange} placeholder="Last Name" />
+                        <input className="border-b border-l px-1 " type="text" name="lastName" id="" onChange={(e) => onChange(e)} placeholder="Last Name" />
                         <label htmlFor="lastName">Last Name</label>
                     </div>
                     <div className="flex flex-col g-3">
-                        <input className="border-b border-l px-1 " type="email" name="email" id="" value={onChange} placeholder="Email address" />
+                        <input className="border-b border-l px-1 " type="email" name="email" id="" onChange={(e) => onChange(e)} placeholder="Email address" />
                         <label htmlFor="email">Email Address</label>
                     </div>
                     <div className="flex flex-col g-3">
-                        <input className="border-b border-l px-1 " type="text" name="dob" id="" value={onChange} placeholder="Date of Birth" />
+                        <input className="border-b border-l px-1 " type="text" name="dob" id=""  onChange={(e) => onChange(e)} placeholder="Date of Birth" />
                         <label htmlFor="dob">Date of Birth</label>
                     </div>
                     <div className="flex flex-col g-3">
-                        <input className="border-b border-l px-1 " type="text" name="address" id="" value={onChange} placeholder="Home Address" />
+                        <input className="border-b border-l px-1 " type="text" name="address" id="" onChange={(e) => onChange(e)} placeholder="Home Address" />
                         <label htmlFor="address">Home address</label>
                     </div>
                     <div className="flex flex-col g-3">
-                        <input className="border-b border-l px-1 " type="text" name="phone" id="" value={onChange} placeholder="Phone Number" />
+                        <input className="border-b border-l px-1 " type="text" name="phone" id="" onChange={(e) => onChange(e)} placeholder="Phone Number" />
                         <label htmlFor="phone">Mobile</label>
                     </div>
-
-                    <div>
-                        <a className="text-[red] mt-[2rem]" onClick={() => setOpenChangePassword(true)} >Change password</a>
+                    <div className="w-[140px] mt-2">
+                        <p className="text-[red] cursor-pointer" onClick={() => setOpenChangePassword(true)} >Change password</p>
                     </div>
                     {openChangePassoword && <ChangePassword closeModal={() => setOpenChangePassword(false)} />}
-                        
-                    <button className="btn-success w-[50px] self-center border-sm mt-2 p-1"> Save </button>
-
+                    <div className="flex justify-center">
+                        <button type="submit" className="bg-[green] py-2 px-4 rounded-md">Save</button>
+                    </div>
                 </form>
             </div>
         </div>
