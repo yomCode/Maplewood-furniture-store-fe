@@ -37,11 +37,7 @@ const Navbar = () => {
                     <li className=''><a href='/'>HOME</a></li>
                     <li className=''><a href='/'>ABOUT US</a></li>
                     <li className=''><a href='/'>PAGES</a></li>
-<<<<<<< HEAD
                     <li className=''><Link to='/shop'>SHOP</Link></li>
-=======
-                    <li className=''><a href='/shop'>SHOP</a></li>
->>>>>>> 873e060cadd5a9e2a3897bd5328d7dd34cd165a1
                 </ul>
                 <ul className='items-center hidden lg:block'>
                     <li className='w-full text-4xl font-bold text-[#403414]'>OAKLAND</li>
