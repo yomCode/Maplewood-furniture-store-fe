@@ -19,8 +19,6 @@ const UserInformation = () =>{
         setUser({...user, [e.target.name]: e.target.value});
     }
 
-
-
     return(
         <div className="flex flex-col gap-4 md:w-[50%] h-[100vh] p-5 ">
             <h1 className="mx-auto text-[2rem] self-center">User Information</h1>
