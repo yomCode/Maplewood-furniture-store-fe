@@ -11,6 +11,7 @@ import Product from './screens/Product/Product';
 import SingleProduct from './screens/Product/SingleProduct';
 import UserInformation from './components/UserInformation/UserInformation';
 import AddressBook from './components/AddressBook/AddressBook';
+import FormSignUp from './screens/Signup/FormSignUp';
 
 function App(){
     return(
@@ -26,11 +27,13 @@ function App(){
                     <Route path="/product" element={<SingleProduct />} />
                     <Route path='/accountInfo' element={<UserInformation />} />
                     <Route path='/address' element={<AddressBook />} />
+                     <Route path="/signup" element={<FormSignUp />} />
                 </Routes>
                 <BackToTop />  
                 <Footer />     
             </Router>   
         </React.Fragment>  
+
     ); 
 }
 
