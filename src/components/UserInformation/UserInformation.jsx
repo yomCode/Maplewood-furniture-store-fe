@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ChangePassword from "./ChangePassword";
-// import Input from "../Input/Input";
 // import './UserInformation.css';
 
 const UserInformation = () =>{
@@ -22,8 +21,6 @@ const UserInformation = () =>{
     const onChange = () => {
         
     }
-
-
 
     return(
         <div className="flex flex-col gap-4 md:w-[50%] h-[100vh] p-5 ">

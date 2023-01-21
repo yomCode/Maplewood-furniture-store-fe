@@ -10,6 +10,7 @@ import Page404 from './screens/404Page/Page404';
 import Product from './screens/Product/Product';
 import SingleProduct from './screens/Product/SingleProduct';
 import UserInformation from './components/UserInformation/UserInformation';
+import AddressBook from './components/AddressBook/AddressBook';
 
 function App(){
     return(
@@ -25,6 +26,7 @@ function App(){
                     <Route path="/shop" element={<Product />} />
                     <Route path="/product" element={<SingleProduct />} />
                     <Route path='/accountInfo' element={<UserInformation />} />
+                    <Route path='/address' element={<AddressBook />} />
 
                 </Routes>
                 <BackToTop />  
