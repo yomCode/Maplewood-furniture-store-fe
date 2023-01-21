@@ -1,6 +1,7 @@
 import React from 'react';
 import { HiOutlineClock } from 'react-icons/hi';
 import Input from '../../components/Input/Input';
+import './contact.css';
 
 const ContactUs = () => {
   return (
@@ -52,7 +53,7 @@ const ContactUs = () => {
 
         </div>
 
-        <div className='col-md-6'>
+        <div className='col-md-6 ps-6'>
           <form>
             <div className='row'>
               <div className='col-md-6'>

@@ -10,7 +10,7 @@ const HeaderComponent = () =>{
 
     return(
         <header className="bg-[#f5f5f5] px-[3rem] lg:pr-0 md:pl-[5rem] pb-[8rem] md:pt-[3rem] pt-[5rem] ">
-            <div className="flex items-center justify-between gap-8 md:mt-[2rem] mt-[3.5rem] pt-5 lg:pt-4 ">
+            <div className="flex items-center justify-between gap-8 pt-5 lg:pt-4 ">
                 <div className=" p-2 gap-2 md:text-center lg:text-left">
                     <h3 className="lg:text-3xl text-2xl font-bold">{HEADER_PRIMARY_TEXT}</h3>
                     <p className="mb-5 font-sans lg:text-2xl text-1xl">{HEADER_SECONDARY_TEXT}</p>
