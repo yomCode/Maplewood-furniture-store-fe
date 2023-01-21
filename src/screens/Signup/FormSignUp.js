@@ -136,7 +136,7 @@ const Signup = () => {
               <button className="signup_btn">Sign Up</button>
               <p className="signup_small mb-0">
                 Already have an account?
-                <a href="pages-login.html">Log in</a>
+                <a href="/login">Log in</a>
               </p>
             </form>
           </div>
