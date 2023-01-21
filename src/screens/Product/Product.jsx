@@ -5,6 +5,9 @@ import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd'
 import useProduct from '../../hooks/useProduct';
 import Categories from '../../components/CategoryCard/Categories';
+import ReactPaginate from 'react-paginate';
+import { ArrowLeftTwoTone, ArrowRightAltOutlined,  } 
+from '@mui/icons-material';
 
 
 const items = [
@@ -26,10 +29,10 @@ const items = [
     },  
   ];
 
-  const favoritesUrl = ``
-
 const Product = () => {
-    const { products, setProducts } = useProduct()
+    const { products, setProducts, totalPages, pageElementSize,
+            setPageNumber, pageNumber, totalElements, numOfElements 
+          } = useProduct()
 
     const onClick = ({ key }) => {
         switch(key) {
@@ -50,13 +53,19 @@ const Product = () => {
         }
     };
 
+    const changePage = ({ selected }) => setPageNumber(selected)
+
   return (
     <section className="favorites-section">
         <div className="products-info">
-            <p>Showing 1 - 9 of {products.length} results</p>
+             {
+              numOfElements < pageElementSize ?
+              <p>Showing { (pageNumber * pageElementSize) + 1 } - { totalElements } of { totalElements }</p> :
+              <p>Showing { numOfElements * (pageNumber) + 1 } - { numOfElements * (pageNumber + 1) } of {totalElements} results</p>
+            }
             <h1>Products</h1>
             <Dropdown menu={{ items, onClick,}}>
-                <a onClick={(e) => e.preventDefault()} href={favoritesUrl} id="dropdown-link">
+                <a onClick={(e) => e.preventDefault()} href={"sorting"} id="dropdown-link">
                 <Space>
                     Default Sorting
                     <DownOutlined />
@@ -69,12 +78,26 @@ const Product = () => {
           <Categories />
 
             { products.length > 0 &&
-              <div className="favorites-div">
-              { 
-                  products.map((product, index) => 
-                      <ProductItem product={ product } key={index} isEditable={false}/>
-              )}
-              </div>
+              <div className="this-product-container">
+
+                <div className="favorites-div">
+                { 
+                    products.map((product, index) => 
+                        <ProductItem product={ product } key={index} isEditable={false} />
+                )}
+                </div>
+                <ReactPaginate 
+                  previousLabel={<ArrowLeftTwoTone />}
+                  nextLabel={<ArrowRightAltOutlined />}
+                  pageCount={totalPages} 
+                  onPageChange={changePage}
+                  containerClassName={"paginationBtns"}
+                  previousLinkClassName={"prevBtn"}
+                  nextLinkClassName={"nextBtn"}
+                  disabledClassName={"paginationDisabled"}
+                  activeClassName={"paginationActive"}
+                />
+                </div>
             }
 
         { products.length === 0 &&
