@@ -73,16 +73,20 @@ a:hover {
   color: #483a01;
 }
 
-#form {
+.signupForm {
+  display: flex;
+  flex-direction: column;
   box-shadow: 0px 0 30px rgba(159, 164, 172, 0.538);
   padding: 1.5rem;
   max-width: 400px;
   width: 100vw;
   margin: 0.7em auto;
   background-color: white;
+  gap: 0.6rem;
 }
 
-#form > input,
+
+.signupForm > input,
 .signup_btn {
   border: 1px solid #e9e7e7;
   padding: 0.5em 1em;
@@ -91,7 +95,8 @@ a:hover {
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
 
-#form > select {
+
+.signupForm > select {
   border: 1px solid #e9e7e7;
   padding: 0.7em 1em;
 
@@ -99,7 +104,8 @@ a:hover {
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
 
-#form > input:focus {
+
+.signupForm> input:focus {
   outline: none;
 }
 
@@ -110,7 +116,9 @@ input[type="date"]::before {
 input[type="date"]:focus::before {
   content: "" !important;
 }
-#form > .signup_btn {
+
+.signupForm > .signup_btn {
+
   background-color: #292929;
   color: #e9ecef;
   font-size: 1em;
