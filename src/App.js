@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import "./global.css";
 import BackToTop from './components/BackToTopButton';
 import Favorites from './screens/Favorite/Favorites';
 import Footer from './components/Footer';
@@ -9,6 +10,7 @@ import ContactUs from './screens/ContactUs/ContactUs';
 import Page404 from './screens/404Page/Page404';
 import Product from './screens/Product/Product';
 import SingleProduct from './screens/Product/SingleProduct';
+import AccountDashboard from './screens/AccountDashboard/AccountDashboard';
 
 function App(){
     return(
@@ -23,7 +25,7 @@ function App(){
                     <Route path="/favorites" element={<Favorites />} />
                     <Route path="/shop" element={<Product />} />
                     <Route path="/product" element={<SingleProduct />} />
-
+                    <Route path="/dashboard" element={<AccountDashboard />} />
                 </Routes>
                 <BackToTop />  
                 <Footer />     
