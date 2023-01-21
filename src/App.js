@@ -22,18 +22,10 @@ function App(){
                     <Route path="/" element={<HomePage />} />
                     <Route path="/contactus" element={ <ContactUs /> } />
                     <Route path="/favorites" element={<Favorites />} />
-<<<<<<< HEAD
-                    <Route path="/shop" element={<Product />}>
-                        <Route path="/shop/product" element={<SingleProduct /> } />
-                    </Route>
-                    <Route path="*" element={<Page404 />} />
-=======
                     <Route path="/shop" element={<Product />} />
                     <Route path="/product" element={<SingleProduct />} />
                     <Route path='/accountInfo' element={<UserInformation />} />
                     <Route path='/address' element={<AddressBook />} />
-
->>>>>>> 873e060cadd5a9e2a3897bd5328d7dd34cd165a1
                 </Routes>
                 <BackToTop />  
                 <Footer />     
