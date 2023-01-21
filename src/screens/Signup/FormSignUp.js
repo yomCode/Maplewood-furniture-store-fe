@@ -41,8 +41,9 @@ const Signup = () => {
         <div className="signregister">
           <div className="signup_col_1">
             <form
-              id="form"
-              className="signup_flex flex_col"
+              // id="form"
+              className="signupForm "
+              // className="signup_flex flex_col"
               // onSubmit={handleSubmit(onSubmit)}
             >
               <h2 className="signup_h2">Sign Up</h2>
