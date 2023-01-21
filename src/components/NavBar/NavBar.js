@@ -25,11 +25,11 @@ const Navbar = () => {
     
 
     return(
-        <div className='text-black items-center w-[100%] h-[100px] top-0 '>
+        <div className='text-black items-center w-[100%] top-0'>
 
             {/* =========================LARGE SCREEN============================================ */}
             
-            <div className='fixed shadow-sm z-50 bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] mb-[50rem] p-2'>
+            <div className='fixed shadow-sm z-50 bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] p-2'>
                 <div onClick={handleSideBar} className='hidden md:block self-center w-[115px]'>
                     {sideBar ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
                 </div>
