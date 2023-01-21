@@ -6,6 +6,8 @@ import './Navbar.css'
 import { ImFacebook2 } from 'react-icons/im';
 import { BsClock, BsInstagram, BsTelephone, BsTwitter } from 'react-icons/bs';
 
+import { Link } from 'react-router-dom'
+
 
 const Navbar = () => {
 
@@ -23,11 +25,11 @@ const Navbar = () => {
     
 
     return(
-        <div className='text-black items-center w-[100%] h-[100px] top-0 '>
+        <div className='text-black items-center w-[100%] top-0'>
 
             {/* =========================LARGE SCREEN============================================ */}
             
-            <div className='fixed shadow-sm z-50 bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] mb-[50rem] p-2'>
+            <div className='fixed shadow-sm z-50 bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] p-2'>
                 <div onClick={handleSideBar} className='hidden md:block self-center w-[115px]'>
                     {sideBar ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
                 </div>
@@ -35,7 +37,7 @@ const Navbar = () => {
                     <li className=''><a href='/'>HOME</a></li>
                     <li className=''><a href='/'>ABOUT US</a></li>
                     <li className=''><a href='/'>PAGES</a></li>
-                    <li className=''><a href='/shop'>SHOP</a></li>
+                    <li className=''><Link to='/shop'>SHOP</Link></li>
                 </ul>
                 <ul className='items-center hidden lg:block'>
                     <li className='w-full text-4xl font-bold text-[#403414]'>OAKLAND</li>
@@ -55,7 +57,7 @@ const Navbar = () => {
                     </li>
                 </ul>
                 <ul className='hidden lg:flex'>
-                    <li className=''><a href='/'>SIGNUP</a></li>
+                    <li className=''><a href='/signup'>SIGNUP</a></li>
                     <li className=''><a href='/'>SIGNIN</a></li>
                 </ul>
                 <div className={sideBar ? 'fixed w-[600px] left-0 top-0 pr-[6rem] hidden rounded-b-sm lg:block bg-gray-800 shadow-sm ease-in-out duration-500 text-white z-10' : 'fixed left-[-100%] ease-in-out duration-500'}>

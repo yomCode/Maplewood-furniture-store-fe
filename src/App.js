@@ -11,6 +11,9 @@ import Page404 from './screens/404Page/Page404';
 import Product from './screens/Product/Product';
 import SingleProduct from './screens/Product/SingleProduct';
 import AccountDashboard from './screens/AccountDashboard/AccountDashboard';
+import UserInformation from './components/UserInformation/UserInformation';
+import AddressBook from './components/AddressBook/AddressBook';
+import FormSignUp from './screens/Signup/FormSignUp';
 
 function App(){
     return(
@@ -21,16 +24,19 @@ function App(){
                     <Route index element={<HomePage />  } />
                     <Route path="/" element={<HomePage />} />
                     <Route path="/contactus" element={ <ContactUs /> } />
-                    <Route path="/404" element={<Page404 />} />
                     <Route path="/favorites" element={<Favorites />} />
                     <Route path="/shop" element={<Product />} />
                     <Route path="/product" element={<SingleProduct />} />
                     <Route path="/dashboard" element={<AccountDashboard />} />
+                    <Route path='/accountInfo' element={<UserInformation />} />
+                    <Route path='/address' element={<AddressBook />} />
+                    <Route path="/signup" element={<FormSignUp />} />
                 </Routes>
                 <BackToTop />  
                 <Footer />     
             </Router>   
         </React.Fragment>  
+
     ); 
 }
 

@@ -23,6 +23,20 @@
     grid-template-rows: repeat(auto-fill, minmax(200px, 70vh)) ;
 }
 
+
+.paginationBtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.paginationActive {
+    background: var(--head-color);
+    color: var(--header-content-color);
+    padding: 4px 10px;
+}
+
 .category-inner-div {
     /* border: 1px solid coral; */
     min-height: 70vh;
