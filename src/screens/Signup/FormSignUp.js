@@ -1,10 +1,11 @@
 import "./Signup.css";
 import React, { useState } from "react";
+import { useAuth } from "../../context/authcontext";
+import { message } from "antd";
 
 // import styled from "./Signup.module.css"
 //import bgImg from "../assets/img1.jpg";
 //import { useForm } from "react-hook-form";
-
 
 //   const {
 //     register,
@@ -15,24 +16,45 @@ import React, { useState } from "react";
 //   const onSubmit = (data) => console.log(data);
 
 // console.log(watch('username'));
+
+
+
 const Signup = () => {
+  const { registerConfig } = useAuth();
   const [user, setUser] = useState({
-    id: "",
     firstName: "",
     lastName: "",
     email: "",
-    gender: "",
-    date_of_birth: "",
-    phoneNumber: "",
-    address: "",
     password: "",
+    date_of_birth: "",
+    address: "",
+    gender: "",
+    phoneNumber: ""
   });
+  
+
+  
 
   const handleChange = (e) => {
     const value = e.target.value;
     setUser({ ...user, [e.target.name]: value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    registerConfig(user);
+    setUser({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      date_of_birth: "",
+      address: "",
+      gender: "",
+      phoneNumber: "",
+    });
+    // setFormData({})
+  };
 
   return (
     <div className="signup_bg_image">
@@ -45,14 +67,17 @@ const Signup = () => {
               className="signupForm "
               // className="signup_flex flex_col"
               // onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit}
             >
               <h2 className="signup_h2">Sign Up</h2>
-              <p className="signup_span">Enter your personal details to create account</p>
+              <p className="signup_span">
+                Enter your personal details to create account
+              </p>
               <input
                 type="text"
                 name="firstName"
                 value={user.firstName}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 // {...register("firstname")}
                 placeholder="First Name"
                 required
@@ -61,7 +86,7 @@ const Signup = () => {
                 type="text"
                 name="lastName"
                 value={user.lastName}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 required
                 //  {...register("lastname")}
                 placeholder="Last Name"
@@ -71,7 +96,7 @@ const Signup = () => {
                 type="email"
                 name="email"
                 value={user.email}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 //  {...register("email")}
                 placeholder="Email"
                 required
@@ -81,17 +106,13 @@ const Signup = () => {
                 type="password"
                 name="password"
                 value={user.password}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 // {...register("password")}
                 placeholder="password"
                 required
               />
 
-              <select
-                name="gender"
-                value={user.gender}
-                onChange={(e) => handleChange(e)}
-              >
+              <select name="gender" value={user.gender} onChange={handleChange}>
                 <option> Select Gender</option>
                 <option value="MALE">MALE</option>
                 <option value="FEMALE">FEMALE</option>
@@ -103,7 +124,7 @@ const Signup = () => {
                 placeholder="Date of birth"
                 name="date_of_birth"
                 value={user.date_of_birth}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 // {...register("date")}
               />
 
@@ -111,7 +132,7 @@ const Signup = () => {
                 type="text"
                 name="phoneNumber"
                 value={user.phoneNumber}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 //   {...register("mobile", {
                 //     required: true,
                 //     maxLength: 14,
@@ -125,7 +146,7 @@ const Signup = () => {
                 type="text"
                 name="address"
                 value={user.address}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 // {...register("address")}
                 placeholder="Address"
                 required
@@ -133,7 +154,9 @@ const Signup = () => {
 
               {/* {errors.mobile?.type === "required" && "Mobile Number is required"}
             {errors.mobile?.type === "maxLength" && "Max Length Exceed"} */}
-              <button className="signup_btn">Sign Up</button>
+              <button type="submit" className="signup_btn">
+                Sign Up
+              </button>
               <p className="signup_small mb-0">
                 Already have an account?
                 <a href="/login">Log in</a>
