@@ -15,6 +15,7 @@ import UserInformation from './components/UserInformation/UserInformation';
 import AddressBook from './components/AddressBook/AddressBook';
 import FormSignUp from './screens/Signup/FormSignUp';
 import FormLogin from './screens/Login/FormLogin';
+import "react-toastify/dist/ReactToastify.css";
 
 function App(){
     return(
