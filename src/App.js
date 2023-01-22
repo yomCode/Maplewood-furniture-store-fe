@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BackToTop from './components/BackToTopButton';
-import Favorites from './screens/Favorite/Favorites';
+import Subcategory from './screens/Subcategory/Subcategory'
 import Footer from './components/Footer';
 import NavBar from './components/NavBar/NavBar';
 import HomePage from './screens/Home/Hompage';
@@ -21,13 +21,48 @@ function App(){
                     <Route index element={<HomePage />  } />
                     <Route path="/" element={<HomePage />} />
                     <Route path="contactus" element={ <ContactUs /> } />
-                    <Route path="favorites" element={<Favorites />} />
                     <Route path="frequently-asked-questions" element={<FAQPage />} />
 
-                    <Route path="/shop" element={<Product />} />
+                    <Route path="/shop" 
+                        element={<Product 
+                            title={ "Products" } 
+                            url={"products"}
+                            productUrlProp={`/products/paginated-all`}
+                            isEditable={false}
+                            isId={false}
+                        />} 
+                    />
                     <Route path="/shop/products/:id" element={<SingleProduct /> } />
+                    
+                    <Route path="favorites" 
+                        element={<Product 
+                            title={ "Subcategory" }
+                            url={"favorites"}
+                            displayCategories={false}
+                            isEditable={true}
+                            isId={false}
+                        />} 
+                    />
+                    <Route path="favorites/:id" element={<SingleProduct />} />
+
                     <Route path="*" element={<Page404 />} />
                     <Route path='/accountInfo' element={<UserInformation />} />
+
+                    <Route path="categories/viewByCategory/:id" element={<Subcategory 
+                        title={"Subcategories"}
+                        url={`/subcategory/viewByCategory`}
+                    />} />
+
+                    <Route path="categories/subcategories/:id/shop" element={<Product 
+                            title={"Products"}
+                            url={"products"}
+                            productUrlProp={`/products/subcategory`}
+                            isEditable={false}
+                            isId={true}
+                        />}
+                    />
+                    <Route path="categories/subcategories/:id/shop/products/:id" 
+                           element={<SingleProduct /> } />
 
                 </Routes>
                 <BackToTop />  
