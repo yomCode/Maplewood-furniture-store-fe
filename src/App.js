@@ -15,6 +15,7 @@ import UserInformation from './components/UserInformation/UserInformation';
 import AddressBook from './components/AddressBook/AddressBook';
 import FormSignUp from './screens/Signup/FormSignUp';
 import DashboardInfo from './screens/AccountDashboard/DasboardInfo';
+import FormLogin from './screens/Login/FormLogin';
 
 function App(){
     return(
@@ -33,6 +34,7 @@ function App(){
                     <Route path='/address' element={<AddressBook />} />
                     <Route path="/signup" element={<FormSignUp />} />
                     <Route path='/dashboard-acc-info' element={<DashboardInfo />} />
+                    <Route path="/login" element={<FormLogin />} />
                 </Routes>
                 <BackToTop />  
                 <Footer />     
