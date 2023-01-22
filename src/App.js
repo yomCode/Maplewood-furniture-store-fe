@@ -15,6 +15,7 @@ import UserInformation from './components/UserInformation/UserInformation';
 import AddressBook from './components/AddressBook/AddressBook';
 import FormSignUp from './screens/Signup/FormSignUp';
 import Orders from './screens/Orders/Orders';
+import ShoppingCart from './screens/ShoppingCart/ShoppingCart';
 
 function App(){
     return(
@@ -33,6 +34,7 @@ function App(){
                     <Route path='/address' element={<AddressBook />} />
                     <Route path="/signup" element={<FormSignUp />} />
                     <Route path="/orders" element={<Orders />} />
+                    <Route path="/shoppingcart" element={<ShoppingCart />}/>
                 </Routes>
                 <BackToTop />  
                 <Footer />     

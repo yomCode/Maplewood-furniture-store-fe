@@ -1,5 +1,6 @@
-import "./Signup.css";
 import React, { useState } from "react";
+import { useAuth } from "../../context/authcontext";
+import "./Signup.css";
 
 // import styled from "./Signup.module.css"
 //import bgImg from "../assets/img1.jpg";
@@ -16,22 +17,18 @@ import React, { useState } from "react";
 
 // console.log(watch('username'));
 const Signup = () => {
-  const [user, setUser] = useState({
-    id: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    gender: "",
-    date_of_birth: "",
-    phoneNumber: "",
-    address: "",
-    password: "",
-  });
+  const { registerConfig } = useAuth();
+  const [user, setUser] = useState({});
 
   const handleChange = (e) => {
     const value = e.target.value;
     setUser({ ...user, [e.target.name]: value });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    registerConfig(user);
+  }
 
 
   return (
@@ -44,7 +41,7 @@ const Signup = () => {
               // id="form"
               className="signupForm "
               // className="signup_flex flex_col"
-              // onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit}
             >
               <h2 className="signup_h2">Sign Up</h2>
               <p className="signup_span">Enter your personal details to create account</p>

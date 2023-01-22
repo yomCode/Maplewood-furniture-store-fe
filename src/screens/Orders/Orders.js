@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BiEditAlt } from "react-icons/bi";
-import { TbCurrencyNaira } from "react-icons/tb";
-import DashboardCard from '../../components/DashboardComponents/DashboardCard';
+import {IoIosCart } from "react-icons/io";
+import { FaShoppingCart } from "react-icons/fa";
 import SideBar from '../../components/SideBar/SideBar';
 
 const Orders= () => {
@@ -32,8 +31,19 @@ const Orders= () => {
                 <h1 className='text-2xl font-bold-900 '>Orders</h1>
               </div>
 
-              <div className='grid xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-1 gap-3 px-3 pt-4'>
-                 
+              <div className='mx-2'>
+                <div className='flex justify-center align-middle pb-2 pt-4'>
+                  <FaShoppingCart className='text-5xl rounded-full text-[#917307]'/>
+                </div>
+                <div className='flex justify-center align-middle py-2 font-bold-900 text-2xl'>
+                  <h1>You have placed no orders yet!</h1>
+                </div>
+                <div className='flex justify-center align-middle py-2 text-xl text-center'>
+                  <h3>All your orders will be saved here for you to access their state anytime.</h3>
+                </div>  
+                <div className='flex justify-center align-middle py-3 text-white text-xl'>
+                  <button className='bg-[#917307] px-3 py-3 rounded-md drop-shadow-md hover:text-2xl hover:bg-white hover:text-[#917307]'>CONTINUE SHOPPING</button>
+                </div>
               </div>
           </div>
         </div>
