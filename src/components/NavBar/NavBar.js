@@ -5,6 +5,7 @@ import {React, useState} from 'react';
 import './Navbar.css'
 import { ImFacebook2 } from 'react-icons/im';
 import { BsClock, BsInstagram, BsTelephone, BsTwitter } from 'react-icons/bs';
+import { Link } from 'react-router-dom'
 
 
 const Navbar = () => {
@@ -23,46 +24,26 @@ const Navbar = () => {
     
 
     return(
-<<<<<<< HEAD
-        <div className='text-black items-center fixed w-[100%] top-0 shadow-sm z-10 bg-white'>
-
-            {/* =========================LARGE SCREEN============================================ */}
-            
-            <div className='justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] p-2'>
-=======
         <div className='text-black items-center w-[100%] top-0 mb-5'>
 
             {/* =========================LARGE SCREEN============================================ */}
             
             <div className='fixed shadow-sm z-50 top-0 bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] p-2'>
->>>>>>> development
                 <div onClick={handleSideBar} className='hidden md:block self-center w-[115px]'>
                     {sideBar ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
                 </div>
                 <ul className='hidden lg:flex'>
-<<<<<<< HEAD
-                    <li className=''><a href='/'>HOME</a></li>
-                    <li className=''><a href='/'>ABOUT US</a></li>
-                    <li className=''><a href='/'>PAGES</a></li>
-                    <li className=''><a href='/'>SHOP</a></li>
-=======
                     <li className=''><Link to='/'>HOME</Link></li>
                     <li className=''><Link to='/'>ABOUT US</Link></li>
                     <li className=''><Link to='/'>PAGES</Link></li>
                     <li className=''><Link to='/shop'>SHOP</Link></li>
->>>>>>> development
                 </ul>
                 <ul className='items-center hidden lg:block'>
                     <li className='w-full text-4xl font-bold text-[#403414]'>OAKLAND</li>
                 </ul>
                 <ul className='hidden lg:flex'>
-<<<<<<< HEAD
-                    <li className=''><a href='/'>BLOG</a></li>
-                    <li className=''><a href='/'>CONTACT</a></li>
-=======
                     <li className=''><Link to='/'>BLOG</Link></li>
                     <li className=''><Link to='/contactus'>CONTACT</Link></li>
->>>>>>> development
                 </ul>
                 <ul className='hidden lg:flex'>
                     <li className=''>
@@ -165,11 +146,7 @@ const Navbar = () => {
             {/* ==============================SMALL SCREEN====================================================== */}
 
             {/* flex justify-between w-[100%] px-4 py-2 top-0 bg-white sm:hidden md:flex lg:hidden */}
-<<<<<<< HEAD
-            <div className='flex justify-between w-[100%] md:hidden items-center  px-4 py-1 bg-[white]'>
-=======
             <div className='fixed shadow-sm z-50 flex justify-between w-[100%] md:hidden items-center top-0  px-4 py-1 bg-[white]'>
->>>>>>> development
                 <div onClick={handleNav} className='md:hidden'>
                     {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
                 </div>
