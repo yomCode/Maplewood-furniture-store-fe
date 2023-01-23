@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 
 
 
-const ChangePassword = ({closeModal}) =>{
+const ChangePassword = ({openModal, closeModal}) =>{
 
     const modalRef = useRef(null);
 
@@ -21,7 +21,7 @@ const ChangePassword = ({closeModal}) =>{
     }, [handleClickOutside]);
 
     return(
-        <div className="w-[100vw] h-[100vh] flex flex-col justify-center items-center mx-auto p-4 shadow-md rounded-md fixed bg-[#21334f] bg-opacity-[0.3] bg-op z-10 top-0 left-0 ">
+        <div className=" w-[100%] h-[87.5%] mt-[4rem] flex flex-col justify-center items-center mx-auto p-4 shadow-md rounded-b-md fixed bg-[#21334f] bg-opacity-[0.3] bg-op z-10 top-0 left-0 ">
             <div ref={modalRef} className="flex flex-col w-[70%] md:w-[50%] bg-[white] py-3 rounded-md">
                 <div className="flex justify-end">
                     <h1 onClick={closeModal} className="text-3xl mr-6 cursor-pointer">X</h1>
@@ -40,8 +40,8 @@ const ChangePassword = ({closeModal}) =>{
                         <label htmlFor="confirmNewPassword">Confirm New Password</label>
                     </div>
                     <div className="flex justify-center">
-                        <button type="submit" className="bg-[green] py-2 px-4 rounded-md">Save</button>
-                    </div>
+                    <button type="submit" className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md">Save</button>
+                </div>
                 </form>
             </div>
             
