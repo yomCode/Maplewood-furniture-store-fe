@@ -23,40 +23,60 @@ const Navbar = () => {
     
 
     return(
+<<<<<<< HEAD
         <div className='text-black items-center fixed w-[100%] top-0 shadow-sm z-10 bg-white'>
 
             {/* =========================LARGE SCREEN============================================ */}
             
             <div className='justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] p-2'>
+=======
+        <div className='text-black items-center w-[100%] top-0 mb-5'>
+
+            {/* =========================LARGE SCREEN============================================ */}
+            
+            <div className='fixed shadow-sm z-50 top-0 bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] p-2'>
+>>>>>>> development
                 <div onClick={handleSideBar} className='hidden md:block self-center w-[115px]'>
                     {sideBar ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
                 </div>
                 <ul className='hidden lg:flex'>
+<<<<<<< HEAD
                     <li className=''><a href='/'>HOME</a></li>
                     <li className=''><a href='/'>ABOUT US</a></li>
                     <li className=''><a href='/'>PAGES</a></li>
                     <li className=''><a href='/'>SHOP</a></li>
+=======
+                    <li className=''><Link to='/'>HOME</Link></li>
+                    <li className=''><Link to='/'>ABOUT US</Link></li>
+                    <li className=''><Link to='/'>PAGES</Link></li>
+                    <li className=''><Link to='/shop'>SHOP</Link></li>
+>>>>>>> development
                 </ul>
                 <ul className='items-center hidden lg:block'>
                     <li className='w-full text-4xl font-bold text-[#403414]'>OAKLAND</li>
                 </ul>
                 <ul className='hidden lg:flex'>
+<<<<<<< HEAD
                     <li className=''><a href='/'>BLOG</a></li>
                     <li className=''><a href='/'>CONTACT</a></li>
+=======
+                    <li className=''><Link to='/'>BLOG</Link></li>
+                    <li className=''><Link to='/contactus'>CONTACT</Link></li>
+>>>>>>> development
                 </ul>
                 <ul className='hidden lg:flex'>
                     <li className=''>
                         <span style={{color: 'rgb(81, 81, 81)'}}>$0.00&nbsp;&nbsp;</span>
-                        <a href='/'>
+                        <Link to='/'>
                             <Badge color="secondary" badgeContent={itemCount} >
                                 <ShoppingCart className='text-[#403414]' />
                             </Badge>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
                 <ul className='hidden lg:flex'>
-                    <li className=''><a href='/'>SIGNUP</a></li>
-                    <li className=''><a href='/'>SIGNIN</a></li>
+                    <li className=''><Link to='/signup'>SIGNUP</Link></li>
+                    <li className=''><Link to='/'>SIGNIN</Link></li>
                 </ul>
                 <div className={sideBar ? 'fixed w-[600px] left-0 top-0 pr-[6rem] hidden rounded-b-sm lg:block bg-gray-800 shadow-sm ease-in-out duration-500 text-white z-10' : 'fixed left-[-100%] ease-in-out duration-500'}>
                     <div onClick={handleSideBar} className='hidden ml-[100%] lg:block self-center w-[115px] pl-4 pt-4'>
@@ -87,9 +107,9 @@ const Navbar = () => {
                                     <span className=''>< BsTelephone /></span><span>(+234)8166386376</span>
                                 </div>
                                 <div className="flex gap-8 text-black mt-[2.5rem] ">
-                                    <a className='text-white' href='/'><ImFacebook2 /></a>
-                                    <a className='text-white' href='/'><BsTwitter /></a>
-                                    <a className='text-white' href='/'><BsInstagram /></a>
+                                    <Link className='text-white' to='/'><ImFacebook2 /></Link>
+                                    <Link className='text-white' to='/'><BsTwitter /></Link>
+                                    <Link className='text-white' to='/'><BsInstagram /></Link>
                                 </div>
                             </div>
 
@@ -115,11 +135,11 @@ const Navbar = () => {
                 </div>
                 <div className='self-center hidden md:block lg:hidden'>
                         <span style={{color: 'rgb(81, 81, 81)'}}>$0.00&nbsp;&nbsp;</span>
-                        <a href='/'>
+                        <Link to='/'>
                             <Badge color="secondary" badgeContent={itemCount} >
                                 <ShoppingCart className='text-[#403414]' />
                             </Badge>
-                        </a>
+                        </Link>
                 </div>
                 
                 
@@ -128,15 +148,15 @@ const Navbar = () => {
                         {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
                     </div>
                     <ul className='py-4 pl-8'>
-                        <li className='p-2'><a href='/'>ABOUT US</a></li>
-                        <li className='p-2'><a href='/'>HOME</a></li>
-                        <li className='p-2'><a href='/'>PAGES</a></li>
-                        <li className='p-2'><a href='/'>SHOP</a></li>
-                        <li className='p-2'><a href='/'>BLOG</a></li>
-                        <li className='p-2'><a href='/'>CONTACT</a></li>
-                        <li className='p-2'><a href='/'>CART</a></li>
-                        <li className='p-2'><a href='/'>SIGNUP</a></li>
-                        <li className='p-2'><a href='/'>SIGNIN</a></li>
+                        <li className='p-2'><Link to='/'>ABOUT US</Link></li>
+                        <li className='p-2'><Link to='/'>HOME</Link></li>
+                        <li className='p-2'><Link to='/'>PAGES</Link></li>
+                        <li className=''><Link to='/shop'>SHOP</Link></li>
+                        <li className='p-2'><Link to='/'>BLOG</Link></li>
+                        <li className=''><Link to='/contactus'>CONTACT</Link></li>
+                        <li className='p-2'><Link to='/'>CART</Link></li>
+                        <li className=''><Link to='/signup'>SIGNUP</Link></li>
+                        <li className='p-2'><Link to='/'>SIGNIN</Link></li>
                     </ul>
                 </div>
             </div>
@@ -145,7 +165,11 @@ const Navbar = () => {
             {/* ==============================SMALL SCREEN====================================================== */}
 
             {/* flex justify-between w-[100%] px-4 py-2 top-0 bg-white sm:hidden md:flex lg:hidden */}
+<<<<<<< HEAD
             <div className='flex justify-between w-[100%] md:hidden items-center  px-4 py-1 bg-[white]'>
+=======
+            <div className='fixed shadow-sm z-50 flex justify-between w-[100%] md:hidden items-center top-0  px-4 py-1 bg-[white]'>
+>>>>>>> development
                 <div onClick={handleNav} className='md:hidden'>
                     {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
                 </div>
@@ -158,15 +182,15 @@ const Navbar = () => {
                         {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
                     </div>
                     <ul className='py-4 pl-8'>
-                        <li className='p-2'><a href='/'>HOME</a></li>
-                        <li className='p-2'><a href='/'>ABOUT US</a></li>
-                        <li className='p-2'><a href='/'>PAGES</a></li>
-                        <li className='p-2'><a href='/'>SHOP</a></li>
-                        <li className='p-2'><a href='/'>BLOG</a></li>
-                        <li className='p-2'><a href='/'>CONTACT</a></li>
-                        <li className='p-2'><a href='/'>CART</a></li>
-                        <li className='p-2'><a href='/'>SIGNUP</a></li>
-                        <li className='p-2'><a href='/'>SIGNIN</a></li>
+                        <li className='p-2'><Link to='/'>HOME</Link></li>
+                        <li className='p-2'><Link to='/'>ABOUT US</Link></li>
+                        <li className='p-2'><Link to='/'>PAGES</Link></li>
+                        <li className=''><Link to='/shop'>SHOP</Link></li>
+                        <li className='p-2'><Link to='/'>BLOG</Link></li>
+                        <li className=''><Link to='/contactus'>CONTACT</Link></li>
+                        <li className='p-2'><Link to='/'>CART</Link></li>
+                        <li className=''><Link to='/signup'>SIGNUP</Link></li>
+                        <li className='p-2'><Link to='/'>SIGNIN</Link></li>
                     </ul>
                 </div>
             </div>  

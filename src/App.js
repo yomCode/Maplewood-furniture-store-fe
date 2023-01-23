@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import "./global.css";
 import BackToTop from './components/BackToTopButton';
 import Subcategory from './screens/Subcategory/Subcategory'
 import Footer from './components/Footer';
@@ -9,8 +10,13 @@ import ContactUs from './screens/ContactUs/ContactUs';
 import Page404 from './screens/404Page/Page404';
 import Product from './screens/Product/Product';
 import SingleProduct from './screens/Product/SingleProduct';
+import AccountDashboard from './screens/AccountDashboard/AccountDashboard';
 import UserInformation from './components/UserInformation/UserInformation';
 import FAQPage from './screens/FAQ/FAQPage';
+import AddressBook from './components/AddressBook/AddressBook';
+import FormSignUp from './screens/Signup/FormSignUp';
+import FormLogin from './screens/Login/FormLogin';
+import "react-toastify/dist/ReactToastify.css";
 
 function App(){
     return(
@@ -22,6 +28,14 @@ function App(){
                     <Route path="/" element={<HomePage />} />
                     <Route path="contactus" element={ <ContactUs /> } />
                     <Route path="frequently-asked-questions" element={<FAQPage />} />
+
+                    <Route path="/contactus" element={ <ContactUs /> } />
+                    <Route path="/shop" element={<Product />} />
+                    <Route path="/dashboard" element={<AccountDashboard />} />
+                    <Route path='/accountInfo' element={<UserInformation />} />
+                    <Route path='/address' element={<AddressBook />} />
+                    <Route path="/signup" element={<FormSignUp />} />
+                    <Route path="/login" element={<FormLogin />} />
 
                     <Route path="/shop" 
                         element={<Product 
@@ -69,6 +83,7 @@ function App(){
                 <Footer />     
             </Router>   
         </React.Fragment>  
+
     ); 
 }
 
