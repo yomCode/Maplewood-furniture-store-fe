@@ -1,4 +1,3 @@
-
 import ProductItem from '../../components/ProductCard/ProductItem'
 import './product.css'
 import { DownOutlined } from '@ant-design/icons';
@@ -6,7 +5,7 @@ import { Dropdown, Space } from 'antd'
 import useProduct from '../../hooks/useProduct';
 import Categories from '../../components/CategoryCard/Categories';
 import ReactPaginate from 'react-paginate';
-import { ArrowLeftTwoTone, ArrowRightAltOutlined,  } 
+import { ArrowLeftTwoTone, ArrowRightAltOutlined } 
 from '@mui/icons-material';
 
 
@@ -83,7 +82,7 @@ const Product = () => {
                 <div className="favorites-div">
                 { 
                     products.map((product, index) => 
-                        <ProductItem product={ product } key={index} isEditable={false} />
+                        <ProductItem product={ product } key={index} isEditable={false} productId={index}/>
                 )}
                 </div>
                 <ReactPaginate 

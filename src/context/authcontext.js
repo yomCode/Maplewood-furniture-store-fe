@@ -1,13 +1,16 @@
 import React, { createContext } from "react";
-import { apiGet, apiPost } from "../utils/api/axios";
-import { toast } from "react-toastify";
+import { apiGet, apiPost, apiPostAuthorization, apiDeleteAuthorization } from "../utils/api/axios";
+import {toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { errorNotification, successNotification } from "../components/Notification";
+
+
 
 export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
-  const [getVendors, setGetVendors] = React.useState([])
-  const [getVendorFood, setGetVendorsFood] = React.useState([])
+  const [getVendors, setGetVendors] = React.useState([]);
+  const [getVendorFood, setGetVendorsFood] = React.useState([]);
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -22,15 +25,17 @@ const DataProvider = ({ children }) => {
         phoneNumber: formData.phoneNumber,
         address: formData.address,
       };
-      await apiPost("/customer/signup", registerData).then((res) => {
+      await apiPost("customer/signup", registerData).then((res) => {
+        successNotification(res.data.data);
         toast.success(res.data.data);
-        console.log.success(res.data.data);
+        console.log(res.data.data);
         setTimeout(() => {
           window.location.href = "/login";
         }, 2000);
       });
     } catch (err) {
-      toast.error(err.response.data.Error);
+      toast.error(err.response.data.message);
+      console.log(err.response.data.message);
     }
   };
 
@@ -76,20 +81,97 @@ const DataProvider = ({ children }) => {
       };
       await apiPost("auth/login", LoginData)
         .then((res) => {
-          toast.success(res.data.message);
+           successNotification(res.data.message);
           console.log(res.data.message);
           localStorage.setItem("signature", res.data.data);
+          //localStorage.setItem("role", res.data.role);
           setTimeout(() => {
-              window.location.href = "/";
+            window.location.href = "/shop";
           }, 2000);
         })
         .catch((err) => {
-        console.log(err.response.data.message);
-          toast.error(err.response.data.message);
+          console.log(err.response.data.error);
+          errorNotification(err.data.message)
         });
     } catch (err) {
       console.log(err.response.data.message);
       toast.error(err.response.data.message);
+    }
+  };
+
+   /**============= Add to Cart ======= **/
+    const AddToCartConfig = async (productId) => {
+      try {
+      await apiPostAuthorization("customer/cart/item/add/{productId}")
+        .then((res) => {
+          successNotification(res.data.message);
+          console.log(res.data.message);
+          setTimeout(() => {
+            window.location.href = "/shoppingcart";
+          }, 2000);
+      })
+        .catch((err) => {
+          console.log(err.response.data.error);
+          errorNotification(err.data.message);
+        });
+    } catch (err){
+      console.log(err.response.data.message);
+      toast.error(err.response.data.message);
+      }
+    };
+
+   const [cartItem, setCartItem] = React.useState([]);
+   const handleAddItemToCart = async (product) => {
+     const ProductExist = cartItem.find((item) => item.id === product.id);
+      if (ProductExist) {
+        setCartItem(
+          cartItem.map((item) =>
+            item.id === product.id
+              ? { ...ProductExist, quantity: ProductExist.quantity + 1 }
+              : item
+          )
+        );
+      } else {
+        setCartItem([...cartItem, { ...product, quantity: 1 }]);
+      }
+   };
+
+     /**============= Decrease Items in cart ======= **/
+     const RemoveFromCartConfig = async (itemId) => {
+      try {
+      await apiDeleteAuthorization("cart/item/delete/{itemId}")
+        .then((res) => {
+          successNotification(res.data.message);
+          console.log(res.data.message);
+          // setTimeout(() => {
+          //   window.location.href = "/shoppingcart";
+          // }, 2000);
+      })
+        .catch((err) => {
+          console.log(err.response.data.error);
+          errorNotification(err.data.message);
+        });
+    } catch (err){
+      console.log(err.response.data.message);
+      toast.error(err.response.data.message);
+      }
+    };
+
+
+
+  const handleRemoveFromCart = (product) => {
+    const ProductExist = cartItem.find((item) => item.id === product.id);
+
+    if (ProductExist.quantity === 1) {
+      setCartItem(cartItem.filter((item) => item.id !== product.id));
+    } else {
+      setCartItem(
+        cartItem.map((item) =>
+          item.id === product.id
+            ? { ...ProductExist, quantity: ProductExist.quantity - 1 }
+            : item
+        )
+      );
     }
   };
 
@@ -102,11 +184,12 @@ const DataProvider = ({ children }) => {
   /**=============Get all Vendors ======= **/
   const GetAllVendors = async () => {
     try {
-      await apiGet(`/vendors/get-all-vendors`).then((res) => {
-        setGetVendors([...res.data.vendor]);  
+      await apiGet(`products/view/2`).then((res) => {
+        setGetVendors(res.data);
+        console.log(res.data);
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
@@ -114,45 +197,18 @@ const DataProvider = ({ children }) => {
   const GetAllVendorsFood = async (vendorId) => {
     try {
       await apiGet(`/vendors/get-vendor-food/${vendorId}`).then((res) => {
-        setGetVendorsFood([...res.data.Vendor.food]);  
+        setGetVendorsFood([...res.data.Vendor.food]);
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
-   /**============= Add to Cart ======= **/
-   const [cartItem, setCartItem] = React.useState([])
-  const handleAddFood = (product)=>{
-  
-    const ProductExist = cartItem.find((item)=>item.id === product.id)
 
-    if(ProductExist){
-      setCartItem(cartItem.map((item)=>item.id === product.id ? {...ProductExist,quantity:ProductExist.quantity + 1 }: item))
-    }else{
-      setCartItem([...cartItem,{...product, quantity:1}])
-    }
-  }
-
-   /**============= Decrease Items in cart ======= **/
-  const handleRemove = (product)=>{
-
-    const ProductExist = cartItem.find((item)=>item.id === product.id)
- 
-    if(ProductExist.quantity === 1){
-      setCartItem(cartItem.filter((item)=> item.id !== product.id))
-    }else{
-      setCartItem(cartItem.map((item)=> item.id === product.id ? {...ProductExist, quantity:ProductExist.quantity - 1} :item ))
-    }
-  }
-
-   /**============= Clear cart ======= **/
-  const handleClear = ()=>{
-    setCartItem([])
-  }
-
-
-
+  /**============= Clear cart ======= **/
+  const handleClearCart = () => {
+    setCartItem([]);
+  };
 
   return (
     <dataContext.Provider
@@ -167,9 +223,10 @@ const DataProvider = ({ children }) => {
         GetAllVendorsFood,
         getVendorFood,
         cartItem,
-        handleAddFood,
-        handleRemove,
-        handleClear
+        handleAddItemToCart,
+        handleRemoveFromCart,
+        handleClearCart,
+        AddToCartConfig
       }}
     >
       {children}

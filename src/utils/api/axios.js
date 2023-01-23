@@ -14,12 +14,11 @@ export const apiGetAuthorization = (path) => {
     };
   
     return axios.get(`${baseUrl}${path}`, config);
-};
+}
 
 export const apiPost = (path, data) => {
     return axios.post(`${baseUrl}${path}`, data);
 };
-
 
 export const apiPostAuthorization = (path, data) => {
     const config = {
@@ -28,7 +27,7 @@ export const apiPostAuthorization = (path, data) => {
         }
     }
     return axios.post(`${baseUrl}${path}`, data, config);
-};
+}
 
 export const apiPut = (path,data) => {
     const config = {
@@ -49,6 +48,10 @@ export const apiPatch = (path,data) => {
 };
 
 export const apiDelete = (path) => {
+    return axios.delete(`${baseUrl}${path}`);
+};
+
+export const apiDeleteAuthorization = (path) => {
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("signature")}`,

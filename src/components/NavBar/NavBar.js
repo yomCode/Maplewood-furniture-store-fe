@@ -1,3 +1,4 @@
+import { useCart } from "react-use-cart";
 import { ShoppingCart } from '@mui/icons-material';
 import { Badge } from '@mui/material';
 import {AiOutlineClose, AiOutlineMail, AiOutlineMenu} from 'react-icons/ai'
@@ -5,15 +6,13 @@ import {React, useState} from 'react';
 import './Navbar.css'
 import { ImFacebook2 } from 'react-icons/im';
 import { BsClock, BsInstagram, BsTelephone, BsTwitter } from 'react-icons/bs';
-
 import { Link } from 'react-router-dom'
 
 
 const Navbar = () => {
-
     const [nav, setNav] = useState(false);
-    const itemCount = 1;
     const [sideBar, setSideBar] = useState(false)
+    const { totalUniqueItems } = useCart();
 
     const handleNav = () => {
        setNav(!nav)
@@ -50,7 +49,7 @@ const Navbar = () => {
                     <li className=''>
                         <span style={{color: 'rgb(81, 81, 81)'}}>$0.00&nbsp;&nbsp;</span>
                         <Link to='/'>
-                            <Badge color="secondary" badgeContent={itemCount} >
+                            <Badge color="secondary" badgeContent={totalUniqueItems} >
                                 <ShoppingCart className='text-[#403414]' />
                             </Badge>
                         </Link>
@@ -113,8 +112,8 @@ const Navbar = () => {
                 </div>
                 <div className='self-center hidden md:block lg:hidden'>
                         <span style={{color: 'rgb(81, 81, 81)'}}>$0.00&nbsp;&nbsp;</span>
-                        <Link to='/'>
-                            <Badge color="secondary" badgeContent={itemCount} >
+                        <Link to='/shoppingcart'>
+                            <Badge color="secondary" badgeContent={totalUniqueItems} >
                                 <ShoppingCart className='text-[#403414]' />
                             </Badge>
                         </Link>
