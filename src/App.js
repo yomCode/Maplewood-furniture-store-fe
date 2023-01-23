@@ -30,7 +30,6 @@ function App(){
                     <Route path="frequently-asked-questions" element={<FAQPage />} />
 
                     <Route path="/contactus" element={ <ContactUs /> } />
-                    <Route path="/shop" element={<Product />} />
                     <Route path="/dashboard" element={<AccountDashboard />} />
                     <Route path='/accountInfo' element={<UserInformation />} />
                     <Route path='/address' element={<AddressBook />} />
