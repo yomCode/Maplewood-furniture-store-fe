@@ -17,6 +17,7 @@ import AddressBook from './components/AddressBook/AddressBook';
 import FormSignUp from './screens/Signup/FormSignUp';
 import DashboardInfo from './screens/AccountDashboard/DasboardInfo';
 import FormLogin from './screens/Login/FormLogin';
+import AboutUs from './screens/AboutUs/AboutUs';
 
 function App(){
     return(
@@ -28,7 +29,6 @@ function App(){
                     <Route path="/" element={<HomePage />} />
                     <Route path="contactus" element={ <ContactUs /> } />
                     <Route path="frequently-asked-questions" element={<FAQPage />} />
-
                     <Route path="/contactus" element={ <ContactUs /> } />
                     <Route path="/dashboard" element={<AccountDashboard />} />
                     <Route path='/accountInfo' element={<UserInformation />} />
@@ -36,6 +36,7 @@ function App(){
                     <Route path="/signup" element={<FormSignUp />} />
                     <Route path='/dashboard-acc-info' element={<DashboardInfo />} />
                     <Route path="/login" element={<FormLogin />} />
+                    <Route path="/aboutus" element={<AboutUs />} />
 
                     <Route path="/shop" 
                         element={<Product 
@@ -77,7 +78,6 @@ function App(){
                     />
                     <Route path="categories/subcategories/:id/shop/products/:id" 
                            element={<SingleProduct /> } />
-
                 </Routes>
                 <BackToTop />  
                 <Footer />     

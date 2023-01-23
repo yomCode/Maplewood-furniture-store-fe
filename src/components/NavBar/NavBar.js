@@ -47,7 +47,7 @@ const Navbar = () => {
                 </div>
                 <ul className='hidden lg:flex w-[380px] justify-center'>
                     <li className=''><Link to='/'>HOME</Link></li>
-                    <li className=''><Link to='/'>ABOUT US</Link></li>
+                    <li className=''><Link to='/aboutus'>ABOUT US</Link></li>
                     <li className=''><Link to='/shop'>SHOP</Link></li>
                 </ul>
                 <ul className='items-center hidden lg:block'>
