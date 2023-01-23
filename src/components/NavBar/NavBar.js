@@ -5,7 +5,6 @@ import {React, useState, useEffect} from 'react';
 import './Navbar.css'
 import { ImFacebook2 } from 'react-icons/im';
 import { BsClock, BsInstagram, BsTelephone, BsTwitter } from 'react-icons/bs';
-
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/authcontext';
 import { FaRegUser } from 'react-icons/fa';
@@ -116,15 +115,19 @@ const Navbar = () => {
                                     <Link className='text-white' to='/'><BsInstagram /></Link>
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
                 </div>
+                
+
             </div>
             
                     
                     {/* =========================MEDIUM SCREEN=========================== */}
 
-            <div className='fixed shadow-sm z-50 flex justify-between w-[100%] px-4 py-2 top-0 bg-white sm:hidden md:flex lg:hidden'>
+            <div className='flex justify-between w-[100%] px-4 py-2 top-0 bg-white sm:hidden md:flex lg:hidden'>
                 
                 <div onClick={handleNav} className='hidden md:block lg:hidden self-center'>
                     {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
