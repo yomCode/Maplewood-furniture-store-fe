@@ -40,7 +40,7 @@ const ChangePassword = ({openModal, closeModal}) =>{
                         <label htmlFor="confirmNewPassword">Confirm New Password</label>
                     </div>
                     <div className="flex justify-center">
-                    <button type="submit" className="bg-[green] py-2 px-4 rounded-md">Save</button>
+                    <button type="submit" className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md">Save</button>
                 </div>
                 </form>
             </div>
