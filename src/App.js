@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./global.css";
 import BackToTop from './components/BackToTopButton';
-import Favorites from './screens/Favorite/Favorites';
+import Subcategory from './screens/Subcategory/Subcategory'
 import Footer from './components/Footer';
 import NavBar from './components/NavBar/NavBar';
 import HomePage from './screens/Home/Hompage';
@@ -12,12 +12,14 @@ import Product from './screens/Product/Product';
 import SingleProduct from './screens/Product/SingleProduct';
 import AccountDashboard from './screens/AccountDashboard/AccountDashboard';
 import UserInformation from './components/UserInformation/UserInformation';
+import FAQPage from './screens/FAQ/FAQPage';
 import AddressBook from './components/AddressBook/AddressBook';
 import FormSignUp from './screens/Signup/FormSignUp';
 import DashboardInfo from './screens/AccountDashboard/DasboardInfo';
 import FormLogin from './screens/Login/FormLogin';
 import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import ResetPassword from './screens/ResetPassword/ResetPassword';
+import AboutUs from './screens/AboutUs/AboutUs';
 
 function App(){
     return(
@@ -27,10 +29,9 @@ function App(){
                 <Routes>
                     <Route index element={<HomePage />  } />
                     <Route path="/" element={<HomePage />} />
+                    <Route path="contactus" element={ <ContactUs /> } />
+                    <Route path="frequently-asked-questions" element={<FAQPage />} />
                     <Route path="/contactus" element={ <ContactUs /> } />
-                    <Route path="/favorites" element={<Favorites />} />
-                    <Route path="/shop" element={<Product />} />
-                    <Route path="/product" element={<SingleProduct />} />
                     <Route path="/dashboard" element={<AccountDashboard />} />
                     <Route path='/accountInfo' element={<UserInformation />} />
                     <Route path='/address' element={<AddressBook />} />
@@ -39,6 +40,48 @@ function App(){
                     <Route path="/login" element={<FormLogin />} />
                     <Route path="/forgotpassword" element={<ForgottenPassword />} />
                     <Route path="/resetpassword" element={<ResetPassword />} />
+                    <Route path="/aboutus" element={<AboutUs />} />
+
+                    <Route path="/shop" 
+                        element={<Product 
+                            title={ "Products" } 
+                            url={"products"}
+                            productUrlProp={`/products/paginated-all`}
+                            isEditable={false}
+                            isId={false}
+                        />} 
+                    />
+                    <Route path="/shop/products/:id" element={<SingleProduct /> } />
+                    
+                    <Route path="favorites" 
+                        element={<Product 
+                            title={ "Subcategory" }
+                            url={"favorites"}
+                            displayCategories={false}
+                            isEditable={true}
+                            isId={false}
+                        />} 
+                    />
+                    <Route path="favorites/:id" element={<SingleProduct />} />
+
+                    <Route path="*" element={<Page404 />} />
+                    <Route path='/accountInfo' element={<UserInformation />} />
+
+                    <Route path="categories/viewByCategory/:id" element={<Subcategory 
+                        title={"Subcategories"}
+                        url={`/subcategory/viewByCategory`}
+                    />} />
+
+                    <Route path="categories/subcategories/:id/shop" element={<Product 
+                            title={"Products"}
+                            url={"products"}
+                            productUrlProp={`/products/subcategory`}
+                            isEditable={false}
+                            isId={true}
+                        />}
+                    />
+                    <Route path="categories/subcategories/:id/shop/products/:id" 
+                           element={<SingleProduct /> } />
                 </Routes>
                 <BackToTop />  
                 <Footer />     

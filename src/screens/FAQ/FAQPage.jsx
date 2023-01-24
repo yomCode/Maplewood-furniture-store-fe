@@ -1,44 +1,17 @@
-import '../styles/faq.css'
-import Collapsible from '../components/Collapsible';
-import { Collapse } from 'antd';
+import { faqData } from '../../faqData'
+import FAQ from '../../components/ProductCard/FAQ';
 
-const { Panel } = Collapse;
+const FAQPage = () => {
+  const paymentQuestions = faqData.filter(x => x.questionType === 'payment')
+  const faqs = faqData.filter(x => x.questionType === 'faq')
 
-const FAQPage = ({data, title}) => {
   return (
-    <div className="faq-div">
-        <div className="heading">
-            <hr/>
-            <h3>{title}</h3>
-            <hr/>
-        </div> 
-        <div className="collapse-div">
-            <Collapsible>
-                  {
-                  data.filter((_, index) => index < 3).map(({ id, question, answer }) => 
-                      <Panel header={question} key={id} 
-                        className="site-collapse-custom-panel"
-                      >
-                          <p className="answer">{answer}</p>
-                      </Panel>
-                  )
-                  }
-              </Collapsible>
+    <section className="faq-section">
+      <FAQ data={faqs} title={"FREQUENTLY ASKED QUESTIONS"} />
+      <FAQ data={paymentQuestions} title={"PAYMENT QUESTIONS"} />
+    </section>
 
-              <Collapsible>
-                  {
-                  data.filter((_, index) => index >= 3 && index < 6).map(({ id, question, answer }) => 
-                      <Panel header={question} key={id}
-                        className="site-collapse-custom-panel"
-                      >
-                          <p className="answer">{answer}</p>
-                      </Panel>
-                    )
-                }
-            </Collapsible>      
-        </div>
-    </div>
-  )
-}
+  );
+};
 
-export default FAQPage
+export default FAQPage;
