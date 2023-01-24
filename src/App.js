@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./global.css";
 import BackToTop from "./components/BackToTopButton";
-// import Favorites from "./screens/Favorite/Favorites";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./screens/Home/Hompage";
@@ -28,7 +27,6 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/favorites" element={<Favorites />} />
           <Route path="/shop" element={<Product />} />
           <Route path="/product" element={<SingleProduct />} />
           <Route path="/dashboard" element={<AccountDashboard />} />
