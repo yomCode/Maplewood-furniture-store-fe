@@ -21,7 +21,7 @@ export const ProtectAdminRoute = ({children}) => {
 
 
 
-export const ProtectVendorRoute = ({children}) => {
+export const ProtectCustomerRoute = ({children}) => {
     const location = useLocation()
     const isAuthenticated = localStorage.getItem('signature')
     const userRole = localStorage.getItem('role')

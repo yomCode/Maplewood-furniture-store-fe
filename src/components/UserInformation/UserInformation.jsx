@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import ChangePassword from "./ChangePassword";
 import { useAuth } from "../../context/authcontext";
+import Loader from "../Loader/Loader";
 
 
 
 const UserInformation = () =>{
 
     const[openChangePassoword, setOpenChangePassword] = useState(false);
-    
-
-    const token = localStorage.getItem('signature');
     const { GetUser, getUser, setGetUser, updateUserConfig} = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
 
     console.log(getUser)
     
@@ -25,9 +24,11 @@ const UserInformation = () =>{
         setGetUser({...getUser, [e.target.name]: e.target.value})
     }
 
-    const handleUpdate = (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
-        updateUserConfig(getUser);
+        setIsLoading(true)
+        await updateUserConfig(getUser);
+        setIsLoading(false)
     }
 
     return(
@@ -57,7 +58,7 @@ const UserInformation = () =>{
                             <label htmlFor="email">Email Address</label>
                         </div>
                         <div className="flex flex-col g-3 w-[45%]">
-                            <input className="border-b border-l px-1 " type="text" name="dob" value={getUser.date_of_birth} id=""  onChange={onChange} placeholder="Date of Birth" />
+                            <input className="border-b border-l px-1 " type="date" name="date_of_birth" value={getUser.date_of_birth} id=""  onChange={onChange} placeholder="Date of Birth" />
                             <label htmlFor="dob">Date of Birth</label>
                         </div>
                     </div>
@@ -85,6 +86,7 @@ const UserInformation = () =>{
                     <button type="button" className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md" onClick={handleUpdate}>Save</button>
                 </div>
             </form>
+            {isLoading && <Loader />}
         </div>
     )
 }
