@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./global.css";
 import BackToTop from "./components/BackToTopButton";
-// import Favorites from "./screens/Favorite/Favorites";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./screens/Home/Hompage";
@@ -18,6 +17,8 @@ import DashboardInfo from "./screens/AccountDashboard/DasboardInfo";
 import FormLogin from "./screens/Login/FormLogin";
 import AddressbookDashboard from "./screens/AccountDashboard/AddressbookDashboard";
 import NewAddress from "./components/AddressBook/NewAddress";
+import ResetPassword from './screens/ResetPassword/ResetPassword';
+import AboutUs from './screens/AboutUs/AboutUs';
 
 function App() {
   return (
@@ -28,7 +29,6 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/favorites" element={<Favorites />} />
           <Route path="/shop" element={<Product />} />
           <Route path="/product" element={<SingleProduct />} />
           <Route path="/dashboard" element={<AccountDashboard />} />
@@ -37,6 +37,9 @@ function App() {
           <Route path="/addressbook" element={<AddressbookDashboard />} />
           <Route path="/login" element={<FormLogin />} />
           <Route path="/new-address" element={<NewAddress />} />
+          <Route path="/forgotpassword" element={<ForgottenPassword />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/aboutus" element={<AboutUs />} />
           <Route
             path="/shop"
             element={
