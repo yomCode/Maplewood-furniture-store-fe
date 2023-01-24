@@ -20,13 +20,13 @@ const Categories = ({ displayCategories }) => {
                   )
                 }
         </div>
-    </div>
+      </div>
 
-    <div className="card-div">
-        <Card title="NEW ARRIVAL" pName="WOODEN" image="../images/wooden.png" /> 
+      <div className="card-div">
+        <Card title="NEW ARRIVAL" pName="WOODEN" image="../images/wooden.png" />
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default Categories
+export default Categories;

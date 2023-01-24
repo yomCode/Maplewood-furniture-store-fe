@@ -1,9 +1,10 @@
 import { createContext, useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 
-const ProductsContext = createContext()
+const ProductsContext = createContext();
 
 const ProductProvider = ({ children }) => {
+
     const[productUrl, setProductUrl] = useState("")
     const[products, setProducts] = useState([])
     const[pageNumber, setPageNumber] = useState(0)
@@ -48,4 +49,4 @@ const ProductProvider = ({ children }) => {
     )
 }
 
-export { ProductsContext, ProductProvider }
+export { ProductsContext, ProductProvider };

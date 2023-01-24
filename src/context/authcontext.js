@@ -3,6 +3,7 @@ import {
   apiGet,
   apiGetAuthorization,
   apiPost,
+  apiPostAuthorization,
   apiPut,
 } from "../utils/api/axios";
 import { toast } from "react-toastify";
@@ -15,8 +16,10 @@ export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
   const [getUser, setGetUser] = React.useState({});
-  const [getVendors, setGetVendors] = React.useState([]);
-  const [getVendorFood, setGetVendorsFood] = React.useState([]);
+  const [getAddressbook, setGetAddressbook] = React.useState([]);
+  const [newAddress, setNewAddress] = React.useState({});
+  // const [getVendors, setGetVendors] = React.useState([]);
+  // const [getVendorFood, setGetVendorsFood] = React.useState([]);
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -37,7 +40,7 @@ const DataProvider = ({ children }) => {
         console.log(res.data.data);
         setTimeout(() => {
           window.location.href = "/login";
-        }, 2000);
+        }, 1500);
       });
     } catch (err) {
       errorNotification(err.response.data.message);
@@ -93,7 +96,7 @@ const DataProvider = ({ children }) => {
           // localStorage.setItem("role", res.data.role);
           setTimeout(() => {
             window.location.href = "/shop";
-          }, 2000);
+          }, 1500);
         })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -146,17 +149,51 @@ const DataProvider = ({ children }) => {
 
   // ==============Update password=====================
 
-  const updatePassword = async (passwordData) => {
+  const updatePasswordConfig = async (passwordData) => {
     try {
-      
-    } catch (err) {}
+      const updatePasswordData = {
+        oldPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword,
+      };
+      await apiPut("auth/update-password", updatePasswordData).then((res) => {
+        successNotification(res.data);
+        console.log(JSON.stringify(res.data));
+      });
+    } catch (err) {
+      errorNotification(err.response.data);
+      console.log(err.response.data);
+    }
   };
 
-  /**=============Get all Vendors ======= **/
-  const GetAllVendors = async () => {
+
+
+  // =================New Address====================
+
+  const CreateAddress = async (formData) => {
+    try{
+      const addressData = {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        emailAddress: formData.email,
+        street: formData.street,
+        state: formData.state,
+        country: formData.country
+      }
+      await apiPostAuthorization('address/new', addressData).then((res) => {
+        successNotification(res.data)
+        console.log(res.data)
+      })
+    }catch(err){
+      errorNotification(err.response.data)
+      console.log(err.response.data)
+    }
+  }
+
+  /**=============Get Addressbook ======= **/
+  const GetAddressbook = async () => {
     try {
-      await apiGet(`products/view/2`).then((res) => {
-        setGetVendors(res.data);
+      await apiGetAuthorization("address/all").then((res) => {
+        setGetAddressbook(res.data);
         console.log(res.data);
       });
     } catch (err) {
@@ -165,15 +202,15 @@ const DataProvider = ({ children }) => {
   };
 
   /**=============Get all foods By Vendor ======= **/
-  const GetAllVendorsFood = async (vendorId) => {
-    try {
-      await apiGet(`/vendors/get-vendor-food/${vendorId}`).then((res) => {
-        setGetVendorsFood([...res.data.Vendor.food]);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const GetAllVendorsFood = async (vendorId) => {
+  //   try {
+  //     await apiGet(`/vendors/get-vendor-food/${vendorId}`).then((res) => {
+  //       setGetVendorsFood([...res.data.Vendor.food]);
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   /**============= Add to Cart ======= **/
   const [cartItem, setCartItem] = React.useState([]);
@@ -220,20 +257,25 @@ const DataProvider = ({ children }) => {
       value={{
         registerConfig,
         updateUserConfig,
-        OTPConfig,
-        ResendOTP,
+        updatePasswordConfig,
         LoginConfig,
         Logout,
-        GetAllVendors,
         GetUser,
         getUser,
         setGetUser,
-        GetAllVendorsFood,
-        getVendorFood,
+        GetAddressbook,
+        getAddressbook,
+        CreateAddress,
+        newAddress,
+        // GetAllVendorsFood,
+        // getVendorFood,
         cartItem,
         handleAddFood,
+        OTPConfig,
         handleRemove,
         handleClear,
+        ResendOTP,
+        // GetAllVendors,
       }}
     >
       {children}
