@@ -17,6 +17,7 @@ import AddressBook from './components/AddressBook/AddressBook';
 import FormSignUp from './screens/Signup/FormSignUp';
 import FormLogin from './screens/Login/FormLogin';
 import "react-toastify/dist/ReactToastify.css";
+import Layout from './Admin/components/Layout/Layout';
 
 function App(){
     return(
@@ -76,6 +77,11 @@ function App(){
                     />
                     <Route path="categories/subcategories/:id/shop/products/:id" 
                            element={<SingleProduct /> } />
+
+                    
+                    <Route path='/admin' element={<Layout />}>
+
+                    </Route>
 
                 </Routes>
                 <BackToTop />  

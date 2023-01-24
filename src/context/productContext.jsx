@@ -15,7 +15,6 @@ const ProductProvider = ({ children }) => {
     //fetch from db
     useEffect(() => {
         if(productUrl.length > 0) {
-            console.log("ProductContext: " + productUrl)
             const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
                 axios.get(allProductsUrl)
                 .then((res) => {

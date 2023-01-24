@@ -1,0 +1,22 @@
+.admin-dashboard-layout {
+    height: 90vh;
+}
+
+.container {
+    padding: 30px;
+    display: flex;
+    height: 100%;
+    gap: 20px;
+}
+
+.side-nav-container {
+    width: 20vw;
+    height: 100%;
+    padding: 10px;
+    border: 1px solid lightslategray;
+}
+
+.children {
+    width: 100%;
+    border: 1px solid lightslategray;
+}
