@@ -17,6 +17,7 @@ const Signup = () => {
     phoneNumber: ""
   });
 
+
   const handleChange = (e) => {
     const value = e.target.value;
     setUser({ ...user, [e.target.name]: value });
@@ -85,7 +86,7 @@ const Signup = () => {
                 required
               />
 
-              <select name="gender" value={user.gender} onChange={handleChange}>
+              <select name="gender" value={user.gender} onChange={handleChange} required>
                 <option> Select Gender</option>
                 <option value="MALE">MALE</option>
                 <option value="FEMALE">FEMALE</option>
@@ -115,7 +116,6 @@ const Signup = () => {
                 value={user.address}
                 onChange={handleChange}
                 placeholder="Address"
-                required
               />
               <button type="submit" className="signup_btn">
                 Sign Up

@@ -26,8 +26,8 @@ export const apiPostAuthorization = (path, data) => {
             Authorization: `Bearer ${localStorage.getItem("signature")}`
         }
     }
-    return axios.post(`${baseUrl}${path}`, data, config);
-}
+  return axios.post(`${baseUrl}${path}`, data, config);
+};
 
 export const apiPut = (path,data) => {
     const config = {
