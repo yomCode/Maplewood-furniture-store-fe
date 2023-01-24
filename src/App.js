@@ -18,6 +18,7 @@ import FormLogin from "./screens/Login/FormLogin";
 import AddressbookDashboard from "./screens/AccountDashboard/AddressbookDashboard";
 import NewAddress from "./components/AddressBook/NewAddress";
 import ResetPassword from './screens/ResetPassword/ResetPassword';
+import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import AboutUs from './screens/AboutUs/AboutUs';
 
 function App() {
