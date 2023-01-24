@@ -180,8 +180,8 @@ const DataProvider = ({ children }) => {
         country: formData.country
       }
       await apiPostAuthorization('address/new', addressData).then((res) => {
-        successNotification(res.data.data)
-        console.log(res.data.data)
+        successNotification(res.data)
+        console.log(res.data)
       })
     }catch(err){
       errorNotification(err.response.data)

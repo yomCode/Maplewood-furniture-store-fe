@@ -32,7 +32,7 @@ const AddressbookDashboard= () => {
           <div className='col-md-8 bg-white drop-shadow-md rounded-md pb-2 divide-y'>
               <div className="border-gray-300 border-b-1 py-3 flex justify-between">
                 <h1 className='text-2xl font-bold-900 '>Address Book</h1>
-                <button className='bg-[#7e6a17] text-[white] p-2 rounded-md' onClick={() => window.location.href = '/new-address'}>New Address</button>
+                <Link to='/new-address' className='bg-[#7e6a17] text-[white] p-2 rounded-md'>New Address</Link>
               </div>
 
               <div className='grid xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-1 gap-3 px-1 pt-4'>

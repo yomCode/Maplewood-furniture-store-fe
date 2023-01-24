@@ -16,7 +16,7 @@ import AddressBook from "./components/AddressBook/AddressBook";
 import FormSignUp from "./screens/Signup/FormSignUp";
 import DashboardInfo from "./screens/AccountDashboard/DasboardInfo";
 import FormLogin from "./screens/Login/FormLogin";
-import AccouAddressbookDashboardntDashboard from "./screens/AccountDashboard/AddressbookDashboard";
+import AddressbookDashboard from "./screens/AccountDashboard/AddressbookDashboard";
 import NewAddress from "./components/AddressBook/NewAddress";
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
           <Route path="/dashboard-acc-info" element={<DashboardInfo />} />
           <Route
             path="/addressbook"
-            element={<AccouAddressbookDashboardntDashboard />}
+            element={<AddressbookDashboard />}
           />
           <Route path="/login" element={<FormLogin />} />
           <Route path="/new-address" element={<NewAddress />} />

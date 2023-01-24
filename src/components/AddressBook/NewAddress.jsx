@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/authcontext"
 import Loader from "../Loader/Loader";
 import SideBar from "../SideBar/SideBar";
@@ -24,6 +25,18 @@ const NewAddress = () => {
 
     const handleChange = (e) => {
         setAddress({...address, [e.target.name]: e.target.value})
+    }
+
+
+    const handleCancel = () => {
+        setAddress({
+            fullName: '',
+            phone: '',
+            email: '',
+            street: '',
+            state: '',
+            country: ''
+        })
     }
 
     const handleSubmit = async (e) => {
@@ -90,8 +103,8 @@ const NewAddress = () => {
                                 <label htmlFor="country">Country</label>
                             </div>
                         </div>
-                        <div className='flex gap-4 justify-center'>
-                            <button className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md">Cancel</button>
+                        <div className='flex gap-4 justify-center mt-6'>
+                            <Link to='/addressbook' onClick={handleCancel} className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md">Cancel</Link>
                             <button type="submit" className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md">Save</button>
                         </div>
 
