@@ -14,7 +14,7 @@ const SideBar = () => {
         <SideBarElement name="Orders" icon={<AiOutlineInbox to="/contactus"/>}/>
         <SideBarElement name="Favourites" icon={<AiOutlineHeart to="/"/>}/>
         <SideBarElement name="Edit Profile" icon={<BiEditAlt />} to="/dashboard-acc-info"/>
-        <SideBarElement name="Address Book" icon={<FaRegAddressCard to="/"/>}/>
+        <SideBarElement name="Address Book" icon={<FaRegAddressCard />} to="/addressbook"/>
         <SideBarElement name="Close Account" icon={<AiOutlineCloseCircle to="/"/>}/>
       </div>
       
