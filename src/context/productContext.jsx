@@ -5,7 +5,7 @@ const ProductsContext = createContext();
 
 const ProductProvider = ({ children }) => {
 
-    const[productUrl, setProductUrl] = useState("")
+    const[productUrl, setProductUrl] = useState("/products/paginated-all")
     const[products, setProducts] = useState([])
     const[pageNumber, setPageNumber] = useState(0)
     const[pageElementSize, setPageElementSize] = useState(0)

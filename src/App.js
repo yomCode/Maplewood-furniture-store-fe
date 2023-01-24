@@ -20,6 +20,7 @@ import NewAddress from "./components/AddressBook/NewAddress";
 import ResetPassword from './screens/ResetPassword/ResetPassword';
 import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import AboutUs from './screens/AboutUs/AboutUs';
+import VerifyRegistration from "./screens/Signup/VerifySignup";
 
 function App() {
   return (
@@ -30,7 +31,6 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/shop" element={<Product />} />
           <Route path="/product" element={<SingleProduct />} />
           <Route path="/dashboard" element={<AccountDashboard />} />
           <Route path="/signup" element={<FormSignUp />} />
@@ -41,6 +41,7 @@ function App() {
           <Route path="/forgotpassword" element={<ForgottenPassword />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/verifyRegistration" element={<VerifyRegistration />} />
           <Route
             path="/shop"
             element={

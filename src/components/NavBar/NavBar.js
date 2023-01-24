@@ -8,6 +8,7 @@ import { BsClock, BsInstagram, BsTelephone, BsTwitter } from 'react-icons/bs';
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/authcontext';
 import { FaRegUser } from 'react-icons/fa';
+import { FiLogOut } from 'react-icons/fi';
 
 
 const Navbar = () => {
@@ -18,6 +19,7 @@ const Navbar = () => {
     const [key, setKey] = useState(false)
     const itemCount = 1;
     const [sideBar, setSideBar] = useState(false)
+    const { getUser, GetUser } = useAuth();
 
     const handleNav = () => {
        setNav(!nav)
@@ -35,6 +37,10 @@ const Navbar = () => {
           setKey(true);
         }
       }, []);
+
+      useEffect(() => {
+        GetUser();
+      }, [])
 
     return(
         <div className='text-black items-center w-[100%] top-0 mb-[3rem]'>
@@ -76,8 +82,8 @@ const Navbar = () => {
                     </ul>
                 :
                     <ul className='hidden lg:flex w-[250px]'>
-                        <li className='flex items-center gap-1'><FaRegUser size={15} /><Link className='' to='/dashboard'>DASHBAORD</Link></li>
-                        <li className=''><button onClick={Logout}>LOGOUT</button></li>
+                        <li className='flex items-center gap-1'><FaRegUser size={15} /><Link className='' to='/dashboard'>{getUser.firstName}</Link></li>
+                        <li className=''><button onClick={Logout}><FiLogOut className='text-[1.3rem]' /></button></li>
                     </ul>
                 }
                 

@@ -2,7 +2,6 @@ import React from 'react';
 import { FaRegUser, FaRegAddressCard } from "react-icons/fa";
 import { AiOutlineInbox, AiOutlineHeart, AiOutlineCloseCircle } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
-import { RxCounterClockwiseClock } from "react-icons/rx";
 import SideBarElement from '../SideBarElement/SideBarElement';
 import "./sideBar.css";
 
