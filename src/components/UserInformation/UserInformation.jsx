@@ -33,7 +33,7 @@ const UserInformation = () =>{
     return(
         <div className="px-5 pt-2 w-[100%]">
             <h2 className="text-1xl mb-[2rem]">Edit account Information</h2>
-            <form action="" className=" flex flex-col gap-3">
+            <form action="submit" className=" flex flex-col gap-3">
                 {/* <Input type='text' placeholder='First Name' id='firstName' label='First Name'/>
                 <Input type='text' placeholder='Last Name' id='lastName' label='Last Name'/>
                 <Input type='email' placeholder='Email address' id='email' label='Email Address'/>

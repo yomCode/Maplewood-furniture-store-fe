@@ -1,6 +1,6 @@
-import { Rate } from 'antd'
-import { useState } from 'react';
-import useProduct from '../../hooks/useProduct';
+import { Rate } from "antd";
+import { useState } from "react";
+import useProduct from "../../hooks/useProduct";
 
 const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
 
@@ -29,7 +29,7 @@ const ProductItem = ({ product, isEditable }) => {
         { isHover && <button className='delete-btn' 
             onClick={() => deleteProduct(name)}>X</button> }
     </div>
-  )
-}
+  );
+};
 
-export default ProductItem
+export default ProductItem;
