@@ -1,11 +1,12 @@
-import ProductItem from "../../components/ProductCard/ProductItem";
-import "./product.css";
-import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, Space } from "antd";
-import useProduct from "../../hooks/useProduct";
-import Categories from "../../components/CategoryCard/Categories";
-import ReactPaginate from "react-paginate";
-import { ArrowLeftTwoTone, ArrowRightAltOutlined } from "@mui/icons-material";
+import './product.css'
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown, Space } from 'antd'
+import useProduct from '../../hooks/useProduct';
+import Categories from '../../components/CategoryCard/Categories';
+import Pagination from './Pagination';
+
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const items = [
   {
@@ -26,17 +27,11 @@ const items = [
   },
 ];
 
-const Product = () => {
-  const {
-    products,
-    setProducts,
-    totalPages,
-    pageElementSize,
-    setPageNumber,
-    pageNumber,
-    totalElements,
-    numOfElements,
-  } = useProduct();
+const Product = ({title, url, displayCategories, productUrlProp, isEditable, isId}) => {
+    const params = useParams()
+    const { products, setProducts, pageElementSize, 
+          pageNumber, totalElements, numOfElements, setProductUrl } = useProduct()
+
 
   const onClick = ({ key }) => {
     switch (key) {
@@ -59,66 +54,32 @@ const Product = () => {
     }
   };
 
-  const changePage = ({ selected }) => setPageNumber(selected);
+    useEffect(() => {
+      setProductUrl(isId ? `${productUrlProp}/${params.id}/paginated-all` : productUrlProp)
+    }, [productUrlProp, setProductUrl, isId, params.id])
 
   return (
     <section className="favorites-section">
-      <div className="products-info">
-        {numOfElements < pageElementSize ? (
-          <p>
-            Showing {pageNumber * pageElementSize + 1} - {totalElements} of{" "}
-            {totalElements}
-          </p>
-        ) : (
-          <p>
-            Showing {numOfElements * pageNumber + 1} -{" "}
-            {numOfElements * (pageNumber + 1)} of {totalElements} results
-          </p>
-        )}
-        <h1>Products</h1>
-        <Dropdown menu={{ items, onClick }}>
-          <a
-            onClick={(e) => e.preventDefault()}
-            href={"sorting"}
-            id="dropdown-link"
-          >
-            <Space>
-              Default Sorting
-              <DownOutlined />
-            </Space>
-          </a>
-        </Dropdown>
-      </div>
-
-      <div className="encompassing-div">
-        <Categories />
-
-        {products.length > 0 && (
-          <div className="this-product-container">
-            <div className="favorites-div">
-              {products.map((product, index) => (
-                <ProductItem product={product} key={index} isEditable={false} />
-              ))}
-            </div>
-            <ReactPaginate
-              previousLabel={<ArrowLeftTwoTone />}
-              nextLabel={<ArrowRightAltOutlined />}
-              pageCount={totalPages}
-              onPageChange={changePage}
-              containerClassName={"paginationBtns"}
-              previousLinkClassName={"prevBtn"}
-              nextLinkClassName={"nextBtn"}
-              disabledClassName={"paginationDisabled"}
-              activeClassName={"paginationActive"}
-            />
-          </div>
-        )}
-
-        {products.length === 0 && (
-          <div className="favorites-div" style={{ minHeight: "40vh" }}>
-            "No data"
-          </div>
-        )}
+        <div className="products-info">
+             {
+              numOfElements < pageElementSize ?
+              <p>Showing { (pageNumber * pageElementSize) + 1 } - { totalElements } of { totalElements }</p> :
+              <p>Showing { numOfElements * (pageNumber) + 1 } - { numOfElements * (pageNumber + 1) } of {totalElements} results</p>
+            }
+            <h1>{ title }</h1>
+            <Dropdown menu={{ items, onClick,}}>
+                <a onClick={(e) => e.preventDefault()} href={"sorting"} id="dropdown-link">
+                <Space>
+                    Default Sorting
+                    <DownOutlined />
+                </Space>
+                </a>
+            </Dropdown>
+        </div>
+        
+        <div className="encompassing-div">
+          <Categories displayCategories={displayCategories} />
+          <Pagination url={url} isEditable={isEditable} />
       </div>
     </section>
   );

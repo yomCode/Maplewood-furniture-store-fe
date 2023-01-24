@@ -13,7 +13,7 @@
 
 .faq-section {
     font-family: var(--font-raleway);
-    margin: auto;
+    margin: 3% auto;
     /* min-height: 100vh; */
     display: flex;
     flex-direction: column;
