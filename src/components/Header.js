@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import './NavBar/NavBar';
 
 
@@ -15,14 +16,13 @@ const HeaderComponent = () =>{
                     <h3 className="lg:text-3xl text-2xl font-bold">{HEADER_PRIMARY_TEXT}</h3>
                     <p className="mb-5 font-sans lg:text-2xl text-1xl">{HEADER_SECONDARY_TEXT}</p>
                     
-                    <a href="/" className=" bg-black p-[1.2rem] text-white rounded text-1xl">SHOP NOW</a>
+                    <Link to="/shop" className=" bg-black p-[1.2rem] text-white rounded text-1xl">SHOP NOW</Link>
                 </div>
                 <div className=" hidden lg:block ">
                     <div className="flex bg-[#eeeeee] items-center rounded-full h-[550px] w-[550px] right-0">
                         <img className="w-[350px] justify-self-center ml-[-1rem] mb-[-8rem]" src="../images/hero-sitter.png" alt="#" />
                         <img className="w-[200px] ml-[-4rem] " src="../images/hero-lamp.png" alt="#" />
                     </div>
-          
                 </div>
             </div>
         </header>

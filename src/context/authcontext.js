@@ -1,14 +1,20 @@
 import React, { createContext } from "react";
-import { apiGet, apiPost } from "../utils/api/axios";
-import {toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { errorNotification, successNotification } from "../components/Notification";
-
-
+import {
+  apiGet,
+  apiGetAuthorization,
+  apiPost,
+  apiPut,
+} from "../utils/api/axios";
+import { toast } from "react-toastify";
+import {
+  errorNotification,
+  successNotification,
+} from "../components/Notification";
 
 export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
+  const [getUser, setGetUser] = React.useState({});
   const [getVendors, setGetVendors] = React.useState([]);
   const [getVendorFood, setGetVendorsFood] = React.useState([]);
 
@@ -29,12 +35,12 @@ const DataProvider = ({ children }) => {
         successNotification(res.data.data);
         toast.success(res.data.data);
         console.log(res.data.data);
-        // setTimeout(() => {
-        //   window.location.href = "/login";
-        // }, 2000);
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000);
       });
     } catch (err) {
-      toast.error(err.response.data.message);
+      errorNotification(err.response.data.message);
       console.log(err.response.data.message);
     }
   };
@@ -81,21 +87,21 @@ const DataProvider = ({ children }) => {
       };
       await apiPost("auth/login", LoginData)
         .then((res) => {
-           successNotification(res.data.message);
+          successNotification(res.data.message);
           console.log(res.data.message);
           localStorage.setItem("signature", res.data.data);
-          //localStorage.setItem("role", res.data.role);
+          // localStorage.setItem("role", res.data.role);
           setTimeout(() => {
             window.location.href = "/shop";
           }, 2000);
         })
         .catch((err) => {
-          console.log(err.response.data.error);
-          errorNotification(err.data.message)
+          console.log(err.response.data.message);
+          errorNotification(err.response.data.message);
         });
     } catch (err) {
       console.log(err.response.data.message);
-      toast.error(err.response.data.message);
+      errorNotification(err.response.data.message);
     }
   };
 
@@ -103,6 +109,47 @@ const DataProvider = ({ children }) => {
   const Logout = () => {
     localStorage.clear();
     window.location.href = "/login";
+  };
+
+  // ===================Get User========================
+
+  const GetUser = async () => {
+    try {
+      await apiGetAuthorization(`customer/view-profile`).then((res) => {
+        setGetUser(res.data);
+        console.log(res.data);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // ==================Update profile=================
+  const updateUserConfig = async (formData) => {
+    try {
+      const updateData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        date_of_birth: formData.date_of_birth,
+        phone: formData.phone,
+      };
+      await apiPut("customer/edit-profile", updateData).then((res) => {
+        successNotification(res.data);
+        console.log(res.data);
+      });
+    } catch (err) {
+      errorNotification(err.response.data.message);
+      console.log(err.response.data.message);
+    }
+  };
+
+  // ==============Update password=====================
+
+  const updatePassword = async (passwordData) => {
+    try {
+      
+    } catch (err) {}
   };
 
   /**=============Get all Vendors ======= **/
@@ -172,12 +219,15 @@ const DataProvider = ({ children }) => {
     <dataContext.Provider
       value={{
         registerConfig,
+        updateUserConfig,
         OTPConfig,
         ResendOTP,
         LoginConfig,
         Logout,
         GetAllVendors,
-        getVendors,
+        GetUser,
+        getUser,
+        setGetUser,
         GetAllVendorsFood,
         getVendorFood,
         cartItem,

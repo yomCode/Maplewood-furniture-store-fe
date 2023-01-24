@@ -15,9 +15,11 @@ import UserInformation from './components/UserInformation/UserInformation';
 import FAQPage from './screens/FAQ/FAQPage';
 import AddressBook from './components/AddressBook/AddressBook';
 import FormSignUp from './screens/Signup/FormSignUp';
+import DashboardInfo from './screens/AccountDashboard/DasboardInfo';
 import FormLogin from './screens/Login/FormLogin';
 import "react-toastify/dist/ReactToastify.css";
 import Layout from './Admin/components/Layout/Layout';
+import AboutUs from './screens/AboutUs/AboutUs';
 
 function App(){
     return(
@@ -29,13 +31,14 @@ function App(){
                     <Route path="/" element={<HomePage />} />
                     <Route path="contactus" element={ <ContactUs /> } />
                     <Route path="frequently-asked-questions" element={<FAQPage />} />
-
                     <Route path="/contactus" element={ <ContactUs /> } />
                     <Route path="/dashboard" element={<AccountDashboard />} />
                     <Route path='/accountInfo' element={<UserInformation />} />
                     <Route path='/address' element={<AddressBook />} />
                     <Route path="/signup" element={<FormSignUp />} />
+                    <Route path='/dashboard-acc-info' element={<DashboardInfo />} />
                     <Route path="/login" element={<FormLogin />} />
+                    <Route path="/aboutus" element={<AboutUs />} />
 
                     <Route path="/shop" 
                         element={<Product 
@@ -77,12 +80,9 @@ function App(){
                     />
                     <Route path="categories/subcategories/:id/shop/products/:id" 
                            element={<SingleProduct /> } />
-
                     
                     <Route path='/admin' element={<Layout />}>
-
                     </Route>
-
                 </Routes>
                 <BackToTop />  
                 <Footer />     
