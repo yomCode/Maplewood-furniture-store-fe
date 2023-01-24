@@ -16,6 +16,9 @@ export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
   const [getUser, setGetUser] = React.useState({});
+
+  const [getWallet, setGetWallet] = React.useState({});
+
   const [getAddressbook, setGetAddressbook] = React.useState([]);
   const [newAddress, setNewAddress] = React.useState({});
   const [verifyReg, setVerifyReg] = React.useState({});
@@ -46,6 +49,28 @@ const DataProvider = ({ children }) => {
       console.log(err.response.data.message);
     }
   };
+
+
+ const ForgottenConfig = async (formData) => {
+   try {
+     const registerData = { 
+       email: formData.email,
+     };
+     await apiPost("auth/forgot-password-request", registerData).then((res) => {
+       successNotification(res.data);
+       toast.success(res.data.data);
+       console.log(res.data.data);
+       setTimeout(() => {
+         window.location.href = "/forgotpassword";
+       }, 1500);
+     });
+   } catch (err) {
+     errorNotification(err.response.data.message);
+     console.log(err.response.data.message);
+   }
+ };
+
+
 
   /**==============OTP Verification ======= **/
   const OTPConfig = async (formData, signature) => {
@@ -119,6 +144,18 @@ const DataProvider = ({ children }) => {
     try {
       await apiGetAuthorization(`customer/view-profile`).then((res) => {
         setGetUser(res.data);
+        console.log(res.data);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
+  const GetWallet = async () => {
+    try {
+      await apiGetAuthorization(`customer/wallet/balance`).then((res) => {
+        setGetWallet(res.data);
         console.log(res.data);
       });
     } catch (err) {
@@ -277,11 +314,15 @@ const DataProvider = ({ children }) => {
         registerConfig,
         updateUserConfig,
         updatePasswordConfig,
+        ForgottenConfig,
         LoginConfig,
         Logout,
         GetUser,
+        GetWallet,
         getUser,
+        getWallet,
         setGetUser,
+        setGetWallet,
         GetAddressbook,
         getAddressbook,
         CreateAddress,
@@ -292,6 +333,9 @@ const DataProvider = ({ children }) => {
         // getVendorFood,
         cartItem,
         handleAddFood,
+
+
+        
         OTPConfig,
         handleRemove,
         handleClear,
