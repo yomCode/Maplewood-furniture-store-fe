@@ -154,9 +154,9 @@ const DataProvider = ({ children }) => {
 
   const GetWallet = async () => {
     try {
-      await apiGetAuthorization(`customer/wallet/balance`).then((res) => {
-        setGetWallet(res.data);
-        console.log(res.data);
+      await apiGetAuthorization(`customer/wallet/info`).then((res) => {
+        setGetWallet(res.data.data);
+        console.log(res.data.data);
       });
     } catch (err) {
       console.log(err);
@@ -335,7 +335,7 @@ const DataProvider = ({ children }) => {
         handleAddFood,
 
 
-        
+
         OTPConfig,
         handleRemove,
         handleClear,
