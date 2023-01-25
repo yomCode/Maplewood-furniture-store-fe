@@ -21,8 +21,7 @@ const DataProvider = ({ children }) => {
 
   const [getAddressbook, setGetAddressbook] = React.useState([]);
   const [newAddress, setNewAddress] = React.useState({});
-  // const [getVendors, setGetVendors] = React.useState([]);
-  // const [getVendorFood, setGetVendorsFood] = React.useState([]);
+  const [verifyReg, setVerifyReg] = React.useState({});
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -118,7 +117,7 @@ const DataProvider = ({ children }) => {
           successNotification(res.data.message);
           console.log(res.data.message);
           localStorage.setItem("signature", res.data.data);
-          // localStorage.setItem("role", res.data.role);
+          localStorage.setItem("role", "CUSTOMER");
           setTimeout(() => {
             window.location.href = "/shop";
           }, 1500);
@@ -219,6 +218,9 @@ const DataProvider = ({ children }) => {
       await apiPostAuthorization('address/new', addressData).then((res) => {
         successNotification(res.data)
         console.log(res.data)
+        setTimeout(() => {
+          window.location.href = "/addressbook";
+        }, 500);
       })
     }catch(err){
       errorNotification(err.response.data)
@@ -232,11 +234,28 @@ const DataProvider = ({ children }) => {
       await apiGetAuthorization("address/all").then((res) => {
         setGetAddressbook(res.data);
         console.log(res.data);
+        
       });
     } catch (err) {
       console.log(err);
     }
   };
+
+
+  // ====================VerifyRegistration======================
+
+  const VerifyReg = async (token) => {
+    try{
+      await apiGet(`customer/verifyRegistration?${token}`).then((res) => {
+        setVerifyReg(res.data)
+        console.log(res.data)
+      })
+
+    }catch(err){
+      setVerifyReg(err.response.data)
+      console.log(err.response.data)
+    }
+  }
 
   /**=============Get all foods By Vendor ======= **/
   // const GetAllVendorsFood = async (vendorId) => {
@@ -308,6 +327,8 @@ const DataProvider = ({ children }) => {
         getAddressbook,
         CreateAddress,
         newAddress,
+        verifyReg,
+        VerifyReg,
         // GetAllVendorsFood,
         // getVendorFood,
         cartItem,

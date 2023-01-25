@@ -6,6 +6,7 @@ import DashboardCard from "../../components/DashboardComponents/DashboardCard";
 import SideBar from "../../components/SideBar/SideBar";
 import { useAuth } from "../../context/authcontext";
 import "./accountDashboard.css";
+import { ProtectCustomerRoute } from "../../context/ProtectRoute";
 
 const AccountDashboard = () => {
   const [screenSize, setScreenSize] = useState(window.innerWidth);

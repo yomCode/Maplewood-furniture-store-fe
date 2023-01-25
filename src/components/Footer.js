@@ -6,7 +6,7 @@ import { ImFacebook, ImLocation} from "react-icons/im"
 export const FooterCard = (props) =>{
     return(
         <div className="">
-            <h6 className="font-bold mb-3 text-[#403414] text-[0.7rem] after:h-[4px] after:bg-black after:inline-block after:relative after:align-middle after:w-1/2" >{props.heading}</h6>
+            <h6 className=" font-bold mb-3 text-[#403414] text-[0.7rem] after:h-[4px] after:bg-black after:inline-block after:relative after:align-middle after:w-1/2" >{props.heading}</h6>
             <a href="/"><p>{props.link1}</p></a> 
             <a href="/"><p>{props.link2}</p></a> 
             <a href="/"><p>{props.link3}</p></a> 
@@ -19,7 +19,7 @@ export const FooterCard = (props) =>{
 
 const Footer = () => {
     return(
-        <footer className="w-full bg-[#f5f5f5] mt-[5rem] p-4">
+        <footer className="w-full bg-[#bcbcbc] mt-[5rem] p-4">
             <div className="flex gap-[5rem] md:flex-row flex-col md:justify-center">
                 <div className="text-gray-600 flex flex-col md:items-start items-center gap-2">
                     <h6 className="font-bold text-black mb-3 after:h-[4px] text-[0.7rem] after:bg-black after:inline-block after:relative after:align-middle after:w-3/4">ABOUT US</h6>
@@ -39,7 +39,7 @@ const Footer = () => {
                         <a href='/'><BsInstagram /></a>
                     </div>
                 </div>
-                <div className="flex gap-[2rem] md:gap-[5rem] mb-5 text-gray-600 justify-between">
+                <div className="flex gap-[3rem] md:gap-[5rem] mb-5 text-gray-600 justify-between">
                     <FooterCard heading="OTHER PAGES" link1="Home" link2="About Us" link3="Shop" link4="Blog" link5="Contact"/>
                     <FooterCard heading="QUICK LINKS" link1="Returns & refunds" link2="Order tracking" link3="Checkout" link4="Careers" link5="Cart"/>
                     <FooterCard heading="INFORMATION" link1="Privacy Policy" link2="Terms of service" link3="Disclaimer" link4="Credits" link5="FAQ"/>
@@ -52,9 +52,9 @@ const Footer = () => {
                         <h6 className="text-[1.7rem] font-bold text-[#403414]">OAKLAND</h6>
                     </div>
                     <div className="flex gap-3 justify-center items-center">
-                        <p><a href="/">PRIVACY</a></p>
-                        <p><a href="/">HELP</a></p>
-                        <p><a href="/">TERMS</a></p>
+                        <p className="text-[0.8rem]"><a href="/">PRIVACY</a></p>
+                        <p className="text-[0.8rem]"><a href="/">HELP</a></p>
+                        <p className="text-[0.8rem]"><a href="/">TERMS</a></p>
                     </div>
                 </div>
                 <div className="self-center mt-4">
