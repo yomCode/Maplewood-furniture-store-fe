@@ -1,20 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
 import { GiCheckMark } from "react-icons/gi";
 import { ImCancelCircle } from "react-icons/im";
 import { Link, useSearchParams } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
 import { useAuth } from "../../context/authcontext"
 
 
 const VerifyRegistration = () => {
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const { VerifyReg, verifyReg } = useAuth();
     const [queryParams] = useSearchParams();
 
     useEffect(async () => {
+        setIsLoading(true)
        await VerifyReg(queryParams);
         console.log(queryParams)
+        setIsLoading(false)
     }, [queryParams])
 
     return(
@@ -38,6 +43,7 @@ const VerifyRegistration = () => {
                 <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/'>Resend Token</Link> 
             </div>
              }
+             {isLoading && <Loader />}
         </div>
     )
 }

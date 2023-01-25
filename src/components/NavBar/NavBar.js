@@ -28,7 +28,7 @@ export const UserMenuDropdown = ({ closeMenu }) => {
   return (
     <div
       ref={ref}
-      className="flex flex-col gap-2 w-[200px] p-[0.5rem] bg-[white] absolute top-[100%] overflow-hidden border-[2px]"
+      className="flex flex-col gap-2 w-[140px] p-[0.5rem] bg-[white] absolute top-[100%] overflow-hidden border-[2px]"
     >
       <Link to="/dashboard" className="text-[black] border-b text-[1rem]">
         Account
@@ -128,7 +128,7 @@ const Navbar = () => {
             <li className="flex items-center text-[0.9rem]">Hi,&nbsp;
               {getUser.firstName}{" "}
               <RiArrowDropDownLine
-                size={40} className='text-[#7e6a17]'
+                size={40} className='text-[#7e6a17] cursor-pointer'
                 onClick={() => setUserMenu(!userMenu)}
               />
             </li>
