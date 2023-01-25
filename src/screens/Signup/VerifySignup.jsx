@@ -3,7 +3,7 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
 import { GiCheckMark } from "react-icons/gi";
 import { ImCancelCircle } from "react-icons/im";
-import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../context/authcontext"
 
 
@@ -12,8 +12,8 @@ const VerifyRegistration = () => {
     const { VerifyReg, verifyReg } = useAuth();
     const [queryParams] = useSearchParams();
 
-    useEffect(() => {
-        VerifyReg(queryParams);
+    useEffect(async () => {
+       await VerifyReg(queryParams);
         console.log(queryParams)
     }, [queryParams])
 

@@ -117,7 +117,7 @@ const DataProvider = ({ children }) => {
           successNotification(res.data.message);
           console.log(res.data.message);
           localStorage.setItem("signature", res.data.data);
-          // localStorage.setItem("role", res.data.role);
+          localStorage.setItem("role", "CUSTOMER");
           setTimeout(() => {
             window.location.href = "/shop";
           }, 1500);
