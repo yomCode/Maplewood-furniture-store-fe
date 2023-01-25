@@ -16,6 +16,7 @@ import AddressBook from './components/AddressBook/AddressBook';
 import FormSignUp from './screens/Signup/FormSignUp';
 import FormLogin from './screens/Login/FormLogin';
 import "react-toastify/dist/ReactToastify.css";
+import Checkout from './screens/Checkout/Checkout';
 
 function App(){
     return(
@@ -34,6 +35,7 @@ function App(){
                     <Route path='/address' element={<AddressBook />} />
                     <Route path="/signup" element={<FormSignUp />} />
                     <Route path="/login" element={<FormLogin />} />
+                    <Route path="/checkout" element={<Checkout />} />
                 </Routes>
                 <BackToTop />  
                 <Footer />     
