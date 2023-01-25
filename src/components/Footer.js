@@ -20,7 +20,7 @@ export const FooterCard = (props) =>{
 
 const Footer = () => {
     return(
-        <footer className="w-full bg-[#f5f5f5] mt-[5rem] p-4">
+        <footer className="w-full bg-[#bcbcbc] mt-[5rem] p-4">
             <div className="flex gap-[5rem] md:flex-row flex-col md:justify-center">
                 <div className="text-gray-600 flex flex-col md:items-start items-center gap-2">
                     <h6 className="font-bold text-black mb-3 after:h-[4px] text-[0.7rem] after:bg-black after:inline-block after:relative after:align-middle after:w-3/4">ABOUT US</h6>

@@ -14,7 +14,11 @@ export const apiGetAuthorization = (path) => {
     }
 
   };
+<<<<<<< HEAD
   return axios.get(`${baseUrl}${path}`,config);
+=======
+  return axios.get(`${baseUrl}${path}`, config);
+>>>>>>> b9f6e1c8aa31743a00ba849d8a523c33530fb14b
 };
 
 export const apiPost = (path, data) => {
@@ -28,7 +32,7 @@ export const apiPostAuthorization = (path, data) => {
     }
 
   };
-  return axios.post(`${baseUrl}${path}`, data);
+  return axios.post(`${baseUrl}${path}`, data, config);
 };
 
 export const apiPut = (path,data) => {

@@ -1,23 +1,7 @@
 import "./Signup.css";
 import React, { useState } from "react";
 import { useAuth } from "../../context/authcontext";
-import { message } from "antd";
-
-// import styled from "./Signup.module.css"
-//import bgImg from "../assets/img1.jpg";
-//import { useForm } from "react-hook-form";
-
-//   const {
-//     register,
-//     handleSubmit,
-//     watch,
-//     formState: { errors },
-//   } = useForm();
-//   const onSubmit = (data) => console.log(data);
-
-// console.log(watch('username'));
-
-
+import Loader from "../../components/Loader/Loader";
 
 const Signup = () => {
   const { registerConfig } = useAuth();
@@ -29,20 +13,20 @@ const Signup = () => {
     date_of_birth: "",
     address: "",
     gender: "",
-    phoneNumber: ""
+    phoneNumber: "",
   });
-  
-
-  
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setUser({ ...user, [e.target.name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    registerConfig(user);
+    setIsLoading(true);
+    await registerConfig(user);
+    setIsLoading(false);
     setUser({
       firstName: "",
       lastName: "",
@@ -53,22 +37,14 @@ const Signup = () => {
       gender: "",
       phoneNumber: "",
     });
-    // setFormData({})
   };
 
   return (
     <div className="signup_bg_image">
-      {/* <Navbar /> */}
       <section className="signup_section">
         <div className="signregister">
           <div className="signup_col_1">
-            <form
-              // id="form"
-              className="signupForm "
-              // className="signup_flex flex_col"
-              // onSubmit={handleSubmit(onSubmit)}
-              onSubmit={handleSubmit}
-            >
+            <form className="signupForm " onSubmit={handleSubmit}>
               <h2 className="signup_h2">Sign Up</h2>
               <p className="signup_span">
                 Enter your personal details to create account
@@ -78,7 +54,6 @@ const Signup = () => {
                 name="firstName"
                 value={user.firstName}
                 onChange={handleChange}
-                // {...register("firstname")}
                 placeholder="First Name"
                 required
               />
@@ -88,7 +63,6 @@ const Signup = () => {
                 value={user.lastName}
                 onChange={handleChange}
                 required
-                //  {...register("lastname")}
                 placeholder="Last Name"
               />
 
@@ -97,7 +71,6 @@ const Signup = () => {
                 name="email"
                 value={user.email}
                 onChange={handleChange}
-                //  {...register("email")}
                 placeholder="Email"
                 required
               />
@@ -107,25 +80,27 @@ const Signup = () => {
                 name="password"
                 value={user.password}
                 onChange={handleChange}
-                // {...register("password")}
                 placeholder="password"
                 required
               />
 
-              <select name="gender" value={user.gender} onChange={handleChange}>
+              <select
+                name="gender"
+                value={user.gender}
+                onChange={handleChange}
+                required
+              >
                 <option> Select Gender</option>
                 <option value="MALE">MALE</option>
                 <option value="FEMALE">FEMALE</option>
                 <option value="OTHER">OTHER</option>
               </select>
-
               <input
                 type="date"
                 placeholder="Date of birth"
                 name="date_of_birth"
                 value={user.date_of_birth}
                 onChange={handleChange}
-                // {...register("date")}
               />
 
               <input
@@ -133,12 +108,6 @@ const Signup = () => {
                 name="phoneNumber"
                 value={user.phoneNumber}
                 onChange={handleChange}
-                //   {...register("mobile", {
-                //     required: true,
-                //     maxLength: 14,
-                //     minLength: 11,
-                //   })}
-                required
                 placeholder="mobile number"
               />
 
@@ -147,13 +116,8 @@ const Signup = () => {
                 name="address"
                 value={user.address}
                 onChange={handleChange}
-                // {...register("address")}
                 placeholder="Address"
-                required
               />
-
-              {/* {errors.mobile?.type === "required" && "Mobile Number is required"}
-            {errors.mobile?.type === "maxLength" && "Max Length Exceed"} */}
               <button type="submit" className="signup_btn">
                 Sign Up
               </button>
@@ -162,10 +126,8 @@ const Signup = () => {
                 <a href="/login">Log in</a>
               </p>
             </form>
+            {isLoading && <Loader />}
           </div>
-          {/* <div className="signup_col-2">
-          <img src={bgImg} alt="" />
-        </div> */}
         </div>
       </section>
     </div>

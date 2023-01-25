@@ -2,7 +2,6 @@ import React from 'react';
 import { FaRegUser, FaRegAddressCard } from "react-icons/fa";
 import { AiOutlineInbox, AiOutlineHeart, AiOutlineCloseCircle } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
-import { RxCounterClockwiseClock } from "react-icons/rx";
 import SideBarElement from '../SideBarElement/SideBarElement';
 import "./sideBar.css";
 
@@ -13,8 +12,8 @@ const SideBar = () => {
         <SideBarElement name="My Oakland Account" icon={<FaRegUser to="/"/>}/>
         <SideBarElement name="Orders" icon={<AiOutlineInbox to="/contactus"/>}/>
         <SideBarElement name="Favourites" icon={<AiOutlineHeart to="/"/>}/>
-        <SideBarElement name="Edit Profile" icon={<BiEditAlt to="/"/>}/>
-        <SideBarElement name="Address Book" icon={<FaRegAddressCard to="/"/>}/>
+        <SideBarElement name="Edit Profile" icon={<BiEditAlt />} to="/dashboard-acc-info"/>
+        <SideBarElement name="Address Book" icon={<FaRegAddressCard />} to="/addressbook"/>
         <SideBarElement name="Close Account" icon={<AiOutlineCloseCircle to="/"/>}/>
       </div>
       

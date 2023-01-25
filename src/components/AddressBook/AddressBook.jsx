@@ -1,13 +1,26 @@
+import { useEffect } from "react";
+import { useAuth } from "../../context/authcontext";
 import AddressBookCard from "./AddressBookCard"
 
 
+
 const AddressBook = () => {
+
+    const {GetAddressbook, getAddressbook} = useAuth();
+
+
+    useEffect(() => {
+        GetAddressbook();
+    }, [])
+
+
     return(
-        <div className="flex flex-wrap w-[70vw] min-h-[400px] gap-4 p-4">
-            < AddressBookCard fullName='Abayomi Mustapha' address='abule egba, lagos state' phoneNumber='08166386376' />
-            < AddressBookCard fullName='Abayomi Mustapha' address='abule egba, lagos state' phoneNumber='08166386376' />
-            < AddressBookCard fullName='Abayomi Mustapha' address='abule egba, lagos state' phoneNumber='08166386376' />
-            < AddressBookCard fullName='Abayomi Mustapha' address='abule egba, lagos state' phoneNumber='08166386376' />
+        <div className="flex flex-wrap justify-start w-[720px] min-h-[88%] gap-4">
+            {
+                getAddressbook.map((address) => 
+                    <AddressBookCard fullName={address.fullName} address={address.address} phoneNumber={address.phone} />
+                )
+            }
         </div>
     )
 }

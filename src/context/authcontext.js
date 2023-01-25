@@ -1,16 +1,27 @@
 import React, { createContext } from "react";
-import { apiGet, apiPost } from "../utils/api/axios";
-import {toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { errorNotification, successNotification } from "../components/Notification";
-
-
+import {
+  apiGet,
+  apiGetAuthorization,
+  apiPost,
+  apiPostAuthorization,
+  apiPut,
+} from "../utils/api/axios";
+import { toast } from "react-toastify";
+import {
+  errorNotification,
+  successNotification,
+} from "../components/Notification";
 
 export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
-  const [getVendors, setGetVendors] = React.useState([]);
-  const [getVendorFood, setGetVendorsFood] = React.useState([]);
+  const [getUser, setGetUser] = React.useState({});
+
+  const [getWallet, setGetWallet] = React.useState({});
+
+  const [getAddressbook, setGetAddressbook] = React.useState([]);
+  const [newAddress, setNewAddress] = React.useState({});
+  const [verifyReg, setVerifyReg] = React.useState({});
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -29,15 +40,37 @@ const DataProvider = ({ children }) => {
         successNotification(res.data.data);
         toast.success(res.data.data);
         console.log(res.data.data);
-        // setTimeout(() => {
-        //   window.location.href = "/login";
-        // }, 2000);
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 1500);
       });
     } catch (err) {
-      toast.error(err.response.data.message);
+      errorNotification(err.response.data.message);
       console.log(err.response.data.message);
     }
   };
+
+
+ const ForgottenConfig = async (formData) => {
+   try {
+     const registerData = { 
+       email: formData.email,
+     };
+     await apiPost("auth/forgot-password-request", registerData).then((res) => {
+       successNotification(res.data);
+       toast.success(res.data.data);
+       console.log(res.data.data);
+       setTimeout(() => {
+         window.location.href = "/forgotpassword";
+       }, 1500);
+     });
+   } catch (err) {
+     errorNotification(err.response.data.message);
+     console.log(err.response.data.message);
+   }
+ };
+
+
 
   /**==============OTP Verification ======= **/
   const OTPConfig = async (formData, signature) => {
@@ -81,21 +114,21 @@ const DataProvider = ({ children }) => {
       };
       await apiPost("auth/login", LoginData)
         .then((res) => {
-           successNotification(res.data.message);
+          successNotification(res.data.message);
           console.log(res.data.message);
           localStorage.setItem("signature", res.data.data);
-          //localStorage.setItem("role", res.data.role);
+          // localStorage.setItem("role", res.data.role);
           setTimeout(() => {
             window.location.href = "/shop";
-          }, 2000);
+          }, 1500);
         })
         .catch((err) => {
-          console.log(err.response.data.error);
-          errorNotification(err.data.message)
+          console.log(err.response.data.message);
+          errorNotification(err.response.data.message);
         });
     } catch (err) {
       console.log(err.response.data.message);
-      toast.error(err.response.data.message);
+      errorNotification(err.response.data.message);
     }
   };
 
@@ -105,11 +138,12 @@ const DataProvider = ({ children }) => {
     window.location.href = "/login";
   };
 
-  /**=============Get all Vendors ======= **/
-  const GetAllVendors = async () => {
+  // ===================Get User========================
+
+  const GetUser = async () => {
     try {
-      await apiGet(`products/view/2`).then((res) => {
-        setGetVendors(res.data);
+      await apiGetAuthorization(`customer/view-profile`).then((res) => {
+        setGetUser(res.data);
         console.log(res.data);
       });
     } catch (err) {
@@ -117,16 +151,122 @@ const DataProvider = ({ children }) => {
     }
   };
 
-  /**=============Get all foods By Vendor ======= **/
-  const GetAllVendorsFood = async (vendorId) => {
+
+  const GetWallet = async () => {
     try {
-      await apiGet(`/vendors/get-vendor-food/${vendorId}`).then((res) => {
-        setGetVendorsFood([...res.data.Vendor.food]);
+      await apiGetAuthorization(`customer/wallet/balance`).then((res) => {
+        setGetWallet(res.data);
+        console.log(res.data);
       });
     } catch (err) {
       console.log(err);
     }
   };
+
+  // ==================Update profile=================
+  const updateUserConfig = async (formData) => {
+    try {
+      const updateData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        date_of_birth: formData.date_of_birth,
+        phone: formData.phone,
+      };
+      await apiPut("customer/edit-profile", updateData).then((res) => {
+        successNotification(res.data);
+        console.log(res.data);
+      });
+    } catch (err) {
+      errorNotification(err.response.data.message);
+      console.log(err.response.data.message);
+    }
+  };
+
+  // ==============Update password=====================
+
+  const updatePasswordConfig = async (passwordData) => {
+    try {
+      const updatePasswordData = {
+        oldPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword,
+      };
+      await apiPut("auth/update-password", updatePasswordData).then((res) => {
+        successNotification(res.data);
+        console.log(JSON.stringify(res.data));
+      });
+    } catch (err) {
+      errorNotification(err.response.data);
+      console.log(err.response.data);
+    }
+  };
+
+
+
+  // =================New Address====================
+
+  const CreateAddress = async (formData) => {
+    try{
+      const addressData = {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        emailAddress: formData.email,
+        street: formData.street,
+        state: formData.state,
+        country: formData.country
+      }
+      await apiPostAuthorization('address/new', addressData).then((res) => {
+        successNotification(res.data)
+        console.log(res.data)
+        setTimeout(() => {
+          window.location.href = "/addressbook";
+        }, 500);
+      })
+    }catch(err){
+      errorNotification(err.response.data)
+      console.log(err.response.data)
+    }
+  }
+
+  /**=============Get Addressbook ======= **/
+  const GetAddressbook = async () => {
+    try {
+      await apiGetAuthorization("address/all").then((res) => {
+        setGetAddressbook(res.data);
+        console.log(res.data);
+        
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
+  // ====================VerifyRegistration======================
+
+  const VerifyReg = async (token) => {
+    try{
+      await apiGet(`customer/verifyRegistration?${token}`).then((res) => {
+        setVerifyReg(res.data)
+        console.log(res.data)
+      })
+
+    }catch(err){
+      setVerifyReg(err.response.data)
+      console.log(err.response.data)
+    }
+  }
+
+  /**=============Get all foods By Vendor ======= **/
+  // const GetAllVendorsFood = async (vendorId) => {
+  //   try {
+  //     await apiGet(`/vendors/get-vendor-food/${vendorId}`).then((res) => {
+  //       setGetVendorsFood([...res.data.Vendor.food]);
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   /**============= Add to Cart ======= **/
   const [cartItem, setCartItem] = React.useState([]);
@@ -172,18 +312,35 @@ const DataProvider = ({ children }) => {
     <dataContext.Provider
       value={{
         registerConfig,
-        OTPConfig,
-        ResendOTP,
+        updateUserConfig,
+        updatePasswordConfig,
+        ForgottenConfig,
         LoginConfig,
         Logout,
-        GetAllVendors,
-        getVendors,
-        GetAllVendorsFood,
-        getVendorFood,
+        GetUser,
+        GetWallet,
+        getUser,
+        getWallet,
+        setGetUser,
+        setGetWallet,
+        GetAddressbook,
+        getAddressbook,
+        CreateAddress,
+        newAddress,
+        verifyReg,
+        VerifyReg,
+        // GetAllVendorsFood,
+        // getVendorFood,
         cartItem,
         handleAddFood,
+
+
+        
+        OTPConfig,
         handleRemove,
         handleClear,
+        ResendOTP,
+        // GetAllVendors,
       }}
     >
       {children}

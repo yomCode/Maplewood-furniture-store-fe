@@ -1,19 +1,25 @@
 import { ShoppingCart } from '@mui/icons-material';
 import { Badge } from '@mui/material';
 import {AiOutlineClose, AiOutlineMail, AiOutlineMenu} from 'react-icons/ai'
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import './Navbar.css'
 import { ImFacebook2 } from 'react-icons/im';
 import { BsClock, BsInstagram, BsTelephone, BsTwitter } from 'react-icons/bs';
-
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../context/authcontext';
+import { FaRegUser } from 'react-icons/fa';
+import { FiLogOut } from 'react-icons/fi';
 
 
 const Navbar = () => {
 
+    const { Logout } = useAuth();
+
     const [nav, setNav] = useState(false);
+    const [key, setKey] = useState(false)
     const itemCount = 1;
     const [sideBar, setSideBar] = useState(false)
+    const { getUser, GetUser } = useAuth();
 
     const handleNav = () => {
        setNav(!nav)
@@ -23,30 +29,41 @@ const Navbar = () => {
         setSideBar(!sideBar);
     }
     
+    useEffect(() => {
+        const localStorageValue = localStorage.getItem('signature');
+        if (localStorageValue === null) {
+          setKey(false);
+        } else {
+          setKey(true);
+        }
+      }, []);
+
+      useEffect(() => {
+        GetUser();
+      }, [])
 
     return(
-        <div className='text-black items-center w-[100%] top-0 mb-5'>
+        <div className='text-black items-center w-[100%] top-0 mb-[3rem]'>
 
             {/* =========================LARGE SCREEN============================================ */}
             
-            <div className='fixed shadow-sm z-50 top-0 bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] p-2'>
-                <div onClick={handleSideBar} className='hidden md:block self-center w-[115px]'>
+            <div className='fixed shadow-sm z-50 top-0  bg-white justify-center items-center text-[0.7rem] hidden lg:flex w-[100%] p-2'>
+                <div onClick={handleSideBar} className='hidden md:block self-center w-[170px]'>
                     {sideBar ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
                 </div>
-                <ul className='hidden lg:flex'>
+                <ul className='hidden lg:flex w-[380px] justify-center'>
                     <li className=''><Link to='/'>HOME</Link></li>
-                    <li className=''><Link to='/'>ABOUT US</Link></li>
-                    <li className=''><Link to='/'>PAGES</Link></li>
+                    <li className=''><Link to='/aboutus'>ABOUT US</Link></li>
                     <li className=''><Link to='/shop'>SHOP</Link></li>
                 </ul>
                 <ul className='items-center hidden lg:block'>
                     <li className='w-full text-4xl font-bold text-[#403414]'>OAKLAND</li>
                 </ul>
-                <ul className='hidden lg:flex'>
+                <ul className='hidden lg:flex w-[200px] justify-center'>
                     <li className=''><Link to='/'>BLOG</Link></li>
                     <li className=''><Link to='/contactus'>CONTACT</Link></li>
                 </ul>
-                <ul className='hidden lg:flex'>
+                <ul className='hidden lg:flex w-[200px]'>
                     <li className=''>
                         <span style={{color: 'rgb(81, 81, 81)'}}>$0.00&nbsp;&nbsp;</span>
                         <Link to='/'>
@@ -56,11 +73,29 @@ const Navbar = () => {
                         </Link>
                     </li>
                 </ul>
+<<<<<<< HEAD
                 <ul className='hidden lg:flex'>
                     <li className=''><Link to='/signup'>SIGNUP</Link></li>
                     <li className=''><Link to='/login'>SIGNIN</Link></li>
                 </ul>
                 <div className={sideBar ? 'fixed w-[600px] left-0 top-0 pr-[6rem] hidden rounded-b-sm lg:block bg-gray-800 shadow-sm ease-in-out duration-500 text-white z-10' : 'fixed left-[-100%] ease-in-out duration-500'}>
+=======
+                {
+                    !key ?
+                     
+                    <ul className='hidden lg:flex w-[200px]'>
+                        <li className=''><Link to='/signup'>SIGNUP</Link></li>
+                        <li className=''><Link to='/login'>SIGNIN</Link></li>
+                    </ul>
+                :
+                    <ul className='hidden lg:flex w-[250px]'>
+                        <li className='flex items-center gap-1'><FaRegUser size={15} /><Link className='' to='/dashboard'>{getUser.firstName}</Link></li>
+                        <li className=''><button onClick={Logout}><FiLogOut className='text-[1.3rem]' /></button></li>
+                    </ul>
+                }
+                
+                <div className={sideBar ? 'fixed w-[600px] left-0 top-0 pr-[6rem] hidden rounded-b-sm lg:block bg-gray-800 shadow-sm ease-in-out duration-500 text-white z-10' : 'fixed left-[-1000%] ease-in-out duration-500'}>
+>>>>>>> b9f6e1c8aa31743a00ba849d8a523c33530fb14b
                     <div onClick={handleSideBar} className='hidden ml-[100%] lg:block self-center w-[115px] pl-4 pt-4'>
                         {sideBar ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
                     </div>
@@ -94,15 +129,19 @@ const Navbar = () => {
                                     <Link className='text-white' to='/'><BsInstagram /></Link>
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
                 </div>
+                
+
             </div>
             
                     
                     {/* =========================MEDIUM SCREEN=========================== */}
 
-            <div className='fixed shadow-sm z-50 flex justify-between w-[100%] px-4 py-2 top-0 bg-white sm:hidden md:flex lg:hidden'>
+            <div className='flex justify-between w-[100%] px-4 py-2 top-0 bg-white sm:hidden md:flex lg:hidden'>
                 
                 <div onClick={handleNav} className='hidden md:block lg:hidden self-center'>
                     {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
@@ -134,7 +173,7 @@ const Navbar = () => {
                         <li className=''><Link to='/contactus'>CONTACT</Link></li>
                         <li className='p-2'><Link to='/'>CART</Link></li>
                         <li className=''><Link to='/signup'>SIGNUP</Link></li>
-                        <li className='p-2'><Link to='/'>SIGNIN</Link></li>
+                        <li className='p-2'><Link to='/login'>SIGNIN</Link></li>
                     </ul>
                 </div>
             </div>
@@ -164,7 +203,7 @@ const Navbar = () => {
                         <li className=''><Link to='/contactus'>CONTACT</Link></li>
                         <li className='p-2'><Link to='/'>CART</Link></li>
                         <li className=''><Link to='/signup'>SIGNUP</Link></li>
-                        <li className='p-2'><Link to='/'>SIGNIN</Link></li>
+                        <li className='p-2'><Link to='/login'>SIGNIN</Link></li>
                     </ul>
                 </div>
             </div>  
