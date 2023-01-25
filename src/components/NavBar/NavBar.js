@@ -73,13 +73,6 @@ const Navbar = () => {
                         </Link>
                     </li>
                 </ul>
-<<<<<<< HEAD
-                <ul className='hidden lg:flex'>
-                    <li className=''><Link to='/signup'>SIGNUP</Link></li>
-                    <li className=''><Link to='/login'>SIGNIN</Link></li>
-                </ul>
-                <div className={sideBar ? 'fixed w-[600px] left-0 top-0 pr-[6rem] hidden rounded-b-sm lg:block bg-gray-800 shadow-sm ease-in-out duration-500 text-white z-10' : 'fixed left-[-100%] ease-in-out duration-500'}>
-=======
                 {
                     !key ?
                      
@@ -95,7 +88,6 @@ const Navbar = () => {
                 }
                 
                 <div className={sideBar ? 'fixed w-[600px] left-0 top-0 pr-[6rem] hidden rounded-b-sm lg:block bg-gray-800 shadow-sm ease-in-out duration-500 text-white z-10' : 'fixed left-[-1000%] ease-in-out duration-500'}>
->>>>>>> b9f6e1c8aa31743a00ba849d8a523c33530fb14b
                     <div onClick={handleSideBar} className='hidden ml-[100%] lg:block self-center w-[115px] pl-4 pt-4'>
                         {sideBar ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />} 
                     </div>
