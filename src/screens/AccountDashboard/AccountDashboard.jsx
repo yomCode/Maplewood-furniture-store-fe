@@ -38,6 +38,7 @@ const AccountDashboard = () => {
   const onChange = (e) => {
     e.preventDefault();
     setGetUser({ ...getUser, [e.target.name]: e.target.value });
+    setGetWallet({...getWallet, [e.target.name]: e.target.value});
   };
 
   return (
@@ -76,7 +77,7 @@ const AccountDashboard = () => {
               <div className="">
                 <DashboardCard
                   title="Wallet Amount"
-                  content={getWallet.wallet}
+                  content={getWallet.walletBalance}
                   icon2={<TbCurrencyNaira className="text-2xl" />}
                 />
               </div>

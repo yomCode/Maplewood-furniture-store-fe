@@ -15,9 +15,9 @@ const VerifyRegistration = () => {
     const { VerifyReg, verifyReg } = useAuth();
     const [queryParams] = useSearchParams();
 
-    useEffect(async () => {
+    useEffect(() => {
         setIsLoading(true)
-       await VerifyReg(queryParams);
+        VerifyReg(queryParams);
         console.log(queryParams)
         setIsLoading(false)
     }, [queryParams])

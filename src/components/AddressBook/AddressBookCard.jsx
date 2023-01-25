@@ -1,28 +1,303 @@
-import {BsPencilFill} from 'react-icons/bs'
-import {MdDelete} from 'react-icons/md'
+import { useRef } from "react";
+import { useEffect, useState } from "react";
+import { BsPencilFill } from "react-icons/bs";
+import { MdDelete } from "react-icons/md";
+import { useAuth } from "../../context/authcontext";
+import Loader from "../Loader/Loader";
 
-const AddressBookCard = ({fullName, address, phoneNumber}) => {
-    return(
-        <div className='p-3 shadow-md w-[330px] h-[180px] gap-2 border-[1px] rounded-md'>
-            <div className='flex flex-col gap-2 pb-2'>
-                <h5 className='text-[#7e6a17]'>{fullName}</h5>
-                <div className='h-[40px]'>
-                    <p className='text-[0.8rem] line-clamp-2 '>{address}</p>
-                </div>
-                <p>{phoneNumber}</p>
-            </div>
-            <hr className='' />
-            <div className='flex items-center justify-between pt-2'>
-                <div>
-                    <p className='text-[#5151cc] text-[0.8rem] cursor-pointer'>SET AS DEFAULT</p>
-                </div>
-                <div className='flex items-center gap-3'>
-                    <button type='button' className='text-[#5151cc] text-1xl'>< BsPencilFill /></button>
-                    <button type='button' className='text-[#de5757] text-1xl'>< MdDelete /></button>
-                </div>
-            </div>
+export const ConfirmDelete = ({ closeModal, id }) => {
+  const { DeleteAddress, GetAddressbook } = useAuth();
+  const ref = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true)
+    DeleteAddress(id);
+    setIsLoading(false)
+  };
+
+  useEffect(() => {
+    GetAddressbook();
+  }, []);
+
+  const handleClickOutside = (e) => {
+    if (ref.current && !ref.current.contains(e.target)) {
+      closeModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+  return (
+    <div className="w-[100%] flex justify-center items-center fixed">
+      <div
+        ref={ref}
+        className="flex flex-col items-center gap-4 absolute w-[30%] bg-[white] border p-3"
+      >
+        <div>
+          <p className="text-[1.5rem]">Confirm delete</p>
         </div>
-    )
-}
+        <div className="flex gap-4">
+          <button
+            type="button"
+            className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md"
+            onClick={closeModal}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md"
+            onClick={handleSubmit}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+      {isLoading && <Loader />}
+    </div>
+  );
+};
+
+const EditAddress = ({ id, closeModal }) => {
+  const {
+    UpdateAddress,
+    GetAddressbook,
+    getAddress,
+    setGetAddress,
+    GetAddress,
+  } = useAuth();
+  const ref = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    setIsLoading(true)
+    UpdateAddress(id, getAddress);
+    setIsLoading(false)
+  };
+
+  const handleChange = (e) => {
+    setGetAddress({ ...getAddress, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    GetAddress(id);
+  }, [id]);
+
+  useEffect(() => {
+    GetAddressbook();
+  }, []);
+
+  const handleClickOutside = (e) => {
+    if (ref.current && !ref.current.contains(e.target)) {
+      closeModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+  return (
+    <div
+      ref={ref}
+      className="w-[100%] h-[88%] flex justify-center items-center fixed top-[13%] left-0 bg-[white] rounded-b-md"
+    >
+      <div className="flex flex-col items-center justify-center gap-4 absolute w-[90%] h-[90%] bg-[white] border p-3 z-50">
+        <p className="text-[2rem] self-end cursor-pointer" onClick={closeModal}>
+          X
+        </p>
+        <form
+          action=""
+          className="flex flex-col justify-center items-center w-[90%] gap-4"
+        >
+          <div className="flex gap-4 w-[100%]">
+            <div className="flex flex-col w-[45%]">
+              <input
+                className="border-b border-l px-2"
+                type="text"
+                name="fullName"
+                onChange={handleChange}
+                value={getAddress.fullName}
+                id=""
+                required
+              />
+              <label htmlFor="fullName">Full Name</label>
+            </div>
+            <div className="flex flex-col w-[45%]">
+              <input
+                className="border-b border-l px-2"
+                type="text"
+                name="phone"
+                onChange={handleChange}
+                value={getAddress.phone}
+                id=""
+                required
+              />
+              <label htmlFor="phone">Phone Number</label>
+            </div>
+          </div>
+          <div className="flex gap-4 w-[100%]">
+            <div className="flex flex-col w-[45%]">
+              <input
+                className="border-b border-l px-2"
+                type="email"
+                name="emailAddress"
+                onChange={handleChange}
+                value={getAddress.emailAddress}
+                id=""
+                required
+              />
+              <label htmlFor="fullName">Email Address</label>
+            </div>
+            <div className="flex flex-col w-[45%]">
+              <input
+                className="border-b border-l px-2"
+                type="text"
+                name="street"
+                onChange={handleChange}
+                value={getAddress.street}
+                id=""
+                required
+              />
+              <label htmlFor="street">Street</label>
+            </div>
+          </div>
+          <div className="flex gap-4 w-[100%]">
+            <div className="flex flex-col w-[45%]">
+              <input
+                className="border-b border-l px-2"
+                type="text"
+                name="state"
+                onChange={handleChange}
+                value={getAddress.state}
+                id=""
+                required
+              />
+              <label htmlFor="state">State</label>
+            </div>
+            <div className="flex flex-col w-[45%]">
+              <input
+                className="border-b border-l px-2"
+                type="text"
+                name="country"
+                onChange={handleChange}
+                value={getAddress.country}
+                id=""
+                required
+              />
+              <label htmlFor="country">Country</label>
+            </div>
+          </div>
+
+          <div className="flex gap-4 justify-center w-[100%]">
+            <button
+              type="button"
+              className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md"
+              onClick={closeModal}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md"
+              onClick={handleUpdate}
+            >
+              Save
+            </button>
+          </div>
+        </form>
+        {isLoading && <Loader />}
+      </div>
+    </div>
+  );
+};
+
+const AddressBookCard = ({ fullName, address, emailAddress, phoneNumber, id }) => {
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { SetDefault, getAddress, GetAddress, GetAddressbook } = useAuth();
+
+  const handleDefault = (e) => {
+    e.preventDefault();
+    setIsLoading(true)
+    SetDefault(id)
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    GetAddress(id)
+    console.log(getAddress)
+  }, [id])
+
+  useEffect(() => {
+    GetAddressbook()
+  }, [])
+
+
+
+  return (
+    <div className="p-3 shadow-md w-[330px] h-[180px] gap-2 border-[1px] rounded-md">
+      <div className="flex flex-col gap-2 pb-2">
+        <h5 className="text-[#7e6a17]">{fullName}</h5>
+        <div className="h-[40px]">
+          <p className="text-[0.8rem] line-clamp-2 ">{address}</p>
+        </div>
+        <p>{phoneNumber}</p>
+      </div>
+      <hr className="" />
+      <div className="flex items-center justify-between pt-2">
+        <div>
+            {
+                getAddress.isDefault === true ? 
+                
+                <button  className="text-[#5151cc] text-[0.8rem] cursor-not-allowed">
+                    SET AS DEFAULT
+                </button>
+                :
+                <button onClick={handleDefault} className="text-[#5151cc] text-[0.8rem] cursor-pointer">
+                    SET AS DEFAULT
+                </button>
+            }
+          
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setOpenEdit(!openEdit)}
+            className="text-[#5151cc] text-1xl"
+          >
+            <BsPencilFill />
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpenConfirm(!openConfirm)}
+            className="text-[#de5757] text-1xl"
+          >
+            <MdDelete />
+          </button>
+        </div>
+      </div>
+      {openConfirm && (
+        <ConfirmDelete id={id} closeModal={() => setOpenConfirm(false)} />
+      )}
+      {openEdit && (
+        <EditAddress id={id} closeModal={() => setOpenEdit(false)} />
+      )}
+      {isLoading && <Loader />}
+    </div>
+  );
+};
 
 export default AddressBookCard;

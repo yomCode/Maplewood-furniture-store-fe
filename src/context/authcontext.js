@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import {
+  apiDelete,
   apiGet,
   apiGetAuthorization,
   apiPost,
@@ -20,6 +21,8 @@ const DataProvider = ({ children }) => {
   const [getWallet, setGetWallet] = React.useState({});
 
   const [getAddressbook, setGetAddressbook] = React.useState([]);
+  const [getIsDefault, setIsDefault] = React.useState(false);
+  const [getAddress, setGetAddress] = React.useState({});
   const [newAddress, setNewAddress] = React.useState({});
   const [verifyReg, setVerifyReg] = React.useState({});
 
@@ -154,9 +157,9 @@ const DataProvider = ({ children }) => {
 
   const GetWallet = async () => {
     try {
-      await apiGetAuthorization(`customer/wallet/balance`).then((res) => {
-        setGetWallet(res.data);
-        console.log(res.data);
+      await apiGetAuthorization(`customer/wallet/info`).then((res) => {
+        setGetWallet(res.data.data);
+        console.log(res.data.data);
       });
     } catch (err) {
       console.log(err);
@@ -231,7 +234,7 @@ const DataProvider = ({ children }) => {
   /**=============Get Addressbook ======= **/
   const GetAddressbook = async () => {
     try {
-      await apiGetAuthorization("address/all").then((res) => {
+      await apiGetAuthorization("address/get").then((res) => {
         setGetAddressbook(res.data);
         console.log(res.data);
         
@@ -240,6 +243,73 @@ const DataProvider = ({ children }) => {
       console.log(err);
     }
   };
+
+  // =================Get Address=================================
+
+  const GetAddress = async (id) => {
+    try{
+      await apiGetAuthorization(`address/view?id=${id}`).then((res) => {
+        setGetAddress(res.data)
+        console.log(res.data)
+      })
+    }catch(err) {
+      console.log(err.response.data)
+    }
+  }
+
+ // =================Delete Address=================================
+
+    const DeleteAddress = (id) => {
+      try{
+        apiDelete(`address/delete?id=${id}`).then((res) => {
+          successNotification(res.data)
+          console.log(res.data)
+        })
+      }catch(err){
+        errorNotification(err.response.data)
+        console.log(err.response.data)
+      }
+    }
+
+    // =================Update Address=================================
+
+    const UpdateAddress = async (id, formData) => {
+      const addressData = {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        emailAddress: formData.emailAddress,
+        street: formData.street,
+        state: formData.state,
+        country: formData.country
+      }
+      try{
+        await apiPut(`address/update?id=${id}`, addressData).then((res) => {
+          successNotification(res.data);
+          console.log(res.data)
+        })
+      }catch(err) {
+        errorNotification(err.response.data);
+        console.log(err.response.data)
+      }
+      setTimeout(() => {
+        window.location.href = "/addressbook";
+      }, 500);
+    }
+
+// ====================Set Default======================
+
+const SetDefault = (id) => {
+  try{
+    apiGetAuthorization(`address/setDefault?id=${id}`).then((res) => {
+      setIsDefault(res.data)
+      console.log(res.data)
+      successNotification(res.data)
+    })
+  }catch(err){
+    errorNotification(err.response.data)
+    console.log(err.response.data)
+  }
+}
 
 
   // ====================VerifyRegistration======================
@@ -329,13 +399,20 @@ const DataProvider = ({ children }) => {
         newAddress,
         verifyReg,
         VerifyReg,
+        GetAddress,
+        setGetAddress,
+        getAddress,
+        DeleteAddress,
+        UpdateAddress,
+        SetDefault,
+        getIsDefault,
         // GetAllVendorsFood,
         // getVendorFood,
         cartItem,
         handleAddFood,
 
 
-        
+
         OTPConfig,
         handleRemove,
         handleClear,

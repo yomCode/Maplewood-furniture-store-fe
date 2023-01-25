@@ -22,6 +22,7 @@ import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import AboutUs from './screens/AboutUs/AboutUs';
 import VerifyRegistration from "./screens/Signup/VerifySignup";
 import { ProtectCustomerRoute } from "./context/ProtectRoute";
+import WalletDashboard from "./screens/WalletPage/WalletDashoard";
 
 function App() {
   return (
@@ -86,7 +87,10 @@ function App() {
           <Route path="favorites/:id" element={<SingleProduct />} />
 
           <Route path="*" element={<Page404 />} />
-          <Route path="/accountInfo" element={<UserInformation />} />
+          <Route path="/accountInfo" element={
+          <ProtectCustomerRoute>
+            <UserInformation />
+        </ ProtectCustomerRoute>} />
 
           <Route
             path="categories/viewByCategory/:id"
@@ -114,6 +118,11 @@ function App() {
             path="categories/subcategories/:id/shop/products/:id"
             element={<SingleProduct />}
           />
+          <Route path="/wallet" element={
+            <ProtectCustomerRoute>
+            <WalletDashboard />
+        </ ProtectCustomerRoute>
+          } />
         </Routes>
         <BackToTop />
         <Footer />
