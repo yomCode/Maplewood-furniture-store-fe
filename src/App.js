@@ -20,6 +20,8 @@ import FormLogin from './screens/Login/FormLogin';
 import "react-toastify/dist/ReactToastify.css";
 import Layout from './Admin/components/Layout/Layout';
 import AboutUs from './screens/AboutUs/AboutUs';
+import TableView from './Admin/components/Product/TableView';
+
 
 function App(){
     return(
@@ -82,6 +84,7 @@ function App(){
                            element={<SingleProduct /> } />
                     
                     <Route path='/admin' element={<Layout />}>
+                        <Route index element={<TableView tableTitle={ "PRODUCTS" }/>} />
                     </Route>
                 </Routes>
                 <BackToTop />  

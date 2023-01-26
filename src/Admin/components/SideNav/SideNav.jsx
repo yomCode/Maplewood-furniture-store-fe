@@ -1,6 +1,19 @@
-import "../sidebar.scss";
+import "./sidebar.scss";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import StoreIcon from "@mui/icons-material/Store";
+import InsertChartIcon from "@mui/icons-material/InsertChart";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
+import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import Menu from "@mui/icons-material/Menu";
 
 const Sidebar = () => {
   const sidebarRef = useRef()
@@ -16,7 +29,7 @@ const Sidebar = () => {
 
   return (
     <div className="outer-div">
-    <div className="sidebar" ref={ sidebarRef }>
+    <div className="sidebar sidebar-hidden" ref={ sidebarRef }>
         <div className="top ">
           <Link to="/" style={{ textDecoration: "none" }}> <span className="logo">Oakland</span> </Link>
             <Menu className="icon" onClick={ handleNavDisplay }/>

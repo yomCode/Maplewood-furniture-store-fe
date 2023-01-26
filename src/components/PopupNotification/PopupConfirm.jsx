@@ -17,6 +17,8 @@ const PopupConfirm = ({title, description, confirm, cancel, component}) => (
     onConfirm={confirm}
     onCancel={cancel}
     okText="Yes"
+    okType="primary"
+    ghost
     cancelText="No"
   >
     {component}
