@@ -3,7 +3,7 @@ import axios from 'axios'
 import { message } from "antd";
 import { errorNotification, successNotification } from "../components/Notification";
 
-const ProductsContext = createContext()
+const ProductsContext = createContext();
 
 const ProductProvider = ({ children }) => {
     const[productUrl, setProductUrl] = useState("/products/paginated-all")
@@ -146,4 +146,4 @@ const ProductProvider = ({ children }) => {
     )
 }
 
-export { ProductsContext, ProductProvider }
+export { ProductsContext, ProductProvider };

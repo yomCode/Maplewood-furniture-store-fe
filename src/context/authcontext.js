@@ -1,8 +1,10 @@
 import React, { createContext } from "react";
 import {
+  apiDelete,
   apiGet,
   apiGetAuthorization,
   apiPost,
+  apiPostAuthorization,
   apiPut,
 } from "../utils/api/axios";
 import { toast } from "react-toastify";
@@ -15,8 +17,14 @@ export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
   const [getUser, setGetUser] = React.useState({});
-  const [getVendors, setGetVendors] = React.useState([]);
-  const [getVendorFood, setGetVendorsFood] = React.useState([]);
+
+  const [getWallet, setGetWallet] = React.useState({});
+
+  const [getAddressbook, setGetAddressbook] = React.useState([]);
+  const [getIsDefault, setIsDefault] = React.useState(false);
+  const [getAddress, setGetAddress] = React.useState({});
+  const [newAddress, setNewAddress] = React.useState({});
+  const [verifyReg, setVerifyReg] = React.useState({});
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -37,13 +45,35 @@ const DataProvider = ({ children }) => {
         console.log(res.data.data);
         setTimeout(() => {
           window.location.href = "/login";
-        }, 2000);
+        }, 1500);
       });
     } catch (err) {
       errorNotification(err.response.data.message);
       console.log(err.response.data.message);
     }
   };
+
+
+ const ForgottenConfig = async (formData) => {
+   try {
+     const registerData = { 
+       email: formData.email,
+     };
+     await apiPost("auth/forgot-password-request", registerData).then((res) => {
+       successNotification(res.data);
+       toast.success(res.data.data);
+       console.log(res.data.data);
+       setTimeout(() => {
+         window.location.href = "/forgotpassword";
+       }, 1500);
+     });
+   } catch (err) {
+     errorNotification(err.response.data.message);
+     console.log(err.response.data.message);
+   }
+ };
+
+
 
   /**==============OTP Verification ======= **/
   const OTPConfig = async (formData, signature) => {
@@ -90,10 +120,10 @@ const DataProvider = ({ children }) => {
           successNotification(res.data.message);
           console.log(res.data.message);
           localStorage.setItem("signature", res.data.data);
-          // localStorage.setItem("role", res.data.role);
+          localStorage.setItem("role", "CUSTOMER");
           setTimeout(() => {
             window.location.href = "/shop";
-          }, 2000);
+          }, 1500);
         })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -124,6 +154,18 @@ const DataProvider = ({ children }) => {
     }
   };
 
+
+  const GetWallet = async () => {
+    try {
+      await apiGetAuthorization(`customer/wallet/info`).then((res) => {
+        setGetWallet(res.data.data);
+        console.log(res.data.data);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // ==================Update profile=================
   const updateUserConfig = async (formData) => {
     try {
@@ -146,34 +188,155 @@ const DataProvider = ({ children }) => {
 
   // ==============Update password=====================
 
-  const updatePassword = async (passwordData) => {
+  const updatePasswordConfig = async (passwordData) => {
     try {
-      
-    } catch (err) {}
+      const updatePasswordData = {
+        oldPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword,
+      };
+      await apiPut("auth/update-password", updatePasswordData).then((res) => {
+        successNotification(res.data);
+        console.log(JSON.stringify(res.data));
+      });
+    } catch (err) {
+      errorNotification(err.response.data);
+      console.log(err.response.data);
+    }
   };
 
-  /**=============Get all Vendors ======= **/
-  const GetAllVendors = async () => {
+
+
+  // =================New Address====================
+
+  const CreateAddress = async (formData) => {
+    try{
+      const addressData = {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        emailAddress: formData.email,
+        street: formData.street,
+        state: formData.state,
+        country: formData.country
+      }
+      await apiPostAuthorization('address/new', addressData).then((res) => {
+        successNotification(res.data)
+        console.log(res.data)
+        setTimeout(() => {
+          window.location.href = "/addressbook";
+        }, 500);
+      })
+    }catch(err){
+      errorNotification(err.response.data)
+      console.log(err.response.data)
+    }
+  }
+
+  /**=============Get Addressbook ======= **/
+  const GetAddressbook = async () => {
     try {
-      await apiGet(`products/view/2`).then((res) => {
-        setGetVendors(res.data);
+      await apiGetAuthorization("address/get").then((res) => {
+        setGetAddressbook(res.data);
         console.log(res.data);
+        
       });
     } catch (err) {
       console.log(err);
     }
   };
+
+  // =================Get Address=================================
+
+  const GetAddress = async (id) => {
+    try{
+      await apiGetAuthorization(`address/view?id=${id}`).then((res) => {
+        setGetAddress(res.data)
+        console.log(res.data)
+      })
+    }catch(err) {
+      console.log(err.response.data)
+    }
+  }
+
+ // =================Delete Address=================================
+
+    const DeleteAddress = (id) => {
+      try{
+        apiDelete(`address/delete?id=${id}`).then((res) => {
+          successNotification(res.data)
+          console.log(res.data)
+        })
+      }catch(err){
+        errorNotification(err.response.data)
+        console.log(err.response.data)
+      }
+    }
+
+    // =================Update Address=================================
+
+    const UpdateAddress = async (id, formData) => {
+      const addressData = {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        emailAddress: formData.emailAddress,
+        street: formData.street,
+        state: formData.state,
+        country: formData.country
+      }
+      try{
+        await apiPut(`address/update?id=${id}`, addressData).then((res) => {
+          successNotification(res.data);
+          console.log(res.data)
+        })
+      }catch(err) {
+        errorNotification(err.response.data);
+        console.log(err.response.data)
+      }
+      setTimeout(() => {
+        window.location.href = "/addressbook";
+      }, 500);
+    }
+
+// ====================Set Default======================
+
+const SetDefault = (id) => {
+  try{
+    apiGetAuthorization(`address/setDefault?id=${id}`).then((res) => {
+      setIsDefault(res.data)
+      console.log(res.data)
+      successNotification(res.data)
+    })
+  }catch(err){
+    errorNotification(err.response.data)
+    console.log(err.response.data)
+  }
+}
+
+
+  // ====================VerifyRegistration======================
+
+  const VerifyReg = async (token) => {
+    try{
+      await apiGet(`customer/verifyRegistration?${token}`).then((res) => {
+        setVerifyReg(res.data)
+        console.log(res.data)
+      })
+
+    }catch(err){
+      setVerifyReg(err.response.data)
+      console.log(err.response.data)
+    }
+  }
 
   /**=============Get all foods By Vendor ======= **/
-  const GetAllVendorsFood = async (vendorId) => {
-    try {
-      await apiGet(`/vendors/get-vendor-food/${vendorId}`).then((res) => {
-        setGetVendorsFood([...res.data.Vendor.food]);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const GetAllVendorsFood = async (vendorId) => {
+  //   try {
+  //     await apiGet(`/vendors/get-vendor-food/${vendorId}`).then((res) => {
+  //       setGetVendorsFood([...res.data.Vendor.food]);
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   /**============= Add to Cart ======= **/
   const [cartItem, setCartItem] = React.useState([]);
@@ -220,20 +383,41 @@ const DataProvider = ({ children }) => {
       value={{
         registerConfig,
         updateUserConfig,
-        OTPConfig,
-        ResendOTP,
+        updatePasswordConfig,
+        ForgottenConfig,
         LoginConfig,
         Logout,
-        GetAllVendors,
         GetUser,
+        GetWallet,
         getUser,
+        getWallet,
         setGetUser,
-        GetAllVendorsFood,
-        getVendorFood,
+        setGetWallet,
+        GetAddressbook,
+        getAddressbook,
+        CreateAddress,
+        newAddress,
+        verifyReg,
+        VerifyReg,
+        GetAddress,
+        setGetAddress,
+        getAddress,
+        DeleteAddress,
+        UpdateAddress,
+        SetDefault,
+        getIsDefault,
+        // GetAllVendorsFood,
+        // getVendorFood,
         cartItem,
         handleAddFood,
+
+
+
+        OTPConfig,
         handleRemove,
         handleClear,
+        ResendOTP,
+        // GetAllVendors,
       }}
     >
       {children}
