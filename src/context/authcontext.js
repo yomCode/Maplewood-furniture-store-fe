@@ -17,14 +17,14 @@ export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
   const [getUser, setGetUser] = React.useState({});
-
   const [getWallet, setGetWallet] = React.useState({});
-
   const [getAddressbook, setGetAddressbook] = React.useState([]);
   const [getIsDefault, setIsDefault] = React.useState(false);
   const [getAddress, setGetAddress] = React.useState({});
   const [newAddress, setNewAddress] = React.useState({});
   const [verifyReg, setVerifyReg] = React.useState({});
+  const [getTransDetail, setGetTransDetail] = React.useState({});
+  const [getWalletDetails, setGetWalletdetails] = React.useState({});
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -126,8 +126,8 @@ const DataProvider = ({ children }) => {
           }, 1500);
         })
         .catch((err) => {
-          console.log(err.response.data.message);
-          errorNotification(err.response.data.message);
+          console.log(err.response.data);
+          errorNotification(err.response.data);
         });
     } catch (err) {
       console.log(err.response.data.message);
@@ -311,6 +311,57 @@ const SetDefault = (id) => {
   }
 }
 
+// ====================Process Payment======================
+
+const ProcessPayment = async (formData) => {
+  const paymentForm = {
+    amount: formData.amount
+  }
+
+  try{
+    await apiPostAuthorization('pay', paymentForm).then((res) => {
+      setTimeout(() => {
+        window.location.href = res.data.data.authorization_url;
+      }, 1500);
+    })
+  }catch(err){
+    errorNotification(err.response.data)
+    console.log(err.response.data)
+  }
+  
+}
+
+
+// ====================Confirm Payment======================
+
+const FinalizePayment = async (reference) => {
+  try{
+    await apiGet(`finalizeTrans?reference=${reference}`).then((res) => {
+      setGetTransDetail(res.data)
+      console.log(res.data)
+    })
+
+  }catch(err){
+    setGetTransDetail(err.response.data)
+    console.log(err.response.data)
+  }
+}
+
+
+// ====================Get Wallet Info======================
+
+const WalletDetails = async () => {
+  try{
+    await apiGetAuthorization('customer/wallet/info').then((res) => {
+      setGetWalletdetails(res.data.data);
+      console.log(res.data.data);
+    })
+  }catch(err){
+    console.log(err.response.data)
+  }
+}
+
+
 
   // ====================VerifyRegistration======================
 
@@ -327,56 +378,10 @@ const SetDefault = (id) => {
     }
   }
 
-  /**=============Get all foods By Vendor ======= **/
-  // const GetAllVendorsFood = async (vendorId) => {
-  //   try {
-  //     await apiGet(`/vendors/get-vendor-food/${vendorId}`).then((res) => {
-  //       setGetVendorsFood([...res.data.Vendor.food]);
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  /**============= Add to Cart ======= **/
-  const [cartItem, setCartItem] = React.useState([]);
-  const handleAddFood = (product) => {
-    const ProductExist = cartItem.find((item) => item.id === product.id);
-
-    if (ProductExist) {
-      setCartItem(
-        cartItem.map((item) =>
-          item.id === product.id
-            ? { ...ProductExist, quantity: ProductExist.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCartItem([...cartItem, { ...product, quantity: 1 }]);
-    }
-  };
-
-  /**============= Decrease Items in cart ======= **/
-  const handleRemove = (product) => {
-    const ProductExist = cartItem.find((item) => item.id === product.id);
-
-    if (ProductExist.quantity === 1) {
-      setCartItem(cartItem.filter((item) => item.id !== product.id));
-    } else {
-      setCartItem(
-        cartItem.map((item) =>
-          item.id === product.id
-            ? { ...ProductExist, quantity: ProductExist.quantity - 1 }
-            : item
-        )
-      );
-    }
-  };
-
   /**============= Clear cart ======= **/
-  const handleClear = () => {
-    setCartItem([]);
-  };
+  // const handleClear = () => {
+  //   setCartItem([]);
+  // };
 
   return (
     <dataContext.Provider
@@ -406,18 +411,12 @@ const SetDefault = (id) => {
         UpdateAddress,
         SetDefault,
         getIsDefault,
-        // GetAllVendorsFood,
-        // getVendorFood,
-        cartItem,
-        handleAddFood,
-
-
-
-        OTPConfig,
-        handleRemove,
-        handleClear,
-        ResendOTP,
-        // GetAllVendors,
+        ProcessPayment,
+        FinalizePayment,
+        getTransDetail,
+        getWalletDetails,
+        WalletDetails
+        
       }}
     >
       {children}
