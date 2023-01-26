@@ -23,6 +23,7 @@ import AboutUs from './screens/AboutUs/AboutUs';
 import VerifyRegistration from "./screens/Signup/VerifySignup";
 import { ProtectCustomerRoute } from "./context/ProtectRoute";
 import WalletDashboard from "./screens/WalletPage/WalletDashoard";
+import VerifyPayment from "./screens/WalletPage/VerifyPayment";
 
 function App() {
   return (
@@ -120,9 +121,10 @@ function App() {
           />
           <Route path="/wallet" element={
             <ProtectCustomerRoute>
-            <WalletDashboard />
-        </ ProtectCustomerRoute>
+              <WalletDashboard />
+            </ ProtectCustomerRoute>
           } />
+          <Route path="/confirm-payment" element={<VerifyPayment />} />
         </Routes>
         <BackToTop />
         <Footer />
