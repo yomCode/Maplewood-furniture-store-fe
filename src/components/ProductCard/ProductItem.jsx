@@ -1,25 +1,13 @@
-<<<<<<< HEAD
-import { Rate } from "antd";
-import { useState } from "react";
-import { BiHeart } from "react-icons/bi";
-import { Link, } from "react-router-dom";
-import useProduct from "../../hooks/useProduct";
-
-const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
-
-const ProductItem = ({ product, isEditable, url }) => {
-=======
 import { Rate } from 'antd'
 import { useState } from 'react';
 import useProduct from '../../hooks/useProduct';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from 'react-use-cart';
 import { useAuth } from '../../context/authcontext';
+import { BiHeart } from "react-icons/bi";
 
 
-const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
-
-const ProductItem = ({ product, isEditable }) => {
+const ProductItem = ({ url, product, isEditable }) => {
   const navigate = useNavigate()
   const location = useLocation()
   let from = location.state?.from?.pathname || "/product"
@@ -50,25 +38,25 @@ const ProductItem = ({ product, isEditable }) => {
       console.log(`"Product Item: ${id}`)
       AddToCartConfig(id);
     }
-    
-  return ( 
-    <div className="product-container bordered-cont" onMouseOver={handleHover} onMouseLeave={handleHoverLeave}>
-        <div className="add-icon" onClick={ addProductToFavorites }>
-          { !isEditable && <BiHeart className="item-icon"/> }
-        </div>
-        <Link to={`${url}/${product.id}`} className="link-container">
-          <img src={ imageUrl } alt={ name } />
-          <h5 className="product-name">{ name }</h5>
-          <span>
-              <Rate tooltips={desc} onChange={setValue} value={value}  />
-              <p className="product-price">${ price }</p>
-          </span>
-        </Link>
-        <p className="add-tocart-btn btn" onClick={addItemToCartHandler}>ADD TO CART</p>
-        { isHover && <button className='delete-btn' 
-            onClick={() => deleteProduct(name)}>X</button> }
-    </div>
-  );
-};
 
-export default ProductItem;
+    return ( 
+      <div className="product-container bordered-cont" onMouseOver={handleHover} onMouseLeave={handleHoverLeave}>
+          <div className="add-icon" onClick={ addProductToFavorites }>
+            { !isEditable && <BiHeart className="item-icon"/> }
+          </div>
+          <Link to={`${url}/${product.id}`} className="link-container">
+            <img src={ imageUrl } alt={ name } />
+            <h5 className="product-name">{ name }</h5>
+            <span>
+                <Rate tooltips={desc} onChange={setValue} value={value}  />
+                <p className="product-price">${ price }</p>
+            </span>
+          </Link>
+          <p className="add-tocart-btn btn" onClick={addItemToCartHandler}>ADD TO CART</p>
+          { isHover && <button className='delete-btn' 
+              onClick={() => deleteProduct(name)}>X</button> }
+      </div>
+    );
+  }
+
+export default ProductItem
