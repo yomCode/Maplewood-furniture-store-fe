@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { productColumns } from './ordersTableData'
 import DrawerForm from '../Forms/DrawerForm'
 import ReactPaginate from 'react-paginate';
-import { ArrowLeftTwoTone, ArrowRightAltOutlined,  } from '@mui/icons-material';
 import AddProductForm from '../Forms/AddProductForm'
 
 import {
   UserAddOutlined,
-  LoadingOutlined
+  LoadingOutlined,
+  CaretLeftOutlined, 
+  CaretRightOutlined
 } from '@ant-design/icons';
 
 import { Table, Spin, Empty } from 'antd';
@@ -59,8 +60,8 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
                 <h2 className='"layout-h2-header'>{tableTitle}</h2>
 
                 <ReactPaginate 
-                  previousLabel={<ArrowLeftTwoTone />}
-                  nextLabel={<ArrowRightAltOutlined />}
+                  previousLabel={<CaretLeftOutlined />}
+                  nextLabel={<CaretRightOutlined />}
                   pageCount={totalPages} 
                   onPageChange={changePage}
                   containerClassName={"paginationBtns"}

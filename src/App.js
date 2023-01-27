@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./global.css";
 import BackToTop from "./components/BackToTopButton";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar/NavBar";
@@ -20,7 +19,9 @@ import NewAddress from "./components/AddressBook/NewAddress";
 import ResetPassword from './screens/ResetPassword/ResetPassword';
 import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import AboutUs from './screens/AboutUs/AboutUs';
+import ShoppingCart from "./screens/ShoppingCart/ShoppingCart";
 import VerifyRegistration from "./screens/Signup/VerifySignup";
+import Checkout from "./screens/Checkout/Checkout";
 import { ProtectCustomerRoute } from "./context/ProtectRoute";
 import WalletDashboard from "./screens/WalletPage/WalletDashoard";
 import VerifyPayment from "./screens/WalletPage/VerifyPayment";
@@ -38,6 +39,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/dashboard" element={<AccountDashboard />} />
           <Route path="/product" element={<SingleProduct />} />
           <Route path="/dashboard" element={
             <ProtectCustomerRoute>
@@ -62,30 +64,34 @@ function App() {
           <Route path="/forgotpassword" element={<ForgottenPassword />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/shopping-cart" element={<ShoppingCart />}/>
           <Route path="/verifyRegistration" element={<VerifyRegistration />} />
+          <Route path="/checkout" element={<Checkout />} />
+
           <Route
             path="/shop"
             element={
               <Product
                 title={"Products"}
                 url={"products"}
-                productUrlProp={`/products/paginated-all`}
+                productUrlProp={`products/paginated-all`}
                 isEditable={false}
-                isId={false}
+                isId={false} showFavorites={false}
               />
             }
           />
           <Route path="/shop/products/:id" element={<SingleProduct />} />
-
           <Route
             path="favorites"
             element={
               <Product
-                title={"Subcategory"}
+                title={"Favorites"}
                 url={"favorites"}
+                productUrlProp={`customer/products/favorites/viewAllFavorites`}
                 displayCategories={false}
                 isEditable={true}
                 isId={false}
+                showFavorites={true}
               />
             }
           />

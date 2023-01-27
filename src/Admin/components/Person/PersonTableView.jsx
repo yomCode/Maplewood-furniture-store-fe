@@ -7,7 +7,9 @@ import AddProductForm from '../Forms/AddProductForm'
 
 import {
   UserAddOutlined,
-  LoadingOutlined
+  LoadingOutlined,
+  CaretLeftOutlined, 
+  CaretRightOutlined
 } from '@ant-design/icons';
 
 import { Table, Spin, Empty } from 'antd';
@@ -59,8 +61,8 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
                 <h2 className='"layout-h2-header'>{tableTitle}</h2>
 
                 <ReactPaginate 
-                  previousLabel={<ArrowLeftTwoTone />}
-                  nextLabel={<ArrowRightAltOutlined />}
+                  previousLabel={<CaretLeftOutlined />}
+                  nextLabel={<CaretLeftOutlined />}
                   pageCount={personTotalPages} 
                   onPageChange={changePage}
                   containerClassName={"paginationBtns"}
