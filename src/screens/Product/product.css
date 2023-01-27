@@ -87,7 +87,8 @@
 }
 
 .product-container img {
-    width: 100%;
+    width: 98%;
+    border-right: 1px solid var(--border-color);
 }
 
 .product-price {

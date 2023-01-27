@@ -1,16 +1,12 @@
 import { Add, } from "@mui/icons-material";
 import { Rate } from "antd";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import useProduct from "../../hooks/useProduct";
 
 const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
 
 const ProductItem = ({ product, isEditable, url }) => {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location?.state?.from?.pathname
-
   const{ name, price, imageUrl } = product
   const[value, setValue] = useState(3);
   const[isHover, setIsHover] = useState(false)
@@ -21,7 +17,6 @@ const ProductItem = ({ product, isEditable, url }) => {
 
   const addToFavorites = () => {
     alert("Added to favorites!")
-    navigate(from, { replace: false })
   }
 
   const deleteProduct = (name) => 
