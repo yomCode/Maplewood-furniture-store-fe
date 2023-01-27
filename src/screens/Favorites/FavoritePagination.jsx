@@ -50,7 +50,7 @@ const FavoritePagination = ({ url, isEditable }) => {
 
   { favorites?.length === 0 && !fetching &&
     <div className="favorites-div" style={{minHeight: "40vh"}}>
-      "No data"
+      "You don't have any favorites."
     </div>
   }
   </div>
