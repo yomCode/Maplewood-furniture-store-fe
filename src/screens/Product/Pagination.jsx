@@ -12,6 +12,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
 const Pagination = ({ url, isEditable }) => {
     const { totalPages, setPageNumber, products, fetching } = useProduct()
     const changePage = ({ selected }) => setPageNumber(selected)
+    
 
   return (
     <div>
