@@ -4,6 +4,7 @@ import { Dropdown, Space } from 'antd'
 import useProduct from '../../hooks/useProduct';
 import Categories from '../../components/CategoryCard/Categories';
 import Pagination from './Pagination';
+import FavoritePagination from '../Favorites/FavoritePagination';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -27,10 +28,12 @@ const items = [
     },  
   ];
 
-const Product = ({title, url, displayCategories, productUrlProp, isEditable, isId}) => {
+const Product = ({title, url, displayCategories, productUrlProp, isEditable, isId, showFavorites}) => {
     const params = useParams()
     const { products, setProducts, pageElementSize, 
-          pageNumber, totalElements, numOfElements, setProductUrl } = useProduct()
+          pageNumber, totalElements, numOfElements,
+          favPageElementSize, favNumOfElements, favPageNumber, favTotalElements,
+          setProductUrl, setFavoriteUrl } = useProduct()
 
     const onClick = ({ key }) => {
         switch(key) {
@@ -52,16 +55,26 @@ const Product = ({title, url, displayCategories, productUrlProp, isEditable, isI
     };
 
     useEffect(() => {
-      setProductUrl(isId ? `${productUrlProp}/${params.id}/paginated-all` : productUrlProp)
-    }, [productUrlProp, setProductUrl, isId, params.id])
+      showFavorites ? 
+        setFavoriteUrl(productUrlProp)
+        : 
+        setProductUrl(isId ? `${productUrlProp}/${params.id}/paginated-all` : productUrlProp)
+    }, [productUrlProp, setProductUrl, isId, params.id, showFavorites, setFavoriteUrl])
 
   return (
     <section className="favorites-section">
         <div className="products-info">
              {
+              showFavorites ? 
+              favNumOfElements < pageElementSize ?
+              <p>Showing { (favPageNumber * favPageElementSize) + 1 } - { favTotalElements } of { favTotalElements }</p> :
+              <p>Showing { favNumOfElements * (favPageNumber) + 1 } - { favNumOfElements * (favPageNumber + 1) } 
+                  of {favTotalElements} results</p>
+              :
               numOfElements < pageElementSize ?
               <p>Showing { (pageNumber * pageElementSize) + 1 } - { totalElements } of { totalElements }</p> :
               <p>Showing { numOfElements * (pageNumber) + 1 } - { numOfElements * (pageNumber + 1) } of {totalElements} results</p>
+
             }
             <h1>{ title }</h1>
             <Dropdown menu={{ items, onClick,}}>
@@ -76,7 +89,10 @@ const Product = ({title, url, displayCategories, productUrlProp, isEditable, isI
         
         <div className="encompassing-div">
           <Categories displayCategories={displayCategories} />
-          <Pagination url={url} isEditable={isEditable} />
+          {showFavorites ? 
+            <FavoritePagination url={url} isEditable={isEditable} /> :
+            <Pagination url={url} isEditable={isEditable} />
+          }
       </div>
     </section>
   )

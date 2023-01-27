@@ -2,21 +2,23 @@
   import { productColumns } from './productTableData'
   import DrawerForm from '../Forms/DrawerForm'
   import ReactPaginate from 'react-paginate';
-  import { ArrowLeftTwoTone, ArrowRightAltOutlined,  } from '@mui/icons-material';
   import useProduct from '../../../hooks/useProduct';
   import AddProductForm from '../Forms/AddProductForm'
 
   import {
     UserAddOutlined,
-    LoadingOutlined
-  } from '@ant-design/icons';
+    LoadingOutlined, 
+    CaretLeftOutlined, 
+    CaretRightOutlined  } from '@ant-design/icons';
   
   import { Table, Spin, Empty } from 'antd';
   const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
 
   const TableView = ({ tableTitle }) => {
     const changePage = ({ selected }) => setPageNumber(selected)
-    const { products,  totalPages, setPageNumber, fetching, totalElements, setSingleProduct, setHeaderTitle, headerTitle } = useProduct()
+    const { products,  totalPages, setPageNumber, fetching, 
+      totalElements, setSingleProduct, 
+      setHeaderTitle, headerTitle } = useProduct()
     const[showDrawer, setShowDrawer] = useState(false)
 
     const handleShowDrawer = () => {
@@ -66,8 +68,8 @@
                 <h2 className='"layout-h2-header'>{tableTitle}</h2>
 
                 <ReactPaginate 
-                  previousLabel={<ArrowLeftTwoTone />}
-                  nextLabel={<ArrowRightAltOutlined />}
+                  previousLabel={<CaretLeftOutlined />}
+                  nextLabel={<CaretRightOutlined />}
                   pageCount={totalPages} 
                   onPageChange={changePage}
                   containerClassName={"paginationBtns"}

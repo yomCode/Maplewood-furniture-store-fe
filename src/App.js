@@ -74,9 +74,9 @@ function App() {
               <Product
                 title={"Products"}
                 url={"products"}
-                productUrlProp={`/products/paginated-all`}
+                productUrlProp={`products/paginated-all`}
                 isEditable={false}
-                isId={false}
+                isId={false} showFavorites={false}
               />
             }
           />
@@ -85,11 +85,13 @@ function App() {
             path="favorites"
             element={
               <Product
-                title={"Subcategory"}
+                title={"Favorites"}
                 url={"favorites"}
+                productUrlProp={`customer/products/favorites/viewAllFavorites`}
                 displayCategories={false}
                 isEditable={true}
                 isId={false}
+                showFavorites={true}
               />
             }
           />
