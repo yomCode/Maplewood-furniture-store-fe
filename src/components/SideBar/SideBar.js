@@ -11,6 +11,8 @@ const SideBar = () => {
   return (
     <div className='bg-white drop-shadow-md rounded-md lg:h-100'>
       <div>
+        <SideBarElement name="My Oakland Account" icon={<FaRegUser to="/dashboard"/>}/>
+        <SideBarElement name="Orders" icon={<AiOutlineInbox to="/orders"/>}/>
         <SideBarElement name="My Oakland Account" icon={<FaRegUser />} to="/dashboard" />
         <SideBarElement name="Orders" icon={<AiOutlineInbox to="/contactus"/>}/>
         <SideBarElement name="Favourites" icon={<AiOutlineHeart to="/"/>}/>
@@ -20,7 +22,7 @@ const SideBar = () => {
       </div>
       
         <div className='flex justify-center border-t-2 border-gray-200 p-3 mt-2 w-100'>
-          <button onClick={() => Logout()} className='text-orange-500 text-xl font-bold-900'>LOGOUT</button>
+          <button className='text-[#917307] text-xl font-bold-900 hover:p-3 hover:font-bold-900 hover:rounded-md hover:drop-shadow-md hover:bg-[#e6d69d]'>LOGOUT</button>
         </div>
     </div>
   )

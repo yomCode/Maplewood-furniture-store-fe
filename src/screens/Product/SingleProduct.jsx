@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
+import "./singleProduct.css";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import {
+  FacebookFilled,
+  TwitterCircleFilled,
+  InstagramFilled,
+} from "@ant-design/icons";
+import { message } from "antd";
+import { useAuth } from "../../context/authcontext";
 import './singleProduct.css'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
-import { 
-    FacebookFilled,
-    TwitterCircleFilled, 
-    InstagramFilled
- } from '@ant-design/icons'
- import { message } from 'antd';
+
 
 const SingleProduct = () => {
     const params = useParams()
@@ -47,6 +50,15 @@ const SingleProduct = () => {
  }, [navigate, from, params.id])
 
 
+
+    //*** Cart ***/
+    const { AddToCartConfig, handleAddItemToCart } = useAuth();
+
+    const addItemToCartHandler = () => {
+      //handleAddItemToCart(singleProduct);
+      AddToCartConfig(params.id);
+    }
+
   return (
     <section className="single-product-section">
         {contextHolder}
@@ -70,6 +82,17 @@ const SingleProduct = () => {
             <p className="description">{ description } </p>
 
             <div className="btn-div">
+              <input
+                type="number"
+                max={availableQty}
+                value={numOfItems}
+                onChange={onQuantityInputChange}
+                className="item-count-btn qty-input"
+              />
+              <button className="btn home-btn" onClick={addItemToCartHandler}>ADD TO CART</button>
+              <h4>
+                Category: <span>Table, Wooden</span>
+              </h4>
                 <input type="number" max={availableQty} value={numOfItems} 
                     onChange={onQuantityInputChange}
                     className="item-count-btn qty-input" />

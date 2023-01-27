@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Rate } from "antd";
 import { useState } from "react";
 import { BiHeart } from "react-icons/bi";
@@ -7,6 +8,24 @@ import useProduct from "../../hooks/useProduct";
 const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
 
 const ProductItem = ({ product, isEditable, url }) => {
+=======
+import { Rate } from 'antd'
+import { useState } from 'react';
+import useProduct from '../../hooks/useProduct';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useCart } from 'react-use-cart';
+import { useAuth } from '../../context/authcontext';
+
+
+const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
+
+const ProductItem = ({ product, isEditable }) => {
+  const navigate = useNavigate()
+  const location = useLocation()
+  let from = location.state?.from?.pathname || "/product"
+
+  const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
+
   const{ id, name, price, imageUrl } = product
   const[value, setValue] = useState(3);
   const[isHover, setIsHover] = useState(false)
@@ -22,6 +41,16 @@ const ProductItem = ({ product, isEditable, url }) => {
   const deleteProduct = (name) => 
     setProducts([...products.filter(x  => name !== x.name)])
   
+    const showSingleProduct = () => navigate(from, { replace: true, state: product })
+
+    //*** Cart ***/
+    const { AddToCartConfig } = useAuth();
+
+    const addItemToCartHandler = () => {
+      console.log(`"Product Item: ${id}`)
+      AddToCartConfig(id);
+    }
+    
   return ( 
     <div className="product-container bordered-cont" onMouseOver={handleHover} onMouseLeave={handleHoverLeave}>
         <div className="add-icon" onClick={ addProductToFavorites }>
@@ -35,10 +64,9 @@ const ProductItem = ({ product, isEditable, url }) => {
               <p className="product-price">${ price }</p>
           </span>
         </Link>
-        <p className="add-tocart-btn btn">ADD TO CART</p>
+        <p className="add-tocart-btn btn" onClick={addItemToCartHandler}>ADD TO CART</p>
         { isHover && <button className='delete-btn' 
             onClick={() => deleteProduct(name)}>X</button> }
-
     </div>
   );
 };

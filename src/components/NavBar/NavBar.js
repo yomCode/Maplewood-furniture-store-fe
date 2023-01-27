@@ -13,6 +13,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 export const UserMenuDropdown = ({ closeMenu }) => {
   const ref = useRef(null);
 
+
   const handleClickOutside = (e) => {
     if (ref.current && !ref.current.contains(e.target)) {
       closeMenu();
@@ -71,6 +72,7 @@ const Navbar = () => {
     GetUser();
   }, []);
 
+
   return (
     <div className="text-black items-center w-[100%] top-0 mb-[3rem]">
       {/* =========================LARGE SCREEN============================================ */}
@@ -108,7 +110,7 @@ const Navbar = () => {
           <li className="">
             <span style={{ color: "rgb(81, 81, 81)" }}>$0.00&nbsp;&nbsp;</span>
             <Link to="/">
-              <Badge color="secondary" badgeContent={itemCount}>
+              <Badge color="secondary">
                 <ShoppingCart className="text-[#403414]" />
               </Badge>
             </Link>
@@ -254,7 +256,7 @@ const Navbar = () => {
         </div>
         <div className="self-center hidden md:block lg:hidden">
           <span style={{ color: "rgb(81, 81, 81)" }}>$0.00&nbsp;&nbsp;</span>
-          <Link to="/">
+          <Link to="/shopping-cart">
             <Badge color="secondary" badgeContent={itemCount}>
               <ShoppingCart className="text-[#403414]" />
             </Badge>
