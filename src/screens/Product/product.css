@@ -182,19 +182,19 @@
 .add-icon {
     z-index: 3;
     position: absolute;
-    right: -5%;
+    right: 0%;
     top: 50%;
-    background-color: var(--border-color);
+    /* background-color: var(--border-color); */
     transition: all .3s ease;
 }
 
 .add-icon:hover {
     color:rgb(45, 45, 45);
-    background-color: #fff;
 }
 
 
 .add-icon .item-icon {
+    color: var(--border-color);
     border-radius: 100%;
     font-size: 20px;
     height: 20px;
@@ -203,5 +203,4 @@
 
 .bordered-cont {
     border: 1px solid var(--border-color);
-    color: blue;
 }
