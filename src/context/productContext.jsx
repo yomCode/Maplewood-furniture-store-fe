@@ -51,9 +51,9 @@ const ProductProvider = ({ children }) => {
         
             })
             .catch(err => {
-              const errorResponse = err.response;
+            //   const errorResponse = err.response;
               console.log(err);
-              // message.error(errorResponse.errorMessage);
+              // message.error(errorResponse);
             })
           }
     }
@@ -71,16 +71,17 @@ const ProductProvider = ({ children }) => {
         })
     }
 
-    const fetchSingleProduct = (id) => {
-        axios.get(`/admin/products/${id}`)
-        .then(res => {
-            console.log(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
+    // const fetchSingleProduct = (id) => {
+    //     axios.get(`/admin/products/${id}`)
+    //     .then(res => {
+    //         console.log(res.data)
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //     })
+    // }
 
+    //********** ADD NEW PRODUCT ********//
     const addNewProduct = (setSubmitting, onClose, newProduct) => {
         setSubmitting(true);
         axios.post("/admin/products/new", newProduct)
@@ -104,19 +105,30 @@ const ProductProvider = ({ children }) => {
         });
     }
 
-    const getProductsCallback = useCallback(
-      () => {
-        getProducts()
-      },
-      [productUrl, pageNumber],
-    )
+    const getProductsCallback = useCallback(() => {     
+        if(productUrl.length > 0) {
+            const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
+                axios.get(allProductsUrl)
+                .then((res) => {
+                    const data = res.data.data
+                    setProducts(data.content)
+                    setPageNumber(data.number)
+                    setPageElementSize(data.size)
+                    setTotalPages(data.totalPages)
+                    setTotalElements(data.totalElements)
+                    setNumOfElements(data.numberOfElements)
+                    setFetching(false)
+                })
+                .catch((err) => {
+                    console.log(err)
+                    setFetching(false)
+                })
+        }
+    }, [productUrl, pageNumber])
     
-
-    //fetch from db
     useEffect(() => {
         getProductsCallback()
     }, [getProductsCallback])
-
     
 
     return( 

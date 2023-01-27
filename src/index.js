@@ -6,10 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import { ProductProvider } from './context/productContext';
 import { CategoryProvider } from './context/categoryContext';
 import DataProvider from './context/authcontext';
+import { PersonProvider } from './context/personContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
+  <PersonProvider>
     <ProductProvider>
       <CategoryProvider>
         <DataProvider>
@@ -17,6 +19,7 @@ root.render(
         </DataProvider>
       </CategoryProvider>
     </ProductProvider>
+  </PersonProvider>
   // </React.StrictMode>
 );
 

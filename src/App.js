@@ -25,6 +25,7 @@ import { ProtectCustomerRoute } from "./context/ProtectRoute";
 import WalletDashboard from "./screens/WalletPage/WalletDashoard";
 import Layout from './Admin/components/Layout/Layout';
 import TableView from './Admin/components/Product/TableView';
+import PersonTableView from "./Admin/components/Person/PersonTableView";
 
 
 function App() {
@@ -119,6 +120,8 @@ function App() {
           
           <Route path='/admin' element={<Layout />}>
               <Route index element={<TableView tableTitle={ "PRODUCTS" }/>} />
+              <Route path="/admin/users" element={<PersonTableView tableTitle={"ALL USERS"}/>} />
+              <Route path="/admin/orders" element={<PersonTableView tableTitle={"ALL ORDERS"}/>} />
           </Route>
           <Route path="/wallet" element={
             <ProtectCustomerRoute>
