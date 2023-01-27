@@ -21,6 +21,7 @@ import ResetPassword from './screens/ResetPassword/ResetPassword';
 import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import AboutUs from './screens/AboutUs/AboutUs';
 import VerifyRegistration from "./screens/Signup/VerifySignup";
+import Checkout from "./screens/Checkout/Checkout";
 
 function App() {
   return (
@@ -42,6 +43,8 @@ function App() {
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/verifyRegistration" element={<VerifyRegistration />} />
+          <Route path="/checkout" element={<Checkout />} />
+
           <Route
             path="/shop"
             element={

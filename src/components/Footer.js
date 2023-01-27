@@ -1,6 +1,6 @@
 import { BsTwitter, BsInstagram, BsClock, BsTelephone} from "react-icons/bs"
 import { ImFacebook, ImLocation} from "react-icons/im"
-// import { Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 // BsTelephoneFill, BsFillClockFill,
 // ImLocation,
 
@@ -8,11 +8,11 @@ export const FooterCard = (props) =>{
     return(
         <div className="">
             <h6 className="font-bold mb-3 text-[#403414] text-[0.7rem] after:h-[4px] after:bg-black after:inline-block after:relative after:align-middle after:w-1/2" >{props.heading}</h6>
-            <a href="/"><p>{props.link1}</p></a> 
-            <a href="/"><p>{props.link2}</p></a> 
-            <a href="/checkout"><p>{props.link3}</p></a> 
-            <a href="/" ><p>{props.link4}</p></a> 
-            <a href="/"><p>{props.link5}</p></a> 
+            <Link to="/"><p>{props.link1}</p></Link> 
+            <Link to="/"><p>{props.link2}</p></Link> 
+            <Link to="/checkout"><p>{props.link3}</p></Link> 
+            <Link to="/" ><p>{props.link4}</p></Link> 
+            <Link to="/"><p>{props.link5}</p></Link> 
         </div>
     )
 
@@ -35,9 +35,9 @@ const Footer = () => {
                         <span className=''>< BsTelephone /></span><span>+2348166386376</span>
                     </div>
                     <div className="flex gap-8 text-black">
-                        <a href='/'><ImFacebook /></a>
-                        <a href='/'><BsTwitter /></a>
-                        <a href='/'><BsInstagram /></a>
+                        <Link to='/'><ImFacebook /></Link>
+                        <Link to='/'><BsTwitter /></Link>
+                        <Link to='/'><BsInstagram /></Link>
                     </div>
                 </div>
                 <div className="flex gap-[2rem] md:gap-[5rem] mb-5 text-gray-600 justify-between">
@@ -53,9 +53,9 @@ const Footer = () => {
                         <h6 className="text-[1.7rem] font-bold text-[#403414]">OAKLAND</h6>
                     </div>
                     <div className="flex gap-3 justify-center items-center">
-                        <p><a href="/">PRIVACY</a></p>
-                        <p><a href="/">HELP</a></p>
-                        <p><a href="/">TERMS</a></p>
+                        <p><Link to="/">PRIVACY</Link></p>
+                        <p><Link to="/">HELP</Link></p>
+                        <p><Link to="/">TERMS</Link></p>
                     </div>
                 </div>
                 <div className="self-center mt-4">

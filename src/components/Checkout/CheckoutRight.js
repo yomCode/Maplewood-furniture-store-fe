@@ -1,4 +1,33 @@
-const CheckoutRight = ({itemsInCart}) => {
+import { useState, useEffect } from "react";
+import { apiGetAuthorization } from "../../utils/api/axios";
+import "./CheckoutRight.css";
+
+
+const CheckoutRight = () => {
+
+    const [pickup, setPickUp] = useState("");
+    
+    const [pickupDetails, setPickupDetails] = useState([])
+
+    const getPickUpCenters = async (e) => {
+
+        e.preventDefault()
+
+        if(pickup === "") return "";
+        
+        try{
+            const {data} = await apiGetAuthorization(`pickup/state/${pickup}`);
+            setPickupDetails(data)
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    useEffect(()=>{
+        getPickUpCenters()
+    }, [])
+
     return ( 
         <div className="right">
             <div className="checkout-right">
@@ -7,7 +36,8 @@ const CheckoutRight = ({itemsInCart}) => {
                         <div className="checkout-pickup">
                             <form>
                             <label for="pickup-stations" >Select a pickup station near you: </label>
-                            <select name="pickup" id="">
+                            <select onChange={(e) => setPickUp(e.target.value)} name="pickup" id="">
+                                <option value="">Select state</option>
                                 <option value="Abia">Abia</option>
                                 <option value="Adamawa">Adamawa</option>
                                 <option value="Akwa Ibom">Akwa Ibom</option>
@@ -45,26 +75,42 @@ const CheckoutRight = ({itemsInCart}) => {
                                 <option value="Yobe">Yobe</option>
                                 <option value="Zamfara">Zamfara</option>
                             </select>
-                            <input type="submit" value="Submit"/>
+                            <input className="submit" onClick={getPickUpCenters} type="submit" value="Submit"/>
                             </form>
                             <div className="location">
-                                <h3>Select your Pickup Centers here </h3>
-                                <ul>
-                                    <li></li>
-                                </ul>
+                                {/* <h3>Select your Pickup Centers here </h3> */}
+                               {pickupDetails.length > 0 && pickupDetails.map((item, index)=>
+                                <label class="container">
+                                <input type="radio" checked="checked" name="radio"></input>
+                                    <div key={index}>
+                                            
+                                            <form action="">
+                                                    <ul>
+                                                    
+                                                        <p className="bi bi-shop" >{item.name}</p>
+                                                        <p>{item.location}</p>
+                                                        <p>{item.state}</p>
+                                                        <p>{item.phone}</p>
+                                                        <p>{item.email}</p>
+                                                        <p>Delivery fee: ₦{item.delivery}</p>
+
+                                                    </ul>
+                                            </form>
+                                        </div> 
+                                        <div>
+                                            
+                                        </div>
+                                        
+                                {/* <span class="checkmark"></span> */}
+                                </label>
+                                )}
                             </div>
                         </div>
                     </div>
-                    <h4>Payment Method</h4>
+
                     <div className="payment-method">
                         
-
-                        <form action="/">
-                        <label for="payment-option" >Select a payment method: </label>
-                            <input type="radio" id="" name="payment-method" value="payment-method" />
-                            <label for="card-payment">Pay with Wallet</label>
-                            <input type="submit" value="Submit" />
-                        </form>
+                        <button>Pay with Wallet</button>
 
                     </div>
                 </div>

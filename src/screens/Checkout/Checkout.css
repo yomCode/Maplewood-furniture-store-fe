@@ -6,12 +6,14 @@
     padding-left: 20px;
     padding-top: 25px;
     padding-bottom: 25px;
+
 }
 
 .checkout-text{
     background-color: rgb(218, 196, 161);
     text-align: center;
     font-size: xx-large;
+    font-weight: 800;
     margin-top: 5rem;
     padding: 10px;
 }
