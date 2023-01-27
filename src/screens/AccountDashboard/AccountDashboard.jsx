@@ -6,6 +6,7 @@ import DashboardCard from "../../components/DashboardComponents/DashboardCard";
 import SideBar from "../../components/SideBar/SideBar";
 import { useAuth } from "../../context/authcontext";
 import "./accountDashboard.css";
+import { ProtectCustomerRoute } from "../../context/ProtectRoute";
 
 const AccountDashboard = () => {
   const [screenSize, setScreenSize] = useState(window.innerWidth);
@@ -37,6 +38,7 @@ const AccountDashboard = () => {
   const onChange = (e) => {
     e.preventDefault();
     setGetUser({ ...getUser, [e.target.name]: e.target.value });
+    setGetWallet({...getWallet, [e.target.name]: e.target.value});
   };
 
   return (
@@ -75,8 +77,7 @@ const AccountDashboard = () => {
               <div className="">
                 <DashboardCard
                   title="Wallet Amount"
-                  content={getWallet.wallet}
-                  icon2={<TbCurrencyNaira className="text-2xl" />}
+                  content={getWallet.walletBalance}
                 />
               </div>
             </div>

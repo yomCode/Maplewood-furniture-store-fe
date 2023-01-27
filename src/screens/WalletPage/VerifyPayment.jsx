@@ -1,51 +1,64 @@
 import { useEffect, useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { FaTimes } from "react-icons/fa";
-import { GiCheckMark } from "react-icons/gi";
 import { ImCancelCircle } from "react-icons/im";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import { useAuth } from "../../context/authcontext"
 
 
-const VerifyRegistration = () => {
+const VerifyPayment = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const { VerifyReg, verifyReg } = useAuth();
+    const { getTransDetail, FinalizePayment } = useAuth();
     const [queryParams] = useSearchParams();
+    // const { reference, trxref } = useParams();
+
+
+    const [reference, setReference] = useState('');
+
+    useEffect(() => {
+        const currentUrl = window.location.href;
+        const match = currentUrl.match(/reference=([^&]+)/);
+        if (match) {
+            setReference(match[1]);
+        }
+    }, []);
 
     useEffect(() => {
         setIsLoading(true)
-        VerifyReg(queryParams);
-        console.log(queryParams)
+        FinalizePayment(reference);
         setIsLoading(false)
-    }, [queryParams])
+        console.log(reference)
+    }, [reference])
+
+
 
     return(
         <div className="pt-8 h-[100vh] w-full flex justify-center items-center bg-[#f5f5f5]">
+            {isLoading && <Loader />}
             {
-                verifyReg.message === "Request Successful" ?
+                getTransDetail === "Transaction Completed" ?
              
             <div className="flex flex-col gap-6 bg-[#e8e8e8] border justify-center items-center w-[50%] md:w-[30%] h-[400px] rounded-[2rem] ">
                 < BsFillCheckCircleFill size={80} className='text-[green]' />
                 <h1 className="text-[1rem]">
-                   {verifyReg.data}
+                   {getTransDetail}
                 </h1>
-                <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/login'>Login</Link>
+                <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/'>Continue to Home</Link>
             </div>
              :
              <div className="flex flex-col gap-6 bg-[#e8e8e8] border justify-center items-center w-[50%] md:w-[30%] h-[400px] rounded-[2rem] ">
                 < ImCancelCircle size={80} className='text-[red]' />
                 <h1 className="text-[1rem]">
-                   Verification failed!
+                   Transaction failed
                 </h1>
-                <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/'>Resend Token</Link> 
+                <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/'>Retry</Link> 
             </div>
              }
-             {isLoading && <Loader />}
+             
         </div>
     )
 }
 
-export default VerifyRegistration;
+export default VerifyPayment;

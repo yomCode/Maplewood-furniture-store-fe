@@ -22,6 +22,13 @@ import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import AboutUs from './screens/AboutUs/AboutUs';
 import VerifyRegistration from "./screens/Signup/VerifySignup";
 import Checkout from "./screens/Checkout/Checkout";
+import { ProtectCustomerRoute } from "./context/ProtectRoute";
+import WalletDashboard from "./screens/WalletPage/WalletDashoard";
+import VerifyPayment from "./screens/WalletPage/VerifyPayment";
+import Layout from './Admin/components/Layout/Layout';
+import TableView from './Admin/components/Product/TableView';
+import PersonTableView from "./Admin/components/Person/PersonTableView";
+import OrdersTableView from './Admin/components/Order/OrdersTableView'
 
 function App() {
   return (
@@ -33,12 +40,26 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/product" element={<SingleProduct />} />
-          <Route path="/dashboard" element={<AccountDashboard />} />
+          <Route path="/dashboard" element={
+            <ProtectCustomerRoute>
+              <AccountDashboard />
+            </ ProtectCustomerRoute>
+          } />
           <Route path="/signup" element={<FormSignUp />} />
-          <Route path="/dashboard-acc-info" element={<DashboardInfo />} />
-          <Route path="/addressbook" element={<AddressbookDashboard />} />
+          <Route path="/dashboard-acc-info" element={
+          <ProtectCustomerRoute>
+          <DashboardInfo />
+        </ ProtectCustomerRoute>} />
+          <Route path="/addressbook" element={
+            <ProtectCustomerRoute>
+            <AddressbookDashboard />
+          </ ProtectCustomerRoute>} />
+          
           <Route path="/login" element={<FormLogin />} />
-          <Route path="/new-address" element={<NewAddress />} />
+          <Route path="/new-address" element={
+          <ProtectCustomerRoute>
+          <NewAddress />
+        </ ProtectCustomerRoute>} />
           <Route path="/forgotpassword" element={<ForgottenPassword />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/aboutus" element={<AboutUs />} />
@@ -74,7 +95,11 @@ function App() {
           <Route path="favorites/:id" element={<SingleProduct />} />
 
           <Route path="*" element={<Page404 />} />
-          <Route path="/accountInfo" element={<UserInformation />} />
+          
+          <Route path="/accountInfo" element={
+          <ProtectCustomerRoute>
+            <UserInformation />
+        </ ProtectCustomerRoute>} />
 
           <Route
             path="categories/viewByCategory/:id"
@@ -86,22 +111,28 @@ function App() {
             }
           />
 
-          <Route
-            path="categories/subcategories/:id/shop"
-            element={
-              <Product
-                title={"Products"}
-                url={"products"}
-                productUrlProp={`/products/subcategory`}
-                isEditable={false}
-                isId={true}
-              />
-            }
+          <Route path="categories/subcategories/:id/shop" element={<Product 
+                  title={"Products"}
+                  url={"products"}
+                  productUrlProp={`/products/subcategory`}
+                  isEditable={false}
+                  isId={true}
+              />}
           />
-          <Route
-            path="categories/subcategories/:id/shop/products/:id"
-            element={<SingleProduct />}
-          />
+          <Route path="categories/subcategories/:id/shop/products/:id" 
+                  element={<SingleProduct /> } />
+          
+          <Route path='/admin' element={<Layout />}>
+              <Route index element={<TableView tableTitle={ "PRODUCTS" }/>} />
+              <Route path="/admin/users" element={<PersonTableView tableTitle={"ALL USERS"}/>} />
+              <Route path="/admin/orders" element={<OrdersTableView tableTitle={"ALL ORDERS"}/>} />
+          </Route>
+          <Route path="/wallet" element={
+            <ProtectCustomerRoute>
+              <WalletDashboard />
+            </ ProtectCustomerRoute>
+          } />
+          <Route path="/confirm-payment" element={<VerifyPayment />} />
         </Routes>
         <BackToTop />
         <Footer />
