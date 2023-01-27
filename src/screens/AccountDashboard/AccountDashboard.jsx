@@ -78,7 +78,6 @@ const AccountDashboard = () => {
                 <DashboardCard
                   title="Wallet Amount"
                   content={getWallet.walletBalance}
-                  icon2={<TbCurrencyNaira className="text-2xl" />}
                 />
               </div>
             </div>
