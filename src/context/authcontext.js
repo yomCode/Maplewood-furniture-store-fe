@@ -6,12 +6,13 @@ import {
   apiPost,
   apiPostAuthorization,
   apiPut,
+  apiDeleteAuthorization
 } from "../utils/api/axios";
-import { toast } from "react-toastify";
 import {
   errorNotification,
   successNotification,
 } from "../components/Notification";
+
 
 export const dataContext = createContext();
 
@@ -22,6 +23,8 @@ const DataProvider = ({ children }) => {
   const [getIsDefault, setIsDefault] = React.useState(false);
   const [getAddress, setGetAddress] = React.useState({});
   const [newAddress, setNewAddress] = React.useState({});
+
+  const [cartItems, setCartItems] = React.useState(null);
   const [verifyReg, setVerifyReg] = React.useState({});
   const [getTransDetail, setGetTransDetail] = React.useState({});
   const [getWalletDetails, setGetWalletdetails] = React.useState({});
@@ -41,7 +44,6 @@ const DataProvider = ({ children }) => {
       };
       await apiPost("customer/signup", registerData).then((res) => {
         successNotification(res.data.data);
-        toast.success(res.data.data);
         console.log(res.data.data);
         setTimeout(() => {
           window.location.href = "/login";
@@ -61,7 +63,7 @@ const DataProvider = ({ children }) => {
      };
      await apiPost("auth/forgot-password-request", registerData).then((res) => {
        successNotification(res.data);
-       toast.success(res.data.data);
+       //toast.success(res.data.data);
        console.log(res.data.data);
        setTimeout(() => {
          window.location.href = "/forgotpassword";
@@ -83,13 +85,12 @@ const DataProvider = ({ children }) => {
       };
 
       await apiPost(`/users/verify/${signature}`, otpData).then((res) => {
-        toast.success(res.data.message);
+       
         setTimeout(() => {
           window.location.href = "/login";
         }, 2000);
       });
     } catch (err) {
-      toast.error(err.response.data.Error);
     }
   };
 
@@ -98,13 +99,13 @@ const DataProvider = ({ children }) => {
   const ResendOTP = async (signature) => {
     try {
       await apiGet(`/users/resend-otp/${signature}`).then((res) => {
-        toast.success(res.data.message);
+       
         setTimeout(() => {
           window.location.href = "/otp";
         }, 2000);
       });
     } catch (err) {
-      toast.error(err.response.data.Error);
+      
     }
   };
 
@@ -132,6 +133,124 @@ const DataProvider = ({ children }) => {
     } catch (err) {
       console.log(err.response.data.message);
       errorNotification(err.response.data.message);
+    }
+  };
+
+   /**============= Add to Cart ======= **/
+    const AddToCartConfig = async (productId) => {
+      try {
+      await apiPostAuthorization(`customer/cart/item/add/${productId}`)
+        .then((res) => {
+          successNotification(res.data);
+          console.log(res.data);
+          setTimeout(() => {
+            window.location.href = "/shopping-cart";
+          }, 2000);
+      })
+        .catch((err) => {
+          console.log(err.response.data.message);
+          errorNotification(err.response.data.message);
+        });
+    } catch (err){
+      console.log(err.response.data.message);
+      }
+    };
+
+
+   /**============= Remove Item From Cart ======= **/
+   const RemoveItemFromCartConfig = async (itemId) => {
+    try {
+    await apiDeleteAuthorization(`customer/cart/item/delete/${itemId}`)
+      .then((res) => {
+        successNotification(res.data);
+        console.log(res.data);
+        setTimeout(() => {
+          window.location.href = "/shopping-cart";
+        }, 2000);
+    })
+      .catch((err) => {
+        console.log(err.response.data.message);
+        errorNotification(err.response.data.message);
+      });
+  } catch (err){
+    console.log(err.response.data.message);
+    }
+  };
+
+     /**============= Increase Item Quantity in cart ======= **/
+     const IncreaseItemQuantityConfig = async (productId) => {
+      try{
+        await apiPut(`customer/cart/item/add-to-quantity/${productId}`)
+          .then((res) => {
+            successNotification(res.data.message);
+            const index = cartItems.items.findIndex(item=>item.product.id === productId)
+            setCartItems(prev=>{
+              prev.items[index].orderQty = prev.items[index].orderQty + 1
+              return prev;
+            });
+            setTimeout(() => {
+              window.location.href = "/shopping-cart";
+            }, 2000);
+            console.log(res.data.message);
+
+        })
+          .catch((err) => {
+            console.log(err.response.data.message);
+            errorNotification(err.response.data.message);
+          });
+      } catch (err){
+        console.log(err.response.data.message);
+      }
+    }
+
+     /**============= Decrease Item Quantity in cart ======= **/
+     const ReduceFromItemQuantityConfig = async (productId) => {
+      try {
+      await apiPut(`customer/cart/item/reduce-quantity/${productId}`)
+        .then((res) => {
+          successNotification(res.data.message);
+          setTimeout(() => {
+            window.location.href = "/shopping-cart";
+          }, 2000);
+          console.log(res.data.message);
+      })
+        .catch((err) => {
+          console.log(err.response.data.message);
+          errorNotification(err.response.data.message);
+        });
+    } catch (err){
+      console.log(err.response.data.message);
+      }
+    };
+
+
+    /**=============Get all Cart Items ======= **/
+  const GetAllCartItems = async () => {
+    try {
+      await apiGetAuthorization(`customer/cart/view`).then((res) => {
+        setCartItems(res.data);
+        console.log("cart",res.data.items);
+        
+      });
+    } catch (err) {
+      console.log(err.response.data.message);
+    }
+  };
+
+   /**============= Clear Cart ======= **/
+   const ClearCartConfig = async () => {
+    try {
+    await apiDeleteAuthorization(`customer/cart/clear`)
+      .then((res) => {
+        successNotification(res.data);
+        console.log(res.data);
+    })
+      .catch((err) => {
+        console.log(err.response.data.message);
+        errorNotification(err.response.data.message);
+      });
+  } catch (err){
+    console.log(err.response.data.message);
     }
   };
 
@@ -378,10 +497,6 @@ const WalletDetails = async () => {
     }
   }
 
-  /**============= Clear cart ======= **/
-  // const handleClear = () => {
-  //   setCartItem([]);
-  // };
 
   return (
     <dataContext.Provider
@@ -402,6 +517,15 @@ const WalletDetails = async () => {
         getAddressbook,
         CreateAddress,
         newAddress,
+        AddToCartConfig,
+        IncreaseItemQuantityConfig,
+        ReduceFromItemQuantityConfig,
+        cartItems,
+        OTPConfig,
+        ResendOTP,
+        GetAllCartItems,
+        RemoveItemFromCartConfig, 
+        ClearCartConfig,
         verifyReg,
         VerifyReg,
         GetAddress,
@@ -416,7 +540,6 @@ const WalletDetails = async () => {
         getTransDetail,
         getWalletDetails,
         WalletDetails
-        
       }}
     >
       {children}
