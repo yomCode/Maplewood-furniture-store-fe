@@ -9,15 +9,16 @@ export const CategoryProvider = ({ children }) => {
     const[categories, setCategories] = useState([])
     const[singleSubcategories, setSingleSubcategories] = useState([])
 
-    // useEffect(() => {
-    //     const subCategoriesUrl = `/subcategory/view-all`
-    //     axios.get(subCategoriesUrl)
-    //     .then(res => {
-    //         console.log(res.data)
-    //     }).catch(err => {
-    //         console.log(err)
-    //     })
-    // }, [])
+    useEffect(() => {
+        const subCategoriesUrl = `/subcategory/view-all`
+        axios.get(subCategoriesUrl)
+        .then(res => {
+            console.log(res.data)
+            setSubcategories(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
 
     useEffect(() => {
         if(categoryUrl){

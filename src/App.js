@@ -24,6 +24,10 @@ import VerifyRegistration from "./screens/Signup/VerifySignup";
 import { ProtectCustomerRoute } from "./context/ProtectRoute";
 import WalletDashboard from "./screens/WalletPage/WalletDashoard";
 import VerifyPayment from "./screens/WalletPage/VerifyPayment";
+import Layout from './Admin/components/Layout/Layout';
+import TableView from './Admin/components/Product/TableView';
+import PersonTableView from "./Admin/components/Person/PersonTableView";
+import OrdersTableView from './Admin/components/Order/OrdersTableView'
 
 function App() {
   return (
@@ -89,6 +93,7 @@ function App() {
           <Route path="favorites/:id" element={<SingleProduct />} />
 
           <Route path="*" element={<Page404 />} />
+          
           <Route path="/accountInfo" element={
           <ProtectCustomerRoute>
             <UserInformation />
@@ -104,22 +109,22 @@ function App() {
             }
           />
 
-          <Route
-            path="categories/subcategories/:id/shop"
-            element={
-              <Product
-                title={"Products"}
-                url={"products"}
-                productUrlProp={`/products/subcategory`}
-                isEditable={false}
-                isId={true}
-              />
-            }
+          <Route path="categories/subcategories/:id/shop" element={<Product 
+                  title={"Products"}
+                  url={"products"}
+                  productUrlProp={`/products/subcategory`}
+                  isEditable={false}
+                  isId={true}
+              />}
           />
-          <Route
-            path="categories/subcategories/:id/shop/products/:id"
-            element={<SingleProduct />}
-          />
+          <Route path="categories/subcategories/:id/shop/products/:id" 
+                  element={<SingleProduct /> } />
+          
+          <Route path='/admin' element={<Layout />}>
+              <Route index element={<TableView tableTitle={ "PRODUCTS" }/>} />
+              <Route path="/admin/users" element={<PersonTableView tableTitle={"ALL USERS"}/>} />
+              <Route path="/admin/orders" element={<OrdersTableView tableTitle={"ALL ORDERS"}/>} />
+          </Route>
           <Route path="/wallet" element={
             <ProtectCustomerRoute>
               <WalletDashboard />

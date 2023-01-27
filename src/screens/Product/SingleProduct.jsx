@@ -23,7 +23,7 @@ const SingleProduct = () => {
     const{ imageUrl, description, price, name, availableQty } = singleProduct
     const[numOfItems, setNumOfItems] = useState(1)
 
-    const onQuantityInputChange = (e) => setNumOfItems(e.getTarget.value)
+    const onQuantityInputChange = (e) => setNumOfItems(e.target.value)
     
     const notification = (type, content) => {
     messageApi.open({
