@@ -2,6 +2,7 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import axios from 'axios'
 import { message } from "antd";
 import { errorNotification, successNotification } from "../components/Notification";
+import { apiDelete, apiGet, apiPost, apiPut } from "../utils/api/axios";
 
 const ProductsContext = createContext();
 
@@ -21,7 +22,7 @@ const ProductProvider = ({ children }) => {
     const getProducts = () => {
         if(productUrl.length > 0) {
             const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
-                axios.get(allProductsUrl)
+                apiGet(allProductsUrl)
                 .then((res) => {
                     const data = res.data.data
                     setProducts(data.content)
@@ -43,7 +44,7 @@ const ProductProvider = ({ children }) => {
     const deleteProduct = (product) => {
         if(product.id !== undefined) {
             console.log(`id: ${product.id}`)
-            axios.delete(`/admin/products/delete/${product.id}`)
+            apiDelete(`/admin/products/delete/${product.id}`)
             .then(res => {
               console.log(res);
               message.success(`PRODUCT ${product.name} HAS BEEN DELETED`);
@@ -61,7 +62,7 @@ const ProductProvider = ({ children }) => {
     /*** EDIT PRODUCT **/
     const editProduct = (onClose, product) => {
         console.log("Edit product Link clicked: " + singleProduct.id)
-        axios.put(`/admin/products/update/${singleProduct.id}`, product)
+        apiPut(`/admin/products/update/${singleProduct.id}`, product)
         .then(res => {
             console.log(res)
             onClose()
@@ -84,7 +85,7 @@ const ProductProvider = ({ children }) => {
     //********** ADD NEW PRODUCT ********//
     const addNewProduct = (setSubmitting, onClose, newProduct) => {
         setSubmitting(true);
-        axios.post("/admin/products/new", newProduct)
+        apiPost("/admin/products/new", newProduct)
         .then(res => {
             console.log(res.data);
             onClose();
