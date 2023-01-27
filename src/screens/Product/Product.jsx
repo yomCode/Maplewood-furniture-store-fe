@@ -4,9 +4,9 @@ import { Dropdown, Space } from 'antd'
 import useProduct from '../../hooks/useProduct';
 import Categories from '../../components/CategoryCard/Categories';
 import Pagination from './Pagination';
-
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
 
 const items = [
     {

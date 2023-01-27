@@ -21,6 +21,7 @@ import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import AboutUs from './screens/AboutUs/AboutUs';
 import ShoppingCart from "./screens/ShoppingCart/ShoppingCart";
 import VerifyRegistration from "./screens/Signup/VerifySignup";
+import Checkout from "./screens/Checkout/Checkout";
 import { ProtectCustomerRoute } from "./context/ProtectRoute";
 import WalletDashboard from "./screens/WalletPage/WalletDashoard";
 import VerifyPayment from "./screens/WalletPage/VerifyPayment";
@@ -65,6 +66,8 @@ function App() {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/shopping-cart" element={<ShoppingCart />}/>
           <Route path="/verifyRegistration" element={<VerifyRegistration />} />
+          <Route path="/checkout" element={<Checkout />} />
+
           <Route
             path="/shop"
             element={
