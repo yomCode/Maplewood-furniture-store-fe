@@ -1,7 +1,6 @@
 import ReactPaginate from 'react-paginate';
 import { ArrowLeftTwoTone, ArrowRightAltOutlined,  } 
 from '@mui/icons-material';
-import { Link } from 'react-router-dom'
 import useProduct from '../../hooks/useProduct';
 import ProductItem from '../../components/ProductCard/ProductItem'
 
@@ -19,9 +18,7 @@ const Pagination = ({ url, isEditable }) => {
           <div className="favorites-div">
             { 
                 products.map((product, index) => 
-                    <Link to={`${url}/${product.id}`} key={index}> 
-                        <ProductItem product={ product } isEditable={isEditable} /> 
-                    </Link>
+                        <ProductItem key={index} product={ product } url={url} isEditable={isEditable} /> 
             )}
           </div>
 

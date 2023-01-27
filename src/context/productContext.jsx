@@ -2,7 +2,7 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import axios from 'axios'
 import { message } from "antd";
 import { errorNotification, successNotification } from "../components/Notification";
-import { apiDelete, apiGet, apiPost, apiPut } from "../utils/api/axios";
+import { apiDelete, apiGet, apiGetAuthorization, apiPost, apiPut } from "../utils/api/axios";
 
 const ProductsContext = createContext();
 
@@ -105,6 +105,46 @@ const ProductProvider = ({ children }) => {
             setSubmitting(false)
         });
     }
+
+    const getFavorites = () => {
+        apiGetAuthorization(`/products/favorites/viewAllFavorites?pageNo=${pageNumber}]`)
+        .then(res => {
+                    const data = res.data.data
+                    setProducts(data.content)
+                    setPageNumber(data.number)
+                    setPageElementSize(data.size)
+                    setTotalPages(data.totalPages)
+                    setTotalElements(data.totalElements)
+                    setNumOfElements(data.numberOfElements)
+                    setFetching(false)
+        })
+        .catch(err => {
+
+            setFetching(false)
+        })
+    }
+
+    const getSingleFavorite = (product) => {
+        apiGetAuthorization(`/products/favorite/view/${product.id}`)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+
+    const addToFavorites = (product) => {
+        apiPost(`/customer/products/favorites/add/${product.id}`)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
 
     const getProductsCallback = useCallback(() => {     
         if(productUrl.length > 0) {
