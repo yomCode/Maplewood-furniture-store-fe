@@ -32,16 +32,25 @@ export const apiPostAuthorization = (path, data) => {
 export const apiPut = (path,data) => {
     const config = {
         headers: {
-            Autorization: `Bearer ${localStorage.getItem("signature")}`
+            Authorization: `Bearer ${localStorage.getItem("signature")}`
         }
     }
     return axios.put(`${baseUrl}${path}`, data, config);
 };
 
+export const apiPutWithoutData = (path) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("signature")}`
+        }
+    }
+    return axios.put(`${baseUrl}${path}`, config);
+};
+
 export const apiPatch = (path,data) => {
     const config = {
         headers: {
-            Autorization: `Bearer ${localStorage.getItem("signature")}`
+            Authorization: `Bearer ${localStorage.getItem("signature")}`
         }
     }
     return axios.patch(`${baseUrl}${path}`, data, config);

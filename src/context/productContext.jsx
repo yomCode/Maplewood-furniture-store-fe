@@ -1,9 +1,11 @@
 import { createContext, useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 
-const ProductsContext = createContext()
+const ProductsContext = createContext();
 
 const ProductProvider = ({ children }) => {
+
+    const[productUrl, setProductUrl] = useState("")
     const[products, setProducts] = useState([])
     const[pageNumber, setPageNumber] = useState(0)
     const[pageElementSize, setPageElementSize] = useState(0)
@@ -13,22 +15,22 @@ const ProductProvider = ({ children }) => {
 
     //fetch from db
     useEffect(() => {
-    const allProductsUrl = `/products/paginated-all?pageNo=${pageNumber}`
-        axios.get(allProductsUrl)
-        .then((res) => {
-            const data = res.data.data
-            setProducts(data.content)
-            setPageNumber(data.number)
-            setPageElementSize(data.size)
-            setTotalPages(data.totalPages)
-            setTotalElements(data.totalElements)
-            setNumOfElements(data.numberOfElements)
-
-            console.log(data)
-            
-        })
-        .catch((err) => console.log(err))
-    }, [pageNumber])
+        if(productUrl.length > 0) {
+            console.log("ProductContext: " + productUrl)
+            const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
+                axios.get(allProductsUrl)
+                .then((res) => {
+                    const data = res.data.data
+                    setProducts(data.content)
+                    setPageNumber(data.number)
+                    setPageElementSize(data.size)
+                    setTotalPages(data.totalPages)
+                    setTotalElements(data.totalElements)
+                    setNumOfElements(data.numberOfElements)
+                })
+                .catch((err) => console.log(err))
+        }
+    }, [pageNumber, productUrl])
 
     return( 
         <ProductsContext.Provider value={{ 
@@ -39,11 +41,12 @@ const ProductProvider = ({ children }) => {
             pageNumber, 
             setPageNumber, 
             totalElements,
-            numOfElements
+            numOfElements,
+            setProductUrl
             }}>
             { children }
         </ProductsContext.Provider>
     )
 }
 
-export { ProductsContext, ProductProvider }
+export { ProductsContext, ProductProvider };

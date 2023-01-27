@@ -1,16 +1,28 @@
 import React, { createContext } from "react";
 import { apiGet, apiPost, apiPostAuthorization, apiDeleteAuthorization,  apiPut, apiGetAuthorization } from "../utils/api/axios";
-import {toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { errorNotification, successNotification } from "../components/Notification";
 
+// =======
+// import {
+//   apiGet,
+//   apiGetAuthorization,
+//   apiPost,
+//   apiPostAuthorization,
+//   apiPut,
+// } from "../utils/api/axios";
+// import { toast } from "react-toastify";
+// import {
+//   errorNotification,
+//   successNotification,
+// } from "../components/Notification";
 
 export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
   const [getUser, setGetUser] = React.useState({});
-  const [getVendors, setGetVendors] = React.useState([]);
-  const [getVendorFood, setGetVendorsFood] = React.useState([]);
+  const [getAddressbook, setGetAddressbook] = React.useState([]);
+  const [newAddress, setNewAddress] = React.useState({});
+  const [cartItems, setCartItems] = React.useState(null);
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -27,11 +39,10 @@ const DataProvider = ({ children }) => {
       };
       await apiPost("customer/signup", registerData).then((res) => {
         successNotification(res.data.data);
-        toast.success(res.data.data);
         console.log(res.data.data);
         setTimeout(() => {
           window.location.href = "/login";
-        }, 2000);
+        }, 1500);
       });
     } catch (err) {
       errorNotification(err.response.data.message);
@@ -47,13 +58,12 @@ const DataProvider = ({ children }) => {
       };
 
       await apiPost(`/users/verify/${signature}`, otpData).then((res) => {
-        toast.success(res.data.message);
+       
         setTimeout(() => {
           window.location.href = "/login";
         }, 2000);
       });
     } catch (err) {
-      toast.error(err.response.data.Error);
     }
   };
 
@@ -62,13 +72,13 @@ const DataProvider = ({ children }) => {
   const ResendOTP = async (signature) => {
     try {
       await apiGet(`/users/resend-otp/${signature}`).then((res) => {
-        toast.success(res.data.message);
+       
         setTimeout(() => {
           window.location.href = "/otp";
         }, 2000);
       });
     } catch (err) {
-      toast.error(err.response.data.Error);
+      
     }
   };
 
@@ -87,7 +97,7 @@ const DataProvider = ({ children }) => {
           // localStorage.setItem("role", res.data.role);
           setTimeout(() => {
             window.location.href = "/shop";
-          }, 2000);
+          }, 1500);
         })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -102,76 +112,105 @@ const DataProvider = ({ children }) => {
    /**============= Add to Cart ======= **/
     const AddToCartConfig = async (productId) => {
       try {
-      await apiPostAuthorization("customer/cart/item/add/{productId}")
+      await apiPostAuthorization(`customer/cart/item/add/${productId}`)
         .then((res) => {
-          successNotification(res.data.message);
-          console.log(res.data.message);
+          successNotification(res.data);
+          console.log(res.data);
           setTimeout(() => {
-            window.location.href = "/shoppingcart";
+            window.location.href = "/shopping-cart";
           }, 2000);
       })
         .catch((err) => {
-          console.log(err.response.data.error);
-          errorNotification(err.data.message);
+          console.log(err.response.data.message);
+          errorNotification(err.response.data.message);
         });
     } catch (err){
       console.log(err.response.data.message);
-      toast.error(err.response.data.message);
       }
     };
 
-   const [cartItem, setCartItem] = React.useState([]);
-   const handleAddItemToCart = async (product) => {
-     const ProductExist = cartItem.find((item) => item.id === product.id);
-      if (ProductExist) {
-        setCartItem(
-          cartItem.map((item) =>
-            item.id === product.id
-              ? { ...ProductExist, quantity: ProductExist.quantity + 1 }
-              : item
-          )
-        );
-      } else {
-        setCartItem([...cartItem, { ...product, quantity: 1 }]);
-      }
-   };
 
-     /**============= Decrease Items in cart ======= **/
-     const RemoveFromCartConfig = async (itemId) => {
+   /**============= Remove Item From Cart ======= **/
+   const RemoveItemFromCartConfig = async (itemId) => {
+    try {
+    await apiDeleteAuthorization(`customer/cart/item/delete/${itemId}`)
+      .then((res) => {
+        successNotification(res.data);
+        console.log(res.data);
+        setTimeout(() => {
+          window.location.href = "/shopping-cart";
+        }, 2000);
+    })
+      .catch((err) => {
+        console.log(err.response.data.message);
+        errorNotification(err.response.data.message);
+      });
+  } catch (err){
+    console.log(err.response.data.message);
+    }
+  };
+
+     /**============= Increase Item Quantity in cart ======= **/
+     const IncreaseItemQuantityConfig = async (productId) => {
+      try{
+        await apiPut(`customer/cart/item/add-to-quantity/${productId}`)
+          .then((res) => {
+            successNotification(res.data.message);
+            console.log(res.data.message);
+        })
+          .catch((err) => {
+            console.log(err.response.data.message);
+            errorNotification(err.response.data.message);
+          });
+      } catch (err){
+        console.log(err.response.data.message);
+      }
+    }
+
+     /**============= Decrease Item Quantity in cart ======= **/
+     const ReduceFromItemQuantityConfig = async (productId) => {
       try {
-      await apiDeleteAuthorization("cart/item/delete/{itemId}")
+      await apiPut(`customer/cart/item/reduce-quantity/${productId}`)
         .then((res) => {
           successNotification(res.data.message);
           console.log(res.data.message);
-          // setTimeout(() => {
-          //   window.location.href = "/shoppingcart";
-          // }, 2000);
       })
         .catch((err) => {
-          console.log(err.response.data.error);
-          errorNotification(err.data.message);
+          console.log(err.response.data.message);
+          errorNotification(err.response.data.message);
         });
     } catch (err){
       console.log(err.response.data.message);
-      toast.error(err.response.data.message);
       }
     };
 
 
+    /**=============Get all Cart Items ======= **/
+  const GetAllCartItems = async () => {
+    try {
+      await apiGetAuthorization(`customer/cart/view`).then((res) => {
+        setCartItems(res.data);
+        console.log(res.data);
+      });
+    } catch (err) {
+      console.log(err.response.data.message);
+    }
+  };
 
-  const handleRemoveFromCart = (product) => {
-    const ProductExist = cartItem.find((item) => item.id === product.id);
-
-    if (ProductExist.quantity === 1) {
-      setCartItem(cartItem.filter((item) => item.id !== product.id));
-    } else {
-      setCartItem(
-        cartItem.map((item) =>
-          item.id === product.id
-            ? { ...ProductExist, quantity: ProductExist.quantity - 1 }
-            : item
-        )
-      );
+   /**============= Clear Cart ======= **/
+   const ClearCartConfig = async () => {
+    try {
+    await apiDeleteAuthorization(`customer/cart/clear`)
+      .then((res) => {
+        successNotification(res.data);
+        console.log(res.data);
+    })
+      .catch((err) => {
+        console.log(err.response.data.message);
+        errorNotification(err.response.data.message);
+      });
+  } catch (err){
+    console.log(err.response.data.message);
     }
   };
 
@@ -216,17 +255,51 @@ const DataProvider = ({ children }) => {
 
   // ==============Update password=====================
 
-  const updatePassword = async (passwordData) => {
+  const updatePasswordConfig = async (passwordData) => {
     try {
-      
-    } catch (err) {}
+      const updatePasswordData = {
+        oldPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword,
+      };
+      await apiPut("auth/update-password", updatePasswordData).then((res) => {
+        successNotification(res.data);
+        console.log(JSON.stringify(res.data));
+      });
+    } catch (err) {
+      errorNotification(err.response.data);
+      console.log(err.response.data);
+    }
   };
 
-  /**=============Get all Vendors ======= **/
-  const GetAllVendors = async () => {
+
+
+  // =================New Address====================
+
+  const CreateAddress = async (formData) => {
+    try{
+      const addressData = {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        emailAddress: formData.email,
+        street: formData.street,
+        state: formData.state,
+        country: formData.country
+      }
+      await apiPostAuthorization('address/new', addressData).then((res) => {
+        successNotification(res.data)
+        console.log(res.data)
+      })
+    }catch(err){
+      errorNotification(err.response.data)
+      console.log(err.response.data)
+    }
+  }
+
+  /**=============Get Addressbook ======= **/
+  const GetAddressbook = async () => {
     try {
-      await apiGet(`products/view/2`).then((res) => {
-        setGetVendors(res.data);
+      await apiGetAuthorization("address/all").then((res) => {
+        setGetAddressbook(res.data);
         console.log(res.data);
       });
     } catch (err) {
@@ -234,43 +307,31 @@ const DataProvider = ({ children }) => {
     }
   };
 
-  /**=============Get all foods By Vendor ======= **/
-  const GetAllVendorsFood = async (vendorId) => {
-    try {
-      await apiGet(`/vendors/get-vendor-food/${vendorId}`).then((res) => {
-        setGetVendorsFood([...res.data.Vendor.food]);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-
-  /**============= Clear cart ======= **/
-  const handleClearCart = () => {
-    setCartItem([]);
-  };
 
   return (
     <dataContext.Provider
       value={{
         registerConfig,
         updateUserConfig,
-        OTPConfig,
-        ResendOTP,
+        updatePasswordConfig,
         LoginConfig,
         Logout,
-        GetAllVendors,
         GetUser,
         getUser,
         setGetUser,
-        GetAllVendorsFood,
-        getVendorFood,
-        cartItem,
-        handleAddItemToCart,
-        handleRemoveFromCart,
-        handleClearCart,
-        AddToCartConfig
+        GetAddressbook,
+        getAddressbook,
+        CreateAddress,
+        newAddress,
+        AddToCartConfig,
+        IncreaseItemQuantityConfig,
+        ReduceFromItemQuantityConfig,
+        cartItems,
+        OTPConfig,
+        ResendOTP,
+        GetAllCartItems,
+        RemoveItemFromCartConfig, 
+        ClearCartConfig
       }}
     >
       {children}

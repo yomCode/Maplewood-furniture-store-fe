@@ -8,12 +8,14 @@ import { useAuth } from '../../context/authcontext';
 
 const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
 
-const ProductItem = ({ product, isEditable, productId }) => {
+const ProductItem = ({ product, isEditable }) => {
   const navigate = useNavigate()
   const location = useLocation()
   let from = location.state?.from?.pathname || "/product"
 
-  const{ name, price, imageUrl } = product
+  const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
+
+  const{ id, name, price, imageUrl } = product
   const[value, setValue] = useState(3);
   const[isHover, setIsHover] = useState(false)
     
@@ -27,29 +29,26 @@ const ProductItem = ({ product, isEditable, productId }) => {
     const showSingleProduct = () => navigate(from, { replace: true, state: product })
 
     //*** Cart ***/
-    const { addItem } = useCart();
     const { AddToCartConfig } = useAuth();
 
-    const handleAddItemToCart = () => {
-        addItem(product);
-        AddToCartConfig(productId);
+    const addItemToCartHandler = () => {
+      console.log(`"Product Item: ${id}`)
+      AddToCartConfig(id);
     }
-    
   return ( 
-    <div className="product-container" onMouseOver={handleHover} onMouseLeave={handleHoverLeave} onClick={showSingleProduct}>
+    <div className="product-container" onMouseOver={handleHover} onMouseLeave={handleHoverLeave}>
         <img src={ imageUrl } alt={ name } />
         <h5 className="product-name">{ name }</h5>
         <span>  
             <Rate tooltips={desc} onChange={setValue} value={value}  />
-            {/* {value ? <span className="ant-rate-text">{desc[value - 1]}</span> : ''} */}
             <p className="product-price">${ price }</p>
         </span>
-        <p className="add-tocart-btn btn" onClick={handleAddItemToCart}>ADD TO CART</p>
+        <p className="add-tocart-btn btn" onClick={addItemToCartHandler}>ADD TO CART</p>
 
         { isHover && <button className='delete-btn' 
             onClick={() => deleteProduct(name)}>X</button> }
     </div>
-  )
-}
+  );
+};
 
-export default ProductItem
+export default ProductItem;

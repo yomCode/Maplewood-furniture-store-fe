@@ -1,8 +1,7 @@
 import "./Signup.css";
 import React, { useState } from "react";
 import { useAuth } from "../../context/authcontext";
-import { message } from "antd";
-
+import Loader from "../../components/Loader/Loader";
 
 const Signup = () => {
   const { registerConfig } = useAuth();
@@ -14,18 +13,20 @@ const Signup = () => {
     date_of_birth: "",
     address: "",
     gender: "",
-    phoneNumber: ""
+    phoneNumber: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setUser({ ...user, [e.target.name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    registerConfig(user);
+    setIsLoading(true);
+    await registerConfig(user);
+    setIsLoading(false);
     setUser({
       firstName: "",
       lastName: "",
@@ -43,10 +44,7 @@ const Signup = () => {
       <section className="signup_section">
         <div className="signregister">
           <div className="signup_col_1">
-            <form
-              className="signupForm "
-              onSubmit={handleSubmit}
-            >
+            <form className="signupForm " onSubmit={handleSubmit}>
               <h2 className="signup_h2">Sign Up</h2>
               <p className="signup_span">
                 Enter your personal details to create account
@@ -86,13 +84,17 @@ const Signup = () => {
                 required
               />
 
-              <select name="gender" value={user.gender} onChange={handleChange} required>
+              <select
+                name="gender"
+                value={user.gender}
+                onChange={handleChange}
+                required
+              >
                 <option> Select Gender</option>
                 <option value="MALE">MALE</option>
                 <option value="FEMALE">FEMALE</option>
                 <option value="OTHER">OTHER</option>
               </select>
-
               <input
                 type="date"
                 placeholder="Date of birth"
@@ -106,7 +108,6 @@ const Signup = () => {
                 name="phoneNumber"
                 value={user.phoneNumber}
                 onChange={handleChange}
-                required
                 placeholder="mobile number"
               />
 
@@ -125,6 +126,7 @@ const Signup = () => {
                 <a href="/login">Log in</a>
               </p>
             </form>
+            {isLoading && <Loader />}
           </div>
         </div>
       </section>
