@@ -27,6 +27,7 @@ import VerifyPayment from "./screens/WalletPage/VerifyPayment";
 import Layout from './Admin/components/Layout/Layout';
 import TableView from './Admin/components/Product/TableView';
 import PersonTableView from "./Admin/components/Person/PersonTableView";
+import OrdersTableView from './Admin/components/Order/OrdersTableView'
 
 function App() {
   return (
@@ -121,7 +122,7 @@ function App() {
           <Route path='/admin' element={<Layout />}>
               <Route index element={<TableView tableTitle={ "PRODUCTS" }/>} />
               <Route path="/admin/users" element={<PersonTableView tableTitle={"ALL USERS"}/>} />
-              <Route path="/admin/orders" element={<PersonTableView tableTitle={"ALL ORDERS"}/>} />
+              <Route path="/admin/orders" element={<OrdersTableView tableTitle={"ALL ORDERS"}/>} />
           </Route>
           <Route path="/wallet" element={
             <ProtectCustomerRoute>

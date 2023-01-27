@@ -50,17 +50,25 @@ const cancelEditProduct = () => {
 
 const productColumns = [
   {
-    title : "Image",
-    dataIndex: 'imageUrl',
-    key: 'imageUrl',
-    render: (_, person) => <CustomAvatar  key={person.id} style={{ 
-      color: '#f56a00', backgroundColor: '#fde3cf' }} 
-      firstName={person.firstName} lastName={person.lastName}/>
+    title : "Mode of Payment",
+    children: [
+      {
+        title: "Name",
+        dataIndex: 'name',
+        key: 'name'
+      }, 
+      {
+        title: 'Provider',
+        dataIndex: 'provider',
+        key: 'provider'
+      }
+    ]
+,
   },
   {
-    title: 'Id',
-    dataIndex: 'id',
-    key: 'id',
+    title: 'Delivery Fee',
+    dataIndex: 'deliveryFee',
+    key: 'deliveryFee',
   },
   {
     title: 'First Name',
@@ -68,40 +76,71 @@ const productColumns = [
     key: 'firstName',
   },
   {
-    title: 'Last Name',
-    dataIndex: 'lastName',
-    key: 'lastName',
+    title: 'Mode of Delivery',
+      dataIndex: 'modeOfDelivery',
+      key: 'modeOfDelivery',
   },
   {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
+    title: 'Delivery',
+    children: [
+      {
+        dataIndex: 'delivery',
+        key: 'delivery',
+      }
+    ]
+
   },
   {
-    title: 'Gender',
-    dataIndex: 'gender',
-    key: 'gender',
+    title: 'Grand Total',
+    dataIndex: 'grandTotal',
+    key: 'grandTotal',
   },
   {
-    title: 'Data of Birth',
-    dataIndex: 'date_of_birth',
-    key: 'date_of_birth',
-  },
-  {
-    title: 'Phone Number',
-    dataIndex: 'phone',
-    key: 'phone',
-  },  
-  {
-    title: 'Verified',
-    dataIndex: 'verificationStatus',
-    key: 'verificationStatus',
+    title: 'Discount',
+    dataIndex: 'discount',
+    key: 'discount',
   },
   {
     title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
+    children: [
+      {
+        title: 'Full Name',
+        dataIndex: 'fullName',
+        key: 'fullName',
+      },
+      {
+        title: 'Phone',
+        dataIndex: 'phone',
+        key: 'phone'
+      },
+      {
+        title: 'Email Address',
+        dataIndex: 'emailAddres',
+        key: 'emailAddress'
+      },
+       {
+        title: 'Street',
+        dataInde: 'street',
+        key: 'street'
+       },
+       {
+        title: 'State',
+        dataInde: 'state',
+        key: 'state'
+       },
+       {
+        title: 'Country',
+        dataInde: 'country',
+        key: 'country'
+       },
+       {
+        title: 'isDefault',
+        dataInde: 'isDefault',
+        key: 'isDefault'
+       },
+    ]
+
+  },  
   {
     title: "Actions",
     dataIndex: 'actions',

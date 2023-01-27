@@ -44,7 +44,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
             :
             <Table 
             dataSource={ persons }
-            rowkey={ person => person.id } 
+            rowkey={ person => person.email } 
             bordered
             pagination={false}
             scroll={{ x: '400px', y: 600 }}  

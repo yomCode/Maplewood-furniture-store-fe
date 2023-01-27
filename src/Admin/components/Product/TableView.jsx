@@ -50,7 +50,7 @@
             :
             <Table 
             dataSource={ products }
-            rowkey={ product => product.id } 
+            rowkey={ product => product.name } 
             bordered
             pagination={false}
             scroll={{ x: '400px', y: 600 }}  
