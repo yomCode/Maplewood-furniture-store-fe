@@ -31,7 +31,9 @@ const items = [
 const Product = ({title, url, displayCategories, productUrlProp, isEditable, isId, showFavorites}) => {
     const params = useParams()
     const { products, setProducts, pageElementSize, 
-          pageNumber, totalElements, numOfElements, setProductUrl, setFavoriteUrl } = useProduct()
+          pageNumber, totalElements, numOfElements,
+          favPageElementSize, favNumOfElements, favPageNumber, favTotalElements,
+          setProductUrl, setFavoriteUrl } = useProduct()
 
     const onClick = ({ key }) => {
         switch(key) {
@@ -63,9 +65,16 @@ const Product = ({title, url, displayCategories, productUrlProp, isEditable, isI
     <section className="favorites-section">
         <div className="products-info">
              {
+              showFavorites ? 
+              favNumOfElements < pageElementSize ?
+              <p>Showing { (favPageNumber * favPageElementSize) + 1 } - { favTotalElements } of { favTotalElements }</p> :
+              <p>Showing { favNumOfElements * (favPageNumber) + 1 } - { favNumOfElements * (favPageNumber + 1) } 
+                  of {favTotalElements} results</p>
+              :
               numOfElements < pageElementSize ?
               <p>Showing { (pageNumber * pageElementSize) + 1 } - { totalElements } of { totalElements }</p> :
               <p>Showing { numOfElements * (pageNumber) + 1 } - { numOfElements * (pageNumber + 1) } of {totalElements} results</p>
+
             }
             <h1>{ title }</h1>
             <Dropdown menu={{ items, onClick,}}>
