@@ -4,6 +4,10 @@ import { BsPencilFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { useAuth } from "../../context/authcontext";
 import Loader from "../Loader/Loader";
+import { Button, message } from "antd";
+import PopupConfirm from "../PopupNotification/PopupConfirm";
+import { DeleteOutlined } from "@mui/icons-material";
+
 
 export const ConfirmDelete = ({ closeModal, id }) => {
   const { DeleteAddress, GetAddressbook } = useAuth();
@@ -13,13 +17,10 @@ export const ConfirmDelete = ({ closeModal, id }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true)
-    DeleteAddress(id);
-    setIsLoading(false)
+    DeleteAddress(id)
+    closeModal()
+    setIsLoading(false);
   };
-
-  useEffect(() => {
-    GetAddressbook();
-  }, []);
 
   const handleClickOutside = (e) => {
     if (ref.current && !ref.current.contains(e.target)) {
@@ -38,7 +39,7 @@ export const ConfirmDelete = ({ closeModal, id }) => {
     <div className="w-[100%] flex justify-center items-center fixed">
       <div
         ref={ref}
-        className="flex flex-col items-center gap-4 absolute w-[30%] bg-[white] border p-3"
+        className="flex flex-col items-center gap-4 absolute w-[30%] z-50 bg-[white] border p-3"
       >
         <div>
           <p className="text-[1.5rem]">Confirm delete</p>
@@ -223,6 +224,11 @@ const EditAddress = ({ id, closeModal }) => {
   );
 };
 
+
+
+
+
+
 const AddressBookCard = ({ fullName, address, emailAddress, phoneNumber, id }) => {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -280,24 +286,45 @@ const AddressBookCard = ({ fullName, address, emailAddress, phoneNumber, id }) =
           >
             <BsPencilFill />
           </button>
-          <button
-            type="button"
-            onClick={() => setOpenConfirm(!openConfirm)}
-            className="text-[#de5757] text-1xl"
-          >
-            <MdDelete />
-          </button>
+          <PopupConfirm 
+            description={`Delete?`} 
+            confirm={() => confirmDeleteProduct()} 
+            cancel={() => cancelDeleteProduct()}
+            component={ <Button type="primary default" 
+            danger icon={<MdDelete />}></Button> }/>
         </div>
       </div>
-      {openConfirm && (
-        <ConfirmDelete id={id} closeModal={() => setOpenConfirm(false)} />
-      )}
+      {/* {openConfirm && ( */}
+        {/* <ConfirmDelete id={id} closeModal={() => setOpenConfirm(false)} /> */}
+      {/* )} */}
       {openEdit && (
         <EditAddress id={id} closeModal={() => setOpenEdit(false)} />
       )}
       {isLoading && <Loader />}
     </div>
   );
+};
+
+const handleConfirmDetails = () => {
+  return (
+    <div className="div">
+      <PopupConfirm 
+      description={`Delete?`} 
+      confirm={() => confirmDeleteProduct()} 
+      cancel={() => cancelDeleteProduct()}
+      component={ <Button type="primary default" 
+      danger ghost icon={<DeleteOutlined />}></Button> }/>
+    </div>
+
+  )
+}
+
+const confirmDeleteProduct = () => {
+  message.success("click Yes")
+};
+
+const cancelDeleteProduct = (e) => {
+  message.error('Click on No');
 };
 
 export default AddressBookCard;

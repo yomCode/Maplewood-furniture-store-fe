@@ -10,6 +10,7 @@ import ProductItem from '../../components/ProductCard/ProductItem'
 const Pagination = ({ url, isEditable }) => {
     const { totalPages, setPageNumber, products } = useProduct()
     const changePage = ({ selected }) => setPageNumber(selected)
+    
 
   return (
     <div>
