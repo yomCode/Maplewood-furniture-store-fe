@@ -1,11 +1,10 @@
 import "./CheckoutLeft.css";
-// import image from "../../../public/images/wooden.png"
 
 const CheckoutLeft = ({ itemsInCart }) => {
   return (
     <div className="left">
       {itemsInCart.map((item, index) => (
-        <div className="checkout-left">
+        <div className="checkout-left" key={index}>
           {index === 0 && (
             <div className="checkout-order-total">
               <h3 className="">Order Summary</h3>
@@ -16,6 +15,7 @@ const CheckoutLeft = ({ itemsInCart }) => {
           )}
           <div>
             {index === 0 && <h3>Order Details</h3>}
+            {console.log("My Items",item)}
             {/* <div className="checkout-order"> */}
             <div key={item.id} className="checkout-order">
               <div className="checkout-order-img">
@@ -27,7 +27,7 @@ const CheckoutLeft = ({ itemsInCart }) => {
                 <p>
                   Sub-total: <span>₦{item.subTotal}</span>
                 </p>
-              </div>{" "}
+              </div>
               <br />
             </div>
           </div>

@@ -23,6 +23,10 @@ const CheckoutRight = () => {
             console.log(error)
         }
     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+    }
     
     useEffect(()=>{
         getPickUpCenters()
@@ -35,7 +39,7 @@ const CheckoutRight = () => {
                         <h3>Pickup States</h3>
                         <div className="checkout-pickup">
                             <form>
-                            <label for="pickup-stations" >Select a pickup station near you: </label>
+                            <label htmlFor="pickup-stations" >Select a pickup station near you: </label>
                             <select onChange={(e) => setPickUp(e.target.value)} name="pickup" id="">
                                 <option value="">Select state</option>
                                 <option value="Abia">Abia</option>
@@ -82,12 +86,12 @@ const CheckoutRight = () => {
                                {pickupDetails.length > 0 && pickupDetails.map((item, index)=>
                                 <label class="container">
                                 <input type="radio" checked="checked" name="radio"></input>
-                                    <div key={index}>
+                                    <div >
                                             
-                                            <form action="">
-                                                    <ul>
+                                            <form onSubmit={handleSubmit}>
+                                                    <ul key={index}>
                                                     
-                                                        <p className="bi bi-shop" >{item.name}</p>
+                                                        <p >{item.name}</p>
                                                         <p>{item.location}</p>
                                                         <p>{item.state}</p>
                                                         <p>{item.phone}</p>

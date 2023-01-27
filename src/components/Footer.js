@@ -10,7 +10,7 @@ export const FooterCard = (props) =>{
             <h6 className=" font-bold mb-3 text-[#403414] text-[0.7rem] after:h-[4px] after:bg-black after:inline-block after:relative after:align-middle after:w-1/2" >{props.heading}</h6>
             <a href="/"><p>{props.link1}</p></a> 
             <a href="/"><p>{props.link2}</p></a> 
-            <a href="/"><p>{props.link3}</p></a> 
+            <a href="/checkout"><p>{props.link3}</p></a> 
             <a href="/" ><p>{props.link4}</p></a> 
             <a href="/"><p>{props.link5}</p></a> 
         </div>
