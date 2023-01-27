@@ -5,9 +5,9 @@ import useProduct from '../../hooks/useProduct';
 import Categories from '../../components/CategoryCard/Categories';
 import Pagination from './Pagination';
 import FavoritePagination from '../Favorites/FavoritePagination';
-
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
 
 const items = [
     {
