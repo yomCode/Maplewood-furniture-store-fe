@@ -20,6 +20,10 @@ import ResetPassword from './screens/ResetPassword/ResetPassword';
 import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import AboutUs from './screens/AboutUs/AboutUs';
 import ShoppingCart from "./screens/ShoppingCart/ShoppingCart";
+import VerifyRegistration from "./screens/Signup/VerifySignup";
+import { ProtectCustomerRoute } from "./context/ProtectRoute";
+import WalletDashboard from "./screens/WalletPage/WalletDashoard";
+import VerifyPayment from "./screens/WalletPage/VerifyPayment";
 
 function App() {
   return (
@@ -31,15 +35,32 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/dashboard" element={<AccountDashboard />} />
+          <Route path="/product" element={<SingleProduct />} />
+          <Route path="/dashboard" element={
+            <ProtectCustomerRoute>
+              <AccountDashboard />
+            </ ProtectCustomerRoute>
+          } />
           <Route path="/signup" element={<FormSignUp />} />
-          <Route path="/dashboard-acc-info" element={<DashboardInfo />} />
-          <Route path="/addressbook" element={<AddressbookDashboard />} />
+          <Route path="/dashboard-acc-info" element={
+          <ProtectCustomerRoute>
+          <DashboardInfo />
+        </ ProtectCustomerRoute>} />
+          <Route path="/addressbook" element={
+            <ProtectCustomerRoute>
+            <AddressbookDashboard />
+          </ ProtectCustomerRoute>} />
+          
           <Route path="/login" element={<FormLogin />} />
-          <Route path="/new-address" element={<NewAddress />} />
+          <Route path="/new-address" element={
+          <ProtectCustomerRoute>
+          <NewAddress />
+        </ ProtectCustomerRoute>} />
           <Route path="/forgotpassword" element={<ForgottenPassword />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/shopping-cart" element={<ShoppingCart />}/>
+          <Route path="/verifyRegistration" element={<VerifyRegistration />} />
           <Route
             path="/shop"
             element={
@@ -68,7 +89,10 @@ function App() {
           <Route path="favorites/:id" element={<SingleProduct />} />
 
           <Route path="*" element={<Page404 />} />
-          <Route path="/accountInfo" element={<UserInformation />} />
+          <Route path="/accountInfo" element={
+          <ProtectCustomerRoute>
+            <UserInformation />
+        </ ProtectCustomerRoute>} />
 
           <Route
             path="categories/viewByCategory/:id"
@@ -96,6 +120,12 @@ function App() {
             path="categories/subcategories/:id/shop/products/:id"
             element={<SingleProduct />}
           />
+          <Route path="/wallet" element={
+            <ProtectCustomerRoute>
+              <WalletDashboard />
+            </ ProtectCustomerRoute>
+          } />
+          <Route path="/confirm-payment" element={<VerifyPayment />} />
         </Routes>
         <BackToTop />
         <Footer />

@@ -106,7 +106,7 @@ const Signup = () => {
               <input
                 type="text"
                 name="phoneNumber"
-                value={user.phoneNumber}
+                value={user.phone}
                 onChange={handleChange}
                 placeholder="mobile number"
               />

@@ -9,19 +9,18 @@ const ShoppingCart = () => {
   const handleIncreaseItemQuantity = (productId) => {
     IncreaseItemQuantityConfig(productId);
   }
-
   const handleReduceCartItemQuantity = (productId) => {
     ReduceFromItemQuantityConfig(productId)
   }
-
+  
   const handleRemoveItemFromCart = (itemId) => {
     RemoveItemFromCartConfig(itemId)
   }
-
+  
   const handleClearCart = () => {
     ClearCartConfig()
   }
-
+  
 
   useEffect(() => {
     GetAllCartItems();
@@ -32,7 +31,7 @@ const ShoppingCart = () => {
 
   return (
     <div className='cart'>
-       {cartItems === null || cartItems.items.length === 0 && <h1 className='text-3xl font-bold-900 my-5 pb-30'>You have 0 items in your cart</h1>}
+       {(cartItems === null || cartItems.items.length === 0) && <h1 className='text-3xl font-bold-900 my-5 pb-30'>You have 0 items in your cart</h1>}
        {cartItems !== null && cartItems.items.length !== 0  && 
       <>
         <div>
@@ -62,10 +61,10 @@ const ShoppingCart = () => {
                       </td>
                       <td>{item.productName}</td>
                       <td>${item.unitPrice}</td>
-                      <td><button className='btn text-white bg-[#917307]' onClick={handleReduceCartItemQuantity(item.product.id)}>-</button>  {item.orderQty} <button className='btn text-white bg-[#917307] xl:mt-0 lg:mt-2' onClick={handleIncreaseItemQuantity(item.product.id)}>+</button></td>
+                      <td><button className='btn text-white bg-[#917307]' onClick={()=>handleReduceCartItemQuantity(item.product.id)}>-</button>  {item.orderQty} <button className='btn text-white bg-[#917307] xl:mt-0 lg:mt-2' onClick={() => handleIncreaseItemQuantity(item.product.id)}>+</button></td>
                       <td>${item.unitPrice * item.orderQty}</td>
                       <td className='text-center'>
-                          <button className='flex justify-center' type='submit' onClick={handleRemoveItemFromCart(item.id)}><IoMdClose className="bg-gray-200 text-lg rounded"/></button>
+                          <button className='flex justify-center' type='submit' onClick={()=>handleRemoveItemFromCart(item.id)}><IoMdClose className="bg-gray-200 text-lg rounded"/></button>
                       </td>
                   </tr> 
                   )}

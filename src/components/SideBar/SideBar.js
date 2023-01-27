@@ -2,16 +2,19 @@ import React from 'react';
 import { FaRegUser, FaRegAddressCard } from "react-icons/fa";
 import { AiOutlineInbox, AiOutlineHeart, AiOutlineCloseCircle } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
-import { RxCounterClockwiseClock } from "react-icons/rx";
 import SideBarElement from '../SideBarElement/SideBarElement';
 import "./sideBar.css";
+import { useAuth } from '../../context/authcontext';
 
 const SideBar = () => {
+  const { Logout } = useAuth();
   return (
     <div className='bg-white drop-shadow-md rounded-md lg:h-100'>
       <div>
         <SideBarElement name="My Oakland Account" icon={<FaRegUser to="/dashboard"/>}/>
         <SideBarElement name="Orders" icon={<AiOutlineInbox to="/orders"/>}/>
+        <SideBarElement name="My Oakland Account" icon={<FaRegUser />} to="/dashboard" />
+        <SideBarElement name="Orders" icon={<AiOutlineInbox to="/contactus"/>}/>
         <SideBarElement name="Favourites" icon={<AiOutlineHeart to="/"/>}/>
         <SideBarElement name="Edit Profile" icon={<BiEditAlt />} to="/dashboard-acc-info"/>
         <SideBarElement name="Address Book" icon={<FaRegAddressCard />} to="/addressbook"/>

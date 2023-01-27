@@ -1,26 +1,32 @@
 import "./ForgottenPassword.css";
 import React, { useState } from "react";
 import { useAuth } from "../../context/authcontext";
+import Loader from "../../components/Loader/Loader";
 
 const Forgotten = () => {
   const { ForgottenConfig } = useAuth();
-  const [formData, setFormData] = useState({
+  const [user, setUser] = useState({
     email: "",
   });
 
+   const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const value = e.target.value;
+    setUser({...user, [e.target.name]: value })
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    ForgottenConfig(formData);
-    setFormData({
-      email: "",
-      password: "",
-    });
-  };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setIsLoading(true);
+      await ForgottenConfig(user);
+      setIsLoading(false);
+      setUser({
+        
+        email: "",
+        
+      });
+    };
 
   return (
     <div className="forgotten_bg_image">
@@ -34,10 +40,11 @@ const Forgotten = () => {
         <input
           type="email"
           name="email"
+          value={user.email}
+          onChange={handleChange}
           //  {...register("email")}
           placeholder="Email"
           required
-          onChange={handleChange}
         />
 
         <button className="forgotten_btn" type="submit">
@@ -51,6 +58,7 @@ const Forgotten = () => {
           Already have an account ? <a href="/login">Login</a>
         </p>
       </form>
+      {isLoading && <Loader />}
     </div>
   );
 };

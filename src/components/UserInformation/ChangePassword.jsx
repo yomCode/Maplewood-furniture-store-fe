@@ -11,7 +11,8 @@ const ChangePassword = ({openModal, closeModal}) =>{
     const {updatePasswordConfig} = useAuth();
     const [password, setPassword] = useState({
         currentPassword: '',
-        newPassword: ''
+        newPassword: '',
+        confirmNewPassword: ''
     });
 
     const handleClickOutside = (e) => {
