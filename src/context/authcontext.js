@@ -250,6 +250,9 @@ const DataProvider = ({ children }) => {
     await apiDeleteAuthorization(`customer/cart/clear`)
       .then((res) => {
         successNotification(res.data);
+        setTimeout(() => {
+          window.location.href = "/shopping-cart";
+        }, 2000);
         console.log(res.data);
     })
       .catch((err) => {

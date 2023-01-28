@@ -53,10 +53,9 @@ const SingleProduct = () => {
 
 
     //*** Cart ***/
-    const { AddToCartConfig, handleAddItemToCart } = useAuth();
+    const { AddToCartConfig } = useAuth();
 
     const addItemToCartHandler = () => {
-      //handleAddItemToCart(singleProduct);
       AddToCartConfig(params.id);
     }
 
