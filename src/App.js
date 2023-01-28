@@ -29,6 +29,7 @@ import Layout from './Admin/components/Layout/Layout';
 import TableView from './Admin/components/Product/TableView';
 import PersonTableView from "./Admin/components/Person/PersonTableView";
 import OrdersTableView from './Admin/components/Order/OrdersTableView'
+import Orders from "./screens/Orders/Orders";
 
 function App() {
   return (
@@ -136,6 +137,7 @@ function App() {
             </ ProtectCustomerRoute>
           } />
           <Route path="/confirm-payment" element={<VerifyPayment />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
         <BackToTop />
         <Footer />
