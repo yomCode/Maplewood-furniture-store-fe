@@ -7,7 +7,9 @@ import { useAuth } from '../../context/authcontext';
 import { BiHeart } from "react-icons/bi";
 
 
-const ProductItem = ({ url, product, isEditable }) => {
+const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
+
+const ProductItem = ({ product, isEditable, url }) => {
   const navigate = useNavigate()
   const location = useLocation()
   let from = location.state?.from?.pathname || "/product"

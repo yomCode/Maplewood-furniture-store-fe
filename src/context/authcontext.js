@@ -144,9 +144,9 @@ const DataProvider = ({ children }) => {
   };
 
    /**============= Add to Cart ======= **/
-    const AddToCartConfig = async (productId) => {
+    const AddToCartConfig = async (productId, data) => {
       try {
-      await apiPostAuthorization(`customer/cart/item/add/${productId}`)
+      await apiPostAuthorization(`customer/cart/item/add/${productId}`, data)
         .then((res) => {
           successNotification(res.data);
           console.log(res.data);
