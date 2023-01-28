@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./singleProduct.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import {
   FacebookFilled,
   TwitterCircleFilled,
@@ -10,6 +9,7 @@ import {
 import { message } from "antd";
 import { useAuth } from "../../context/authcontext";
 import './singleProduct.css'
+import { setInputSelection } from "rc-mentions/lib/util";
 import { apiGet } from "../../utils/api/axios";
 
 
@@ -53,10 +53,9 @@ const SingleProduct = () => {
 
 
     //*** Cart ***/
-    const { AddToCartConfig, handleAddItemToCart } = useAuth();
+    const { AddToCartConfig } = useAuth();
 
     const addItemToCartHandler = () => {
-      //handleAddItemToCart(singleProduct);
       AddToCartConfig(params.id);
     }
 
@@ -91,9 +90,7 @@ const SingleProduct = () => {
                 className="item-count-btn qty-input"
               />
               <button className="btn home-btn" onClick={addItemToCartHandler}>ADD TO CART</button>
-              <h4>
-                Category: <span>Table, Wooden</span>
-              </h4>
+              <h4>Category: <span>Table, Wooden</span></h4>
             </div>
             <hr />
             <div className="links-div">

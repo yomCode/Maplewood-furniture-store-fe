@@ -144,9 +144,9 @@ const DataProvider = ({ children }) => {
   };
 
    /**============= Add to Cart ======= **/
-    const AddToCartConfig = async (productId) => {
+    const AddToCartConfig = async (productId, data) => {
       try {
-      await apiPostAuthorization(`customer/cart/item/add/${productId}`)
+      await apiPostAuthorization(`customer/cart/item/add/${productId}`, data)
         .then((res) => {
           successNotification(res.data);
           console.log(res.data);
@@ -250,6 +250,9 @@ const DataProvider = ({ children }) => {
     await apiDeleteAuthorization(`customer/cart/clear`)
       .then((res) => {
         successNotification(res.data);
+        setTimeout(() => {
+          window.location.href = "/shopping-cart";
+        }, 2000);
         console.log(res.data);
     })
       .catch((err) => {
