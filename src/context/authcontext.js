@@ -271,7 +271,6 @@ const DataProvider = ({ children }) => {
   };
 
   // ===================Get User========================
-
   const GetUser = async () => {
     try {
       await apiGetAuthorization(`customer/view-profile`).then((res) => {
@@ -567,6 +566,8 @@ useEffect(() => {
       console.log(err.response.data)
     }
   }
+
+  // ====================Get order history/ orders======================
 
 
   return (
