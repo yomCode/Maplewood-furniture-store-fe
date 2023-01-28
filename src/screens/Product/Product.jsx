@@ -31,11 +31,12 @@ const items = [
 const Product = ({title, url, displayCategories, productUrlProp, isEditable, isId, showFavorites}) => {
     const params = useParams()
     const { products, setProducts, pageElementSize, 
-          pageNumber, totalElements, numOfElements,
+          pageNumber, totalElements, numOfElements, setFavorites, favorites,
           favPageElementSize, favNumOfElements, favPageNumber, favTotalElements,
           setProductUrl, setFavoriteUrl } = useProduct()
 
     const onClick = ({ key }) => {
+      if(!showFavorites){
         switch(key) {
             case '1':
                 setProducts([...products.sort((a, b) => (a.name > b.name) ? 1 : -1)])
@@ -52,7 +53,32 @@ const Product = ({title, url, displayCategories, productUrlProp, isEditable, isI
             default: 
                 return products
         }
+      }
+
+        else{
+          switch(key) {
+            case '1':
+                setFavorites([...favorites.sort((a, b) => (a.name > b.name) ? 1 : -1)])
+                return
+          case '2':
+                setFavorites([...favorites.sort((a, b) => (a.imageUrl > b.imageUrl) ? 1 : -1)])
+                return
+            case '3':
+                setFavorites([...favorites.sort((a, b) => a.price - b.price)])
+                return   
+            case '4':
+                setFavorites([...favorites.sort((a, b) => b.price - a.price)])
+                return
+            default: 
+                return products
+        }
+      }
     };
+
+
+    const onClickFav = ({ key }) => {
+
+  };
 
     useEffect(() => {
       showFavorites ? 
@@ -77,14 +103,16 @@ const Product = ({title, url, displayCategories, productUrlProp, isEditable, isI
 
             }
             <h1>{ title }</h1>
-            <Dropdown menu={{ items, onClick,}}>
-                <a onClick={(e) => e.preventDefault()} href={"sorting"} id="dropdown-link">
+
+          <Dropdown menu={{ items, onClick,}}>
+            <a onClick={(e) => e.preventDefault()} href={"sorting"} id="dropdown-link">
                 <Space>
                     Default Sorting
                     <DownOutlined />
                 </Space>
                 </a>
-            </Dropdown>
+          </Dropdown>
+            
         </div>
         
         <div className="encompassing-div">

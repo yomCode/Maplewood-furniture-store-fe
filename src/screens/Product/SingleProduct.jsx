@@ -10,6 +10,7 @@ import {
 import { message } from "antd";
 import { useAuth } from "../../context/authcontext";
 import './singleProduct.css'
+import { setInputSelection } from "rc-mentions/lib/util";
 
 
 const SingleProduct = () => {
@@ -56,7 +57,9 @@ const SingleProduct = () => {
 
     const addItemToCartHandler = () => {
       //handleAddItemToCart(singleProduct);
-      AddToCartConfig(params.id);
+      AddToCartConfig(params.id, {
+        orderQty: numOfItems
+      });
     }
 
   return (
@@ -90,16 +93,7 @@ const SingleProduct = () => {
                 className="item-count-btn qty-input"
               />
               <button className="btn home-btn" onClick={addItemToCartHandler}>ADD TO CART</button>
-              <h4>
-                Category: <span>Table, Wooden</span>
-              </h4>
-                <input type="number" max={availableQty} value={numOfItems} 
-                    onChange={onQuantityInputChange}
-                    className="item-count-btn qty-input" />
-                <button className="btn home-btn">
-                    ADD TO CART
-                </button>
-                <h4>Category: <span>Table, Wooden</span></h4>
+              <h4>Category: <span>Table, Wooden</span></h4>
             </div>
             <hr />
             <div className="links-div">

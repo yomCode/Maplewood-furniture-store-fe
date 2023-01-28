@@ -7,7 +7,7 @@ import { apiDelete, apiGet, apiGetAuthorization, apiPost, apiPut, apiPostAuthori
 const ProductsContext = createContext();
 
 const ProductProvider = ({ children }) => {
-    const[productUrl, setProductUrl] = useState("/products/paginated-all")
+    const[productUrl, setProductUrl] = useState("products/paginated-all")
     const[favoriteUrl, setFavoriteUrl] = useState("customer/products/favorites/viewAllFavorites")
     const[products, setProducts] = useState([])
     const[pageNumber, setPageNumber] = useState(0)
@@ -118,7 +118,6 @@ const ProductProvider = ({ children }) => {
     const getFavorites = () => {
         setFetching(true)
         apiGetAuthorization(`${favoriteUrl}?pageNo=${pageNumber}]`)
-        // axios(`/products/favorites/viewAllFavorites?pageNo=${pageNumber}]`)
         .then(res => {
                     const data = res.data.data
                     setProducts(data.content)
@@ -137,7 +136,6 @@ const ProductProvider = ({ children }) => {
 
     const getSingleFavorite = (product) => {
         apiGetAuthorization(`products/favorite/view/${product.id}`)
-        // axios.get(`/products/favorite/view/${product.id}`)
         .then(res => {
             console.log(res.data)
         })
@@ -150,7 +148,6 @@ const ProductProvider = ({ children }) => {
     const addToFavorites = (id) => {
         console.log("Adding to favorites")
         apiPostAuthorization(`customer/products/favorites/add/${id}`)
-        // axios.post(`/customer/products/favorites/add/${id}`)
         .then(res => {
             console.log(res.data)
             message.success("Product added to favorites!")
@@ -165,7 +162,6 @@ const ProductProvider = ({ children }) => {
    const getFavoritesCallback = useCallback(() => {
         setFetching(true)
         apiGetAuthorization(`${favoriteUrl}?pageNo=${pageNumber}`)
-        // axios(`/products/favorites/viewAllFavorites?pageNo=${pageNumber}`)
         .then(res => {
                     const data = res.data
                     setFavorites(data.content)
@@ -188,6 +184,7 @@ const ProductProvider = ({ children }) => {
 
     const getProductsCallback = useCallback(() => {     
         if(productUrl.length > 0) {
+            console.log(`ProductUrl: ${productUrl}`)
             const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
                 axios.get(allProductsUrl)
                 .then((res) => {
@@ -240,7 +237,6 @@ const ProductProvider = ({ children }) => {
             setFavoriteUrl,
             favorites,
             setFavorites,
-            
             favPageNumber, 
             setFavPageNumber,
             favPageElementSize, 

@@ -45,7 +45,7 @@ const Pagination = ({ url, isEditable }) => {
 
   { products?.length === 0 && !fetching &&
     <div className="favorites-div" style={{minHeight: "40vh"}}>
-      "You don't have any favorites."
+      "No data"
     </div>
   }
   </div>

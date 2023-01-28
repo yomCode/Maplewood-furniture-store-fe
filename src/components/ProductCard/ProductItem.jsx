@@ -1,25 +1,15 @@
-<<<<<<< HEAD
-import { Rate } from "antd";
-import { useState } from "react";
-import { BiHeart } from "react-icons/bi";
-import { Link, } from "react-router-dom";
-import useProduct from "../../hooks/useProduct";
-
-const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
-
-const ProductItem = ({ product, isEditable, url }) => {
-=======
 import { Rate } from 'antd'
+import { BiHeart } from "react-icons/bi";
 import { useState } from 'react';
 import useProduct from '../../hooks/useProduct';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from 'react-use-cart';
 import { useAuth } from '../../context/authcontext';
 
 
 const desc = ['Terrible', 'Bad', 'Normal', 'Good', 'Wonderful'];
 
-const ProductItem = ({ product, isEditable }) => {
+const ProductItem = ({ product, isEditable, url }) => {
   const navigate = useNavigate()
   const location = useLocation()
   let from = location.state?.from?.pathname || "/product"
