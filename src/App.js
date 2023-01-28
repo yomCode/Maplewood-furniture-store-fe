@@ -110,7 +110,7 @@ function App() {
             element={
               <Subcategory
                 title={"Subcategories"}
-                url={`subcategory/viewByCategory`}
+                url={`/subcategory/viewByCategory`}
               />
             }
           />
@@ -118,7 +118,7 @@ function App() {
           <Route path="categories/subcategories/:id/shop" element={<Product 
                   title={"Products"}
                   url={"products"}
-                  productUrlProp={`products/subcategory`}
+                  productUrlProp={`/products/subcategory`}
                   isEditable={false}
                   isId={true}
               />}
