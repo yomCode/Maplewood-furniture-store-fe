@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 import {
   apiDelete,
   apiGet,
@@ -18,6 +18,7 @@ export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
   const [getUser, setGetUser] = React.useState({});
+  const [getTrx, setGetTrx] = React.useState([]);
   const [getWallet, setGetWallet] = React.useState({});
   const [getAddressbook, setGetAddressbook] = React.useState([]);
   const [getIsDefault, setIsDefault] = React.useState(false);
@@ -28,6 +29,12 @@ const DataProvider = ({ children }) => {
   const [verifyReg, setVerifyReg] = React.useState({});
   const [getTransDetail, setGetTransDetail] = React.useState({});
   const [getWalletDetails, setGetWalletdetails] = React.useState({});
+  const [getTransactions, setGetTransactions] = React.useState([]);
+  const[pageNumber, setPageNumber] = useState(0)
+  const[pageElementSize, setPageElementSize] = useState(0)
+  const[totalPages, setTotalPages] = useState(0)
+  const[totalElements, setTotalElements] = useState(0)
+  const[numOfElements, setNumOfElements] = useState(0)
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -243,6 +250,9 @@ const DataProvider = ({ children }) => {
     await apiDeleteAuthorization(`customer/cart/clear`)
       .then((res) => {
         successNotification(res.data);
+        setTimeout(() => {
+          window.location.href = "/shopping-cart";
+        }, 2000);
         console.log(res.data);
     })
       .catch((err) => {
@@ -294,6 +304,7 @@ const DataProvider = ({ children }) => {
         email: formData.email,
         date_of_birth: formData.date_of_birth,
         phone: formData.phone,
+        address: formData.address
       };
       await apiPut("customer/edit-profile", updateData).then((res) => {
         successNotification(res.data);
@@ -312,6 +323,7 @@ const DataProvider = ({ children }) => {
       const updatePasswordData = {
         oldPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword,
+        confirmNewPassword: passwordData.confirmNewPassword
       };
       await apiPut("auth/update-password", updatePasswordData).then((res) => {
         successNotification(res.data);
@@ -388,6 +400,9 @@ const DataProvider = ({ children }) => {
         errorNotification(err.response.data)
         console.log(err.response.data)
       }
+      setTimeout(() => {
+        window.location.href = "/addressbook";
+      }, 500);
     }
 
     // =================Update Address=================================
@@ -440,7 +455,7 @@ const ProcessPayment = async (formData) => {
   try{
     await apiPostAuthorization('pay', paymentForm).then((res) => {
       setTimeout(() => {
-        window.location.href = res.data.data.authorization_url;
+        window.open(res.data.data.authorization_url, '_blank', 'noreferrer');
       }, 1500);
     })
   }catch(err){
@@ -480,6 +495,62 @@ const WalletDetails = async () => {
   }
 }
 
+
+// ====================Wallet Transactions======================
+
+// const GetTransactions = async (page) => {
+//   try{
+//     await apiGetAuthorization('customer/wallet/transactions').then((res) => {
+//       setGetTransactions([...getTransactions, res.data.content]);
+//       console.log(getTransactions)
+//       console.log(res.data.content[0]);
+//     })
+//   }catch(err){
+//     console.log(err.response.data);
+//   }
+// }
+
+
+// ===========================GET WALLET TRX===================================
+
+const FetchTrx = useCallback(() => {
+    try{
+       apiGetAuthorization(`customer/wallet/transactions?pageNo=${pageNumber}`).then((res) => {
+        const data = res.data
+                    setGetTrx(data.content)
+                    setPageNumber(data.number)
+                    setPageElementSize(data.size)
+                    setTotalPages(data.totalPages)
+                    setTotalElements(data.totalElements)
+                    setNumOfElements(data.numberOfElements)
+        // setGetTrx([...res.data.content]);
+        console.log(getTrx)
+        // console.log(res.data.content)
+        // console.log(getTrx)
+      })
+    }catch(err){
+      console.log(err.response.data.message)
+    }
+
+}, [pageNumber])
+
+
+useEffect(() => {
+  FetchTrx()
+}, [FetchTrx])
+
+
+// const FetchTrx = async () => {
+//   try{
+//     await apiGetAuthorization('customer/wallet/transactions').then((res) => {
+//       setGetTrx([...res.data.content]);
+//       console.log(res.data.content)
+//       console.log(getTrx)
+//     })
+//   }catch(err){
+//     console.log(err.response.data.message)
+//   }
+// }
 
 
   // ====================VerifyRegistration======================
@@ -539,7 +610,18 @@ const WalletDetails = async () => {
         FinalizePayment,
         getTransDetail,
         getWalletDetails,
-        WalletDetails
+        WalletDetails,
+        // GetTransactions,
+        getTransactions,
+        getTrx,
+        FetchTrx,
+        pageElementSize, 
+          totalPages, 
+          pageNumber, 
+          setPageNumber, 
+          totalElements,
+          numOfElements,
+          WalletDetails
       }}
     >
       {children}

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./singleProduct.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import {
   FacebookFilled,
   TwitterCircleFilled,
@@ -11,6 +10,7 @@ import { message } from "antd";
 import { useAuth } from "../../context/authcontext";
 import './singleProduct.css'
 import { setInputSelection } from "rc-mentions/lib/util";
+import { apiGet } from "../../utils/api/axios";
 
 
 const SingleProduct = () => {
@@ -34,7 +34,7 @@ const SingleProduct = () => {
   };
 
   useEffect(() => {
-    axios.get(`/products/view/${params.id}`)
+    apiGet(`products/view/${params.id}`)
     .then(res => {
          console.log(res)
          setSingleProduct(res.data)
@@ -53,13 +53,10 @@ const SingleProduct = () => {
 
 
     //*** Cart ***/
-    const { AddToCartConfig, handleAddItemToCart } = useAuth();
+    const { AddToCartConfig } = useAuth();
 
     const addItemToCartHandler = () => {
-      //handleAddItemToCart(singleProduct);
-      AddToCartConfig(params.id, {
-        orderQty: numOfItems
-      });
+      AddToCartConfig(params.id);
     }
 
   return (

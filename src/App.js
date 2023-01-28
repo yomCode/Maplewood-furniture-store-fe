@@ -21,6 +21,7 @@ import ForgottenPassword from './screens/ForgottenPassword/ForgottenPaassword';
 import AboutUs from './screens/AboutUs/AboutUs';
 import ShoppingCart from "./screens/ShoppingCart/ShoppingCart";
 import VerifyRegistration from "./screens/Signup/VerifySignup";
+import Checkout from "./screens/Checkout/Checkout";
 import { ProtectCustomerRoute } from "./context/ProtectRoute";
 import WalletDashboard from "./screens/WalletPage/WalletDashoard";
 import VerifyPayment from "./screens/WalletPage/VerifyPayment";
@@ -28,6 +29,7 @@ import Layout from './Admin/components/Layout/Layout';
 import TableView from './Admin/components/Product/TableView';
 import PersonTableView from "./Admin/components/Person/PersonTableView";
 import OrdersTableView from './Admin/components/Order/OrdersTableView'
+import Orders from "./screens/Orders/Orders";
 
 function App() {
   return (
@@ -65,6 +67,8 @@ function App() {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/shopping-cart" element={<ShoppingCart />}/>
           <Route path="/verifyRegistration" element={<VerifyRegistration />} />
+          <Route path="/checkout" element={<Checkout />} />
+
           <Route
             path="/shop"
             element={
@@ -133,6 +137,7 @@ function App() {
             </ ProtectCustomerRoute>
           } />
           <Route path="/confirm-payment" element={<VerifyPayment />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
         <BackToTop />
         <Footer />

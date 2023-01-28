@@ -25,7 +25,7 @@ const AboutUs = () => {
                 }
                 onClick={() => toggleState(1)}
               >
-                <h2>About</h2>
+                <h2 className="aisha">About</h2>
               </div>
               <div
                 className={
@@ -33,7 +33,7 @@ const AboutUs = () => {
                 }
                 onClick={() => toggleState(2)}
               >
-                <h2>Skill</h2>
+                <h2 className="aisha">Skill</h2>
               </div>
 
               <div
@@ -42,7 +42,7 @@ const AboutUs = () => {
                 }
                 onClick={() => toggleState(3)}
               >
-                <h2>Experience</h2>
+                <h2 className="aisha">Experience</h2>
               </div>
             </div>
             <div className="tab-content">

@@ -36,6 +36,7 @@ const ChangePassword = ({openModal, closeModal}) =>{
     const handleSubmit = (e) => {
         e.preventDefault();
         updatePasswordConfig(password)
+        console.log(password)
         setPassword({})
     }
 
@@ -45,7 +46,7 @@ const ChangePassword = ({openModal, closeModal}) =>{
                 <div className="flex justify-end">
                     <h1 onClick={closeModal} className="text-3xl mr-6 cursor-pointer">X</h1>
                 </div>
-                <form action="" onSubmit={handleSubmit} className="flex flex-col gap-3 p-6">
+                <form action="" className="flex flex-col gap-3 p-6">
                     <div className="flex flex-col g-3">
                         <input className="border-b border-l px-1 " type="password" name="currentPassword" onChange={handleChange} value={password.currentPassword} id="" placeholder="Current Password" />
                         <label htmlFor="currentPassword">Current Password</label>
@@ -55,11 +56,11 @@ const ChangePassword = ({openModal, closeModal}) =>{
                         <label htmlFor="newPassword">New Password</label>
                     </div>
                     <div className="flex flex-col g-3">
-                        <input className="border-b border-l px-1 " type="password" name="confirmNewPassword" id="" placeholder="Confirm New Password" />
+                        <input className="border-b border-l px-1 " type="password" name="confirmNewPassword" onChange={handleChange} value={password.confirmNewPassword} id="" placeholder="Confirm New Password" />
                         <label htmlFor="confirmNewPassword">Confirm New Password</label>
                     </div>
                     <div className="flex justify-center">
-                    <button type="submit" className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md">Save</button>
+                    <button type="submit" onClick={handleSubmit} className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md">Save</button>
                 </div>
                 </form>
             </div>

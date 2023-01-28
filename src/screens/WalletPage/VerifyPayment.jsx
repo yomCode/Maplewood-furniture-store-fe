@@ -27,36 +27,40 @@ const VerifyPayment = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        FinalizePayment(reference);
-        setIsLoading(false)
+        FinalizePayment(reference).then(() => setIsLoading(false));
         console.log(reference)
     }, [reference])
 
 
-
     return(
         <div className="pt-8 h-[100vh] w-full flex justify-center items-center bg-[#f5f5f5]">
-            {isLoading && <Loader />}
-            {
-                getTransDetail === "Transaction Completed" ?
+            
+            { getTransDetail !== "Transaction Completed" ?
+               isLoading && <Loader />
+            :
+
+            // getTransDetail === "Transaction Completed" ?
+
              
             <div className="flex flex-col gap-6 bg-[#e8e8e8] border justify-center items-center w-[50%] md:w-[30%] h-[400px] rounded-[2rem] ">
                 < BsFillCheckCircleFill size={80} className='text-[green]' />
                 <h1 className="text-[1rem]">
                    {getTransDetail}
                 </h1>
-                <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/'>Continue to Home</Link>
+                <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/wallet'>Continue to Wallet</Link>
             </div>
-             :
-             <div className="flex flex-col gap-6 bg-[#e8e8e8] border justify-center items-center w-[50%] md:w-[30%] h-[400px] rounded-[2rem] ">
-                < ImCancelCircle size={80} className='text-[red]' />
-                <h1 className="text-[1rem]">
-                   Transaction failed
-                </h1>
-                <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/'>Retry</Link> 
-            </div>
-             }
-             
+            
+            }
+            {/* // ):(
+            //  <div className="flex flex-col gap-6 bg-[#e8e8e8] border justify-center items-center w-[50%] md:w-[30%] h-[400px] rounded-[2rem] ">
+            //     < ImCancelCircle size={80} className='text-[red]' />
+            //     <h1 className="text-[1rem]">
+            //        Transaction failed
+            //     </h1>
+            //     <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/wallet'>Retry</Link> 
+            // </div>
+            //  )} */}
+            
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { IoMdClose } from 'react-icons/io';
 import { useAuth } from '../../context/authcontext';
 import "./shoppingcart.css";
@@ -31,7 +32,16 @@ const ShoppingCart = () => {
 
   return (
     <div className='cart'>
-       {(cartItems === null || cartItems.items.length === 0) && <h1 className='text-3xl font-bold-900 my-5 pb-30'>You have 0 items in your cart</h1>}
+       {(cartItems === null || cartItems.items.length === 0) && 
+       <div className='text-center mt-20'>
+          <h1 className='text-3xl font-bold-900 my-5 pb-30'>You have 0 item(s) in your cart</h1>
+          <div className='flex justify-center align-middle py-3 text-xl'>
+            <Link to="/shop" className='bg-[#917307] p-3 text-white focus:text-[#917307] active:text-[#917307] focus:bg-white active:bg-white rounded-md drop-shadow-md hover:text-2xl hover:drop-shadow-lg
+             hover:text-[#917307] !important ' >
+              CONTINUE SHOPPING
+            </Link>
+          </div>
+      </div>}
        {cartItems !== null && cartItems.items.length !== 0  && 
       <>
         <div>

@@ -41,8 +41,8 @@ const Orders= () => {
                 <div className='flex justify-center align-middle py-2 text-xl text-center'>
                   <h3>All your orders will be saved here for you to access their state anytime.</h3>
                 </div>  
-                <div className='flex justify-center align-middle py-3 text-white text-xl'>
-                  <button className='bg-[#917307] px-3 py-3 rounded-md drop-shadow-md hover:text-2xl hover:bg-white hover:text-[#917307]'>CONTINUE SHOPPING</button>
+                <div className='flex justify-center align-middle py-3  text-xl'>
+                  <Link to="/shop" className='bg-[#917307] text-white px-3 py-3 rounded-md drop-shadow-md hover:text-xl hover:bg-[#796006]'>CONTINUE SHOPPING</Link>
                 </div>
               </div>
           </div>

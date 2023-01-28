@@ -30,7 +30,7 @@ const ProductProvider = ({ children }) => {
     const getProducts = () => {
         if(productUrl.length > 0) {
             const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
-                apiGet(allProductsUrl)
+                axios.get(allProductsUrl)
                 .then((res) => {
                     const data = res.data.data
                     setProducts(data.content)
@@ -71,7 +71,7 @@ const ProductProvider = ({ children }) => {
     /*** EDIT PRODUCT **/
     const editProduct = (onClose, product) => {
         console.log("Edit product Link clicked: " + singleProduct.id)
-        apiPut(`admin/products/update/${singleProduct.id}`, product)
+        apiPostAuthorization(`admin/products/update/${singleProduct.id}`, product)
         .then(res => {
             console.log(res)
             onClose()
@@ -94,7 +94,7 @@ const ProductProvider = ({ children }) => {
     //********** ADD NEW PRODUCT ********//
     const addNewProduct = (setSubmitting, onClose, newProduct) => {
         setSubmitting(true);
-        apiPost("admin/products/new", newProduct)
+        apiPostAuthorization("admin/products/new", newProduct)
         .then(res => {
             console.log(res.data);
             onClose();

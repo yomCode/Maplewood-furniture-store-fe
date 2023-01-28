@@ -11,10 +11,8 @@ const SideBar = () => {
   return (
     <div className='bg-white drop-shadow-md rounded-md lg:h-100'>
       <div>
-        <SideBarElement name="My Oakland Account" icon={<FaRegUser to="/dashboard"/>}/>
-        <SideBarElement name="Orders" icon={<AiOutlineInbox to="/orders"/>}/>
-        <SideBarElement name="My Oakland Account" icon={<FaRegUser />} to="/dashboard" />
-        <SideBarElement name="Orders" icon={<AiOutlineInbox to="/contactus"/>}/>
+        <SideBarElement name="My Oakland Account" icon={<FaRegUser />} to="/dashboard"/>
+        <SideBarElement name="Orders" icon={<AiOutlineInbox />} to="/orders" />
         <SideBarElement name="Favourites" icon={<AiOutlineHeart to="/"/>}/>
         <SideBarElement name="Edit Profile" icon={<BiEditAlt />} to="/dashboard-acc-info"/>
         <SideBarElement name="Address Book" icon={<FaRegAddressCard />} to="/addressbook"/>
