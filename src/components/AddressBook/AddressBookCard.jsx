@@ -112,9 +112,9 @@ const EditAddress = ({ id, closeModal }) => {
   return (
     <div
       ref={ref}
-      className="w-[100%] h-[88%] flex justify-center items-center fixed top-[13%] left-0 bg-[white] rounded-b-md"
+      className="w-[100%] h-[88%] flex justify-center items-center fixed top-[13%] left-0 bg-[red] rounded-b-md "
     >
-      <div className="flex flex-col items-center justify-center gap-4 absolute w-[90%] h-[90%] bg-[white] border p-3 z-50">
+      <div className="flex flex-col items-center justify-center gap-4 absolute w-[90%] h-[90%] bg-[yellow] border p-3 z-50">
         <p className="text-[2rem] self-end cursor-pointer" onClick={closeModal}>
           X
         </p>
@@ -254,7 +254,7 @@ const AddressBookCard = ({ fullName, address, emailAddress, phoneNumber, id }) =
 
 
   return (
-    <div className="p-3 shadow-md w-[330px] h-[180px] gap-2 border-[1px] rounded-md">
+    <div className="p-3 shadow-md w-[330px] h-[180px] gap-2 border-[1px] rounded-md divide-y">
       <div className="flex flex-col gap-2 pb-2">
         <h5 className="text-[#7e6a17]">{fullName}</h5>
         <div className="h-[40px]">
@@ -262,7 +262,6 @@ const AddressBookCard = ({ fullName, address, emailAddress, phoneNumber, id }) =
         </div>
         <p>{phoneNumber}</p>
       </div>
-      <hr className="" />
       <div className="flex items-center justify-between pt-2">
         <div>
             {

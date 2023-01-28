@@ -61,10 +61,10 @@ const Navbar = () => {
 
   useEffect(() => {
     const localStorageValue = localStorage.getItem("signature");
-    if (localStorageValue === null) {
-      setKey(false);
-    } else {
+    if (localStorageValue !== null && localStorageValue.length > 4) {
       setKey(true);
+    } else {
+      setKey(false);
     }
   }, []);
 
@@ -109,7 +109,7 @@ const Navbar = () => {
         <ul className="hidden lg:flex w-[200px]">
           <li className="">
             <span style={{ color: "rgb(81, 81, 81)" }}>$0.00&nbsp;&nbsp;</span>
-            <Link to="/">
+            <Link to="/shopping-cart">
               <Badge color="secondary">
                 <ShoppingCart className="text-[#403414]" />
               </Badge>

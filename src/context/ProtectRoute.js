@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import { useLocation, Navigate } from "react-router-dom";
 
@@ -34,3 +34,26 @@ export const ProtectCustomerRoute = ({children}) => {
     }
     return children
 }
+
+
+export const IsAuthenticated = ({children}) => {
+    const location = useLocation()
+    let isAuthenticated;
+    const localStorageValue = localStorage.getItem('signature');
+
+     if(localStorageValue !== null && localStorageValue.length > 5){
+        isAuthenticated = true;
+     }else{
+        isAuthenticated = false;
+     }
+
+
+    if(isAuthenticated){
+        return (
+            <Navigate to="/shop" state={{from:location} }/>
+        )
+    }
+    return children
+}
+
+
