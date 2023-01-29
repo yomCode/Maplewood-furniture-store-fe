@@ -4,6 +4,7 @@ import { useAuth } from "../../context/authcontext";
 import Loader from "../../components/Loader/Loader";
 import { useNavigate, useLocation } from "react-router-dom";
 
+
 const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -19,6 +20,7 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

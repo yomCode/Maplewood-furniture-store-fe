@@ -111,7 +111,7 @@ const ShoppingCart = () => {
               </div>
                     
               <p>
-                <button className='w-100 text-white bg-[#917307] px-3 py-2 text-md rounded-sm font-extrabold'>Proceed to Checkout</button>
+                <Link to="/checkout" ><button className='w-100 text-white bg-[#917307] px-3 py-2 text-md rounded-sm font-extrabold'>Proceed to Checkout</button></Link>
               </p>
           </div>
         </div>

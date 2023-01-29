@@ -12,7 +12,12 @@ import {
   errorNotification,
   successNotification,
 } from "../components/Notification";
+<<<<<<< HEAD
 import { decodeJwt, redirectToUserPage } from "../utils/roleUrlRouter";
+=======
+import jwt_decode from "jwt-decode";
+
+>>>>>>> development
 
 
 export const dataContext = createContext();
@@ -54,7 +59,7 @@ const DataProvider = ({ children }) => {
         successNotification(res.data.data);
         console.log(res.data.data);
         setTimeout(() => {
-          window.location.href = "/login";
+          window.location.href = "/check-mail";
         }, 1500);
       });
     } catch (err) {
@@ -71,7 +76,6 @@ const DataProvider = ({ children }) => {
      };
      await apiPost("auth/forgot-password-request", registerData).then((res) => {
        successNotification(res.data);
-       //toast.success(res.data.data);
        console.log(res.data.data);
        setTimeout(() => {
          window.location.href = "/forgotpassword";
@@ -127,12 +131,19 @@ const DataProvider = ({ children }) => {
       await apiPost("auth/login", LoginData)
         .then((res) => {
           successNotification(res.data.message);
-          console.log(res.data.message);
-          const jwtInfo = decodeJwt(res.data.data);   
-          localStorage.setItem("signature", res.data.data);
-          localStorage.setItem("role", jwtInfo.roles);
+          if(res.data.message === 'Login Successful'){
+            console.log(res.data.message);
+            const jwtInfo = decodeJwt(res.data.data);   
+            localStorage.setItem("signature", res.data.data);
+            localStorage.setItem("role", jwtInfo.roles);
 
-          redirectToUserPage(location, navigate, jwtInfo.roles)
+            redirectToUserPage(location, navigate, jwtInfo.roles)
+          }
+          else{
+            setTimeout(() => {
+              window.location.href = "/login"
+            }, 1500);
+          }  
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -391,20 +402,20 @@ const DataProvider = ({ children }) => {
 
  // =================Delete Address=================================
 
-    const DeleteAddress = (id) => {
-      try{
-        apiDelete(`address/delete?id=${id}`).then((res) => {
-          successNotification(res.data)
-          console.log(res.data)
-        })
-      }catch(err){
-        errorNotification(err.response.data)
-        console.log(err.response.data)
-      }
-      setTimeout(() => {
-        window.location.href = "/addressbook";
-      }, 500);
-    }
+ const DeleteAddress = (id) => {
+  try{
+    apiDeleteAuthorization(`address/delete?id=${id}`).then((res) => {
+      successNotification(res.data)
+      console.log(res.data)
+    })
+  }catch(err){
+    errorNotification(err.response.data)
+    console.log(err.response.data)
+  }
+  setTimeout(() => {
+    window.location.href = "/addressbook";
+  }, 500);
+}
 
     // =================Update Address=================================
 
