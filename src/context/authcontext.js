@@ -12,6 +12,7 @@ import {
   errorNotification,
   successNotification,
 } from "../components/Notification";
+import { decodeJwt, redirectToUserPage } from "../utils/roleUrlRouter";
 
 
 export const dataContext = createContext();
@@ -117,7 +118,7 @@ const DataProvider = ({ children }) => {
   };
 
   /**==============Login ======= **/
-  const LoginConfig = async (formData) => {
+  const LoginConfig = async (formData, location, navigate) => {
     try {
       const LoginData = {
         email: formData.email,
@@ -127,11 +128,11 @@ const DataProvider = ({ children }) => {
         .then((res) => {
           successNotification(res.data.message);
           console.log(res.data.message);
+          const jwtInfo = decodeJwt(res.data.data)   
           localStorage.setItem("signature", res.data.data);
-          localStorage.setItem("role", "CUSTOMER");
-          setTimeout(() => {
-            window.location.href = "/shop";
-          }, 1500);
+          localStorage.setItem("role", jwtInfo.roles);
+
+          redirectToUserPage(location, navigate, jwtInfo.roles)
         })
         .catch((err) => {
           console.log(err.response.data);
