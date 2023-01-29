@@ -12,12 +12,8 @@ import {
   errorNotification,
   successNotification,
 } from "../components/Notification";
-<<<<<<< HEAD
-import { decodeJwt, redirectToUserPage } from "../utils/roleUrlRouter";
-=======
 import jwt_decode from "jwt-decode";
-
->>>>>>> development
+import { decodeJwt, redirectToUserPage } from "../utils/roleUrlRouter";
 
 
 export const dataContext = createContext();
@@ -41,6 +37,8 @@ const DataProvider = ({ children }) => {
   const[totalPages, setTotalPages] = useState(0)
   const[totalElements, setTotalElements] = useState(0)
   const[numOfElements, setNumOfElements] = useState(0)
+
+  const[localStorageValue, setLocalStorageValue] = useState(false)
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -137,6 +135,7 @@ const DataProvider = ({ children }) => {
             localStorage.setItem("signature", res.data.data);
             localStorage.setItem("role", jwtInfo.roles);
 
+            setLocalStorageValue(localStorage.getItem("signature"))
             redirectToUserPage(location, navigate, jwtInfo.roles)
           }
           else{
@@ -633,7 +632,8 @@ useEffect(() => {
           setPageNumber, 
           totalElements,
           numOfElements,
-          WalletDetails
+          WalletDetails,
+          localStorageValue
       }}
     >
       {children}

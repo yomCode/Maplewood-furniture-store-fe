@@ -45,19 +45,13 @@
                 setShowDrawer={ setShowDrawer } 
               />}
           />
-          {fetching ? 
+          {fetching &&
             <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
                 <Spin indicator={antIcon} style={{ color: "rgb(218, 196, 161)" }}/>
             </div>
-            :
-            <Table 
-            dataSource={ products }
-            rowkey={ product => product.name } 
-            bordered
-            pagination={false}
-            scroll={{ x: '400px', y: 600 }}  
-            columns={productColumns(setShowDrawer)} 
-            title={() => 
+          }
+          
+            <div className="table-div">
               <div className="title-head"> 
                 <div className='title-sub-head'>
                   <button className="home-btn" onClick={handleShowDrawer}>
@@ -78,12 +72,26 @@
                   disabledClassName={"paginationDisabled"}
                   activeClassName={"paginationActive"}
                 />
-              </div>                
-            }
+              </div> 
+          {!fetching && products?.length > 0 && 
+            <Table 
+            dataSource={ products }
+            rowkey={ product => product.name } 
+            bordered
+            pagination={false}
+            scroll={{ x: '400px', y: 600 }}  
+            columns={productColumns(setShowDrawer)} 
+          
         />
-          }
+      }
+        </div>
+          
 
-          { products?.length === 0 && !fetching && <Empty /> }
+          { products?.length === 0 && !fetching && 
+            <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
+              <Empty /> 
+            </div>
+          }   
         </section>
     )
   }

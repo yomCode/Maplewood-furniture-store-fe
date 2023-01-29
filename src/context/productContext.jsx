@@ -183,6 +183,7 @@ const ProductProvider = ({ children }) => {
 
 
     const getProductsCallback = useCallback(() => {     
+        setFetching(true)
         if(productUrl.length > 0) {
             console.log(`ProductUrl: ${productUrl}`)
             const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`

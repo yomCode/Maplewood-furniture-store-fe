@@ -42,7 +42,7 @@ export const UserMenuDropdown = ({ closeMenu }) => {
 };
 
 const Navbar = () => {
-  const { Logout } = useAuth();
+  const { Logout, localStorageValue } = useAuth();
 
   const [nav, setNav] = useState(false);
   const [key, setKey] = useState(false);
@@ -60,13 +60,13 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const localStorageValue = localStorage.getItem("signature");
+    // const localStorageValue = localStorage.getItem("signature") ? localStorage.getItem("signature") : "null";
     if (localStorageValue !== null && localStorageValue.length > 4) {
       setKey(true);
     } else {
       setKey(false);
     }
-  }, []);
+  }, [localStorageValue]);
 
   useEffect(() => {
     GetUser();
