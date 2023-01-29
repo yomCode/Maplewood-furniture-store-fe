@@ -12,6 +12,8 @@ import {
   errorNotification,
   successNotification,
 } from "../components/Notification";
+import jwt_decode from "jwt-decode";
+
 
 
 export const dataContext = createContext();
@@ -53,7 +55,7 @@ const DataProvider = ({ children }) => {
         successNotification(res.data.data);
         console.log(res.data.data);
         setTimeout(() => {
-          window.location.href = "/login";
+          window.location.href = "/check-mail";
         }, 1500);
       });
     } catch (err) {
@@ -70,7 +72,6 @@ const DataProvider = ({ children }) => {
      };
      await apiPost("auth/forgot-password-request", registerData).then((res) => {
        successNotification(res.data);
-       //toast.success(res.data.data);
        console.log(res.data.data);
        setTimeout(() => {
          window.location.href = "/forgotpassword";
@@ -127,11 +128,19 @@ const DataProvider = ({ children }) => {
         .then((res) => {
           successNotification(res.data.message);
           console.log(res.data.message);
-          localStorage.setItem("signature", res.data.data);
-          localStorage.setItem("role", "CUSTOMER");
-          setTimeout(() => {
-            window.location.href = "/shop";
-          }, 1500);
+          
+          if(res.data.message === 'Login Successful'){
+            localStorage.setItem("signature", res.data.data);
+            localStorage.setItem("role", 'CUSTOMER');
+            setTimeout(() => {
+              window.location.href = "/shop"
+            }, 1000);
+          }
+          else{
+            setTimeout(() => {
+              window.location.href = "/login"
+            }, 1500);
+          }  
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -390,20 +399,20 @@ const DataProvider = ({ children }) => {
 
  // =================Delete Address=================================
 
-    const DeleteAddress = (id) => {
-      try{
-        apiDelete(`address/delete?id=${id}`).then((res) => {
-          successNotification(res.data)
-          console.log(res.data)
-        })
-      }catch(err){
-        errorNotification(err.response.data)
-        console.log(err.response.data)
-      }
-      setTimeout(() => {
-        window.location.href = "/addressbook";
-      }, 500);
-    }
+ const DeleteAddress = (id) => {
+  try{
+    apiDeleteAuthorization(`address/delete?id=${id}`).then((res) => {
+      successNotification(res.data)
+      console.log(res.data)
+    })
+  }catch(err){
+    errorNotification(err.response.data)
+    console.log(err.response.data)
+  }
+  setTimeout(() => {
+    window.location.href = "/addressbook";
+  }, 500);
+}
 
     // =================Update Address=================================
 

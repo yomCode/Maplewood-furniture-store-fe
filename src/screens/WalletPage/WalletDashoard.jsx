@@ -110,7 +110,7 @@ const WalletDashboard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    { getTrx?.length > 0 ? getTrx.map(transaction => {
+                    { getTrx?.length > 0 ? getTrx.sort((a, b) => a.date < b.date ? 1 : -1).map(transaction => {
 
                     return(
                         <tr key={transaction.id} >

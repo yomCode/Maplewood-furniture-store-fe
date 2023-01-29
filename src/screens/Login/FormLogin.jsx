@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useAuth } from "../../context/authcontext";
 import Loader from "../../components/Loader/Loader";
 
+
 const Login = () => {
   const { LoginConfig } = useAuth();
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
