@@ -35,6 +35,7 @@ const DataProvider = ({ children }) => {
   const[totalPages, setTotalPages] = useState(0)
   const[totalElements, setTotalElements] = useState(0)
   const[numOfElements, setNumOfElements] = useState(0)
+  const [pickupCentersInState, setPickupCentersInState] = useState([]);
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -150,9 +151,6 @@ const DataProvider = ({ children }) => {
         .then((res) => {
           successNotification(res.data);
           console.log(res.data);
-          setTimeout(() => {
-            window.location.href = "/shopping-cart";
-          }, 2000);
       })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -553,7 +551,6 @@ useEffect(() => {
 
 
   // ====================VerifyRegistration======================
-
   const VerifyReg = async (token) => {
     try{
       await apiGet(`customer/verifyRegistration?${token}`).then((res) => {
@@ -567,7 +564,18 @@ useEffect(() => {
     }
   }
 
-  // ====================Get order history/ orders======================
+  // ====================Get Pickup Center State======================
+  const GetPickUpCentersByStateConfig = async (pickup) => {
+    if(pickup === "") return "";
+    
+    try{
+        const {data} = await apiGetAuthorization(`pickup/state/${pickup}`);
+        setPickupCentersInState(data)
+        console.log(data)
+    } catch (error) {
+        console.log(error)
+    }
+  }
 
 
   return (
@@ -622,7 +630,9 @@ useEffect(() => {
           setPageNumber, 
           totalElements,
           numOfElements,
-          WalletDetails
+          WalletDetails,
+          GetPickUpCentersByStateConfig,
+          pickupCentersInState,
       }}
     >
       {children}

@@ -27,7 +27,6 @@ const ShoppingCart = () => {
     GetAllCartItems();
   }, []);
 
-  const deliveryFee = 200;
   const tax = 0.00;
 
   return (
@@ -98,20 +97,16 @@ const ShoppingCart = () => {
                     <p>${cartItems.total}</p>
               </div>
               <div className="flex justify-between my-3 border-b pb-3">
-                    <p className='font-bold-900 text-black'>Delivery Fee</p>
-                    <p>${deliveryFee}</p>
-              </div>
-              <div className="flex justify-between my-3 border-b pb-3">
                     <p className='font-bold-900 text-black'>Tax</p>
                     <p>${tax}</p>
               </div>
               <div className="flex justify-between my-3">
                     <h1 className='text-2xl text-gray-800 font-bold-900'>Total</h1>
-                    <p>${cartItems.total + deliveryFee + tax}</p>
+                    <p>${cartItems.total + tax}</p>
               </div>
                     
-              <p>
-                <Link to="/checkout" ><button className='w-100 text-white bg-[#917307] px-3 py-2 text-md rounded-sm font-extrabold'>Proceed to Checkout</button></Link>
+              <p className="w-100">
+                <Link to="/checkout" className='w-100 text-white bg-[#917307] px-3 py-2 text-md rounded-sm font-extrabold w-100'>Proceed to Checkout</Link>
               </p>
           </div>
         </div>

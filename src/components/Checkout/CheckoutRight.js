@@ -1,35 +1,29 @@
 import { useState, useEffect } from "react";
-import { apiGetAuthorization } from "../../utils/api/axios";
+import { useAuth } from "../../context/authcontext";
+import Modal from "../Modal/Modal";
 import "./CheckoutRight.css";
 
 
 const CheckoutRight = () => {
 
     const [pickup, setPickUp] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
     
-    const [pickupDetails, setPickupDetails] = useState([])
+    const { GetPickUpCentersByStateConfig, pickupCentersInState} = useAuth();
 
-    const getPickUpCenters = async (e) => {
-
-        e.preventDefault()
-
-        if(pickup === "") return "";
-        
-        try{
-            const {data} = await apiGetAuthorization(`pickup/state/${pickup}`);
-            setPickupDetails(data)
-            console.log(data)
-        } catch (error) {
-            console.log(error)
-        }
+    const handleGetPickUpCentersByState = (event,pickupState) => {
+        event.preventDefault();
+        setIsOpen(true);               
+        GetPickUpCentersByStateConfig(pickupState);
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setPickUp("");
     }
     
     useEffect(()=>{
-        getPickUpCenters()
+        GetPickUpCentersByStateConfig()
     }, [])
 
     return ( 
@@ -40,6 +34,8 @@ const CheckoutRight = () => {
                         <div className="checkout-pickup">
                             <form>
                             <label htmlFor="pickup-stations" >Select a pickup station near you: </label>
+
+                            
                             <select onChange={(e) => setPickUp(e.target.value)} name="pickup" id="">
                                 <option value="">Select state</option>
                                 <option value="Abia">Abia</option>
@@ -79,45 +75,52 @@ const CheckoutRight = () => {
                                 <option value="Yobe">Yobe</option>
                                 <option value="Zamfara">Zamfara</option>
                             </select>
-                            <input className="submit" onClick={getPickUpCenters} type="submit" value="Submit"/>
-                            </form>
-                            <div className="location">
-                                {/* <h3>Select your Pickup Centers here </h3> */}
-                               {pickupDetails.length > 0 && pickupDetails.map((item, index)=>
-                                <label class="container">
-                                <input type="radio" checked="checked" name="radio"></input>
-                                    <div >
-                                            
-                                            <form onSubmit={handleSubmit}>
-                                                    <ul key={index}>
-                                                    
-                                                        <p >{item.name}</p>
-                                                        <p>{item.location}</p>
-                                                        <p>{item.state}</p>
-                                                        <p>{item.phone}</p>
-                                                        <p>{item.email}</p>
-                                                        <p>Delivery fee: ₦{item.delivery}</p>
 
-                                                    </ul>
-                                            </form>
-                                        </div> 
-                                        <div>
-                                            
-                                        </div>
-                                        
-                                {/* <span class="checkmark"></span> */}
-                                </label>
-                                )}
+                            <div>
+                                <button className="submit" onClick={() => handleGetPickUpCentersByState(pickup)}>Submit</button>
                             </div>
+                            </form>
+
+                    
                         </div>
                     </div>
 
-                    <div className="payment-method">
+                    {/* <div className="payment-method">
                         
-                        <button>Pay with Wallet</button>
+                        <button >Pay with Wallet</button>
 
-                    </div>
+                    </div> */}
                 </div>
+                                
+            <div className="location">
+                {/* <h3>Select your Pickup Centers here </h3> */}
+            {pickupCentersInState.length > 0 && pickupCentersInState.map((item, index)=>
+                <label class="container">
+                <input type="radio" checked="checked" name="radio"></input>
+                    <div >
+                            
+                            <form onSubmit={handleSubmit}>
+                                    <ul key={index}>
+                                    
+                                        <p >{item.name}</p>
+                                        <p>{item.location}</p>
+                                        <p>{item.state}</p>
+                                        <p>{item.phone}</p>
+                                        <p>{item.email}</p>
+                                        <p>Delivery fee: ₦{item.delivery}</p>
+
+                                    </ul>
+                            </form>
+                        </div> 
+                        <div>
+                            
+                        </div>
+                        
+                {/* <span class="checkmark"></span> */}
+                </label>
+                )}
+            </div>
+        
         </div>
      );
 }

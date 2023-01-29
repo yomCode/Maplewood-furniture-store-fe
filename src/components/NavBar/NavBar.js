@@ -108,7 +108,6 @@ const Navbar = () => {
         </ul>
         <ul className="hidden lg:flex w-[200px]">
           <li className="">
-            <span style={{ color: "rgb(81, 81, 81)" }}>$0.00&nbsp;&nbsp;</span>
             <Link to="/shopping-cart">
               <Badge color="secondary">
                 <ShoppingCart className="text-[#403414]" />
