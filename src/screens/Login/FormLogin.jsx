@@ -2,9 +2,12 @@ import "./Login.css";
 import React, { useState } from 'react';
 import { useAuth } from "../../context/authcontext";
 import Loader from "../../components/Loader/Loader";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 const Login = () => {
+  const navigate = useNavigate()
+  const location = useLocation()
   const { LoginConfig } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
@@ -22,7 +25,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    await LoginConfig(formData);
+    await LoginConfig(formData, location, navigate);
     setIsLoading(false);
     setFormData({
       email: "",
