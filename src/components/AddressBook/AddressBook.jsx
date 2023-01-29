@@ -9,13 +9,15 @@ import AddressBookCard from "./AddressBookCard"
 
 const AddressBook = () => {
 
-    const {GetAddressbook, getAddressbook} = useAuth();
-
+    const {GetAddressbook, getAddressbook, getAddress, GetAddress} = useAuth();
 
     useEffect(() => {
         GetAddressbook();
-    }, [])
+    }, [getAddress])
 
+    // useEffect(() => {
+    //     GetAddress()
+    // }, [])
 
     return(
         <div className="flex flex-wrap justify-start w-[720px] min-h-[88%] gap-4">

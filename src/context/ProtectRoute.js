@@ -23,10 +23,16 @@ export const ProtectAdminRoute = ({children}) => {
 
 export const ProtectCustomerRoute = ({children}) => {
     const location = useLocation()
-    const isAuthenticated = localStorage.getItem('signature')
+    let isAuthenticated;
     const userRole = localStorage.getItem('role')
 
-      
+    const localStorageValue = localStorage.getItem('signature');
+    
+    if( localStorageValue !== null && localStorageValue.length > 4 ){
+        isAuthenticated = true;
+    }
+
+     
     if(!isAuthenticated || userRole ==="ADMIN" ||  userRole ==="SUPER_ADMIN"){
         return (
             <Navigate to="/login" state={{from:location} }/>

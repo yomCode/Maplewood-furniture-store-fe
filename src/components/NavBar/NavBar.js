@@ -136,7 +136,8 @@ const Navbar = () => {
             </li>
             <li className="">
               <button onClick={Logout}>
-                <FiLogOut className="text-[1.3rem]" />
+                {/* <FiLogOut className="text-[1.3rem]" /> */}
+                LOGOUT
               </button>
             </li>
             {userMenu && (
