@@ -130,7 +130,7 @@ const DataProvider = ({ children }) => {
           if(res.data.message === 'Login Successful'){
             successNotification(res.data.message);
             console.log(res.data.message);
-            const jwtInfo = decodeJwt(res.data.data)   
+            const jwtInfo = decodeJwt(res.data.data);   
             localStorage.setItem("signature", res.data.data);
             localStorage.setItem("role", jwtInfo.roles);
 
