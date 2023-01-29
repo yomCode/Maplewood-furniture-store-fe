@@ -28,6 +28,7 @@ const ProductProvider = ({ children }) => {
 
 
     const getProducts = () => {
+        setFetching(true)
         if(productUrl.length > 0) {
             const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
                 axios.get(allProductsUrl)
