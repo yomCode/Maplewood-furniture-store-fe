@@ -60,7 +60,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    // const localStorageValue = localStorage.getItem("signature") ? localStorage.getItem("signature") : "null";
     if (localStorageValue !== null && localStorageValue.length > 4) {
       setKey(true);
     } else {

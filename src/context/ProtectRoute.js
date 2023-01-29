@@ -19,8 +19,6 @@ export const ProtectAdminRoute = ({children}) => {
 }
 
 
-
-
 export const ProtectCustomerRoute = ({children}) => {
     const location = useLocation()
     let isAuthenticated;

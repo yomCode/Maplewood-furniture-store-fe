@@ -15,7 +15,6 @@ import {
 import jwt_decode from "jwt-decode";
 import { decodeJwt, redirectToUserPage } from "../utils/roleUrlRouter";
 
-
 export const dataContext = createContext();
 
 const DataProvider = ({ children }) => {
@@ -130,6 +129,7 @@ const DataProvider = ({ children }) => {
         .then((res) => {
           successNotification(res.data.message);
           if(res.data.message === 'Login Successful'){
+            successNotification(res.data.message);
             console.log(res.data.message);
             const jwtInfo = decodeJwt(res.data.data);   
             localStorage.setItem("signature", res.data.data);
