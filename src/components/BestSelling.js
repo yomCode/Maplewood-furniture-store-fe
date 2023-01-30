@@ -1,5 +1,5 @@
 
-import BestSellingCard from './Best-selling-card';
+import BestSellingCard from './BestSellingCard';
 
 
 const BestSelling = () =>{

@@ -20,7 +20,7 @@ export const FooterCard = (props) =>{
 
 const Footer = () => {
     return(
-        <footer className="w-full bg-[#bcbcbc] mt-[5rem] p-4">
+        <footer className="w-full bg-[#bcbcbc] mt-[5rem] p-4 divide-y">
             <div className="flex gap-[5rem] md:flex-row flex-col md:justify-center">
                 <div className="text-gray-600 flex flex-col md:items-start items-center gap-2">
                     <h6 className="font-bold text-black mb-3 after:h-[4px] text-[0.7rem] after:bg-black after:inline-block after:relative after:align-middle after:w-3/4">ABOUT US</h6>
@@ -46,8 +46,7 @@ const Footer = () => {
                     <FooterCard heading="INFORMATION" link1="Privacy Policy" link2="Terms of service" link3="Disclaimer" link4="Credits" link5="FAQ"/>
                 </div>
             </div>
-            <hr  />
-            <div className="flex flex-col justify-between mt-2">
+            <div className="flex flex-col justify-between mt-2 py-2">
                 <div className="flex gap-4">
                     <div>
                         <h6 className="text-[1.7rem] font-bold text-[#403414]">OAKLAND</h6>
