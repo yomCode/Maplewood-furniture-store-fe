@@ -58,7 +58,6 @@ export const IsAuthenticated = ({children}) => {
     return children
 }
 
-
 export const RequireAdminAuth = () => {
     const location = useLocation()
     const isAuthenticated = localStorage.getItem('signature')

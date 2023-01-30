@@ -14,6 +14,7 @@ import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSyst
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import Menu from "@mui/icons-material/Menu";
+import { WarehouseSharp } from "@mui/icons-material";
 
 const Sidebar = () => {
   const sidebarRef = useRef()
@@ -72,24 +73,38 @@ const Sidebar = () => {
             </li>
           </Link>
 
-          <li className="options hover-text">
+
+          <Link to="/admin/delivery" style={{ textDecoration: "none" }}>
+            <li className="options hover-text">
             <LocalShippingIcon className="icon" />
             <p>Delivery</p>
             <span className="tooltip-text" id="right">Delivery</span>
-          </li>
+            </li>
+          </Link>
+          
+          <Link to="/admin/states" style={{ textDecoration: "none" }}>
+            <li className="options hover-text">
+            <WarehouseSharp className="icon" />
+            <p>States</p>
+            <span className="tooltip-text" id="right">States </span>
+            </li>
+          </Link>
+          
+          <Link to="/admin/pickupCenter" style={{ textDecoration: "none" }}>
+            <li className="options hover-text">
+            <WarehouseSharp className="icon" />
+            <p>Pickup Center</p>
+            <span className="tooltip-text" id="right">Pickup Center</span>
+            </li>
+          </Link>
 
-          <p className="title">USEFUL</p>
-          <li className="options hover-text">
+          <Link to="/admin/category" style={{ textDecoration: "none" }}>
+            <li className="options hover-text">
             <InsertChartIcon className="icon" />
-            <p>Stats</p>
+            <p>Category/Subcategory</p>
             <span className="tooltip-text" id="right">Stats</span>
-          </li>
-
-          <li className="options hover-text">
-            <NotificationsNoneIcon className="icon" />
-            <p>Notifications</p>
-            <span className="tooltip-text" id="right">Notifications</span>
-          </li>
+            </li>
+          </Link>
 
           <p className="title">SERVICE</p>
           <li className="options hover-text">

@@ -42,7 +42,7 @@ export const UserMenuDropdown = ({ closeMenu }) => {
 };
 
 const Navbar = () => {
-  const { Logout } = useAuth();
+  const { Logout, localStorageValue } = useAuth();
 
   const [nav, setNav] = useState(false);
   const [key, setKey] = useState(false);
@@ -66,7 +66,7 @@ const Navbar = () => {
     } else {
       setKey(false);
     }
-  }, []);
+  }, [localStorageValue]);
 
   useEffect(() => {
     GetUser();
