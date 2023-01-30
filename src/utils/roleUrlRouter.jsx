@@ -37,7 +37,7 @@ export const redirectToUserPage = (location, navigate, roles) => {
         if(roles === "ADMIN" || roles === "SUPERADMIN")
             from = location.state?.from?.pathname || "/admin"
         else if(roles === "USER")
-            from = location.state?.from?.pathname || "/"
+            from = location.state?.from?.pathname || "/shop"
 
     navigate(from, { replace: true })
 }

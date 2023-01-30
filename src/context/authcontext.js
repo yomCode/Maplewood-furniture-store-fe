@@ -37,6 +37,8 @@ const DataProvider = ({ children }) => {
   const[totalElements, setTotalElements] = useState(0)
   const[numOfElements, setNumOfElements] = useState(0)
 
+  const[localStorageValue, setLocalStorageValue] = useState(false)
+
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
     try {
@@ -126,7 +128,6 @@ const DataProvider = ({ children }) => {
       await apiPost("auth/login", LoginData)
         .then((res) => {
           successNotification(res.data.message);
-          console.log(res.data.message);
           if(res.data.message === 'Login Successful'){
             successNotification(res.data.message);
             console.log(res.data.message);
@@ -134,6 +135,7 @@ const DataProvider = ({ children }) => {
             localStorage.setItem("signature", res.data.data);
             localStorage.setItem("role", jwtInfo.roles);
 
+            setLocalStorageValue(localStorage.getItem("signature"))
             redirectToUserPage(location, navigate, jwtInfo.roles)
           }
           else{
@@ -630,7 +632,8 @@ useEffect(() => {
           setPageNumber, 
           totalElements,
           numOfElements,
-          WalletDetails
+          WalletDetails,
+          localStorageValue
       }}
     >
       {children}
