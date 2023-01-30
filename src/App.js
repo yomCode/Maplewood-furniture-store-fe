@@ -39,7 +39,7 @@ function App() {
   return (
     <React.Fragment>
       <Router>
-        {/* { useRole === "USER" && <NavBar /> } */}
+        <NavBar />
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
