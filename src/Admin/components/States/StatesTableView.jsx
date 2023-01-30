@@ -5,7 +5,7 @@
 
   import { LoadingOutlined, } from '@ant-design/icons';
   import { Table, Spin, Empty } from 'antd';
-  import { Warehouse } from '@mui/icons-material';
+  import { GpsFixedSharp, Warehouse } from '@mui/icons-material';
   import useCategory from '../../../hooks/useCategory';
   import useProduct from '../../../hooks/useProduct';
 
@@ -13,14 +13,14 @@
 
   const StatesTableView = ({ tableTitle }) => {
     const { states, fetching, 
-      totalElements, setSingleState, } = useCategory()
+      totalStates, setSingleState, } = useCategory()
     const { setHeaderTitle, headerTitle } = useProduct()
 
     const[showDrawer, setShowDrawer] = useState(false)
 
     const handleShowDrawer = () => {
       setHeaderTitle("Add New State")
-      setSingleState({ name: "", })
+      setSingleState({ nameOfState: "", })
       setShowDrawer(!showDrawer);
     }
 
@@ -46,9 +46,9 @@
               <div className="title-head"> 
                 <div className='title-sub-head'>
                   <button className="home-btn" onClick={handleShowDrawer}>
-                    <Warehouse />Add New State
+                    <GpsFixedSharp />Add New State
                   </button>
-                    <button className="btn-count">{totalElements}</button>
+                    <button className="btn-count">{totalStates}</button>
                 </div>
                 <h2 className='"layout-h2-header'>{tableTitle}</h2>
               </div> 
@@ -72,7 +72,7 @@
               alignItems: "center", justifyContent: "center", }}>
               <Empty> 
                 <button className="home-btn" onClick={handleShowDrawer}>
-                  <Warehouse />Add New PickupCenter
+                  <GpsFixedSharp />Add New State
                 </button>
               </Empty>
             </div>

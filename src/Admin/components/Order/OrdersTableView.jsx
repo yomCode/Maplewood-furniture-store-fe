@@ -3,6 +3,7 @@ import { productColumns } from './ordersTableData'
 import DrawerForm from '../Forms/DrawerForm'
 import ReactPaginate from 'react-paginate';
 import AddProductForm from '../Forms/AddProductForm'
+import CreditCardIcon from "@mui/icons-material/CreditCard";
 
 import {
   UserAddOutlined,
@@ -15,8 +16,8 @@ import { Table, Spin, Empty } from 'antd';
 import useProduct from '../../../hooks/useProduct';
 const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
 
-  const PersonTableView = ({ tableTitle }) => {
-    const { customers,  products, totalPages, setPageNumber, fetching, totalElements, 
+  const OrderTableView = ({ tableTitle }) => {
+    const { customers,  totalPages, setPageNumber, fetching, totalElements, 
             setHeaderTitle, headerTitle } = useProduct()
 
     const changePage = ({ selected }) => setPageNumber(selected)
@@ -43,8 +44,9 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
             </div>
           }
 
-          {
-            customers?.length > 0 &&          
+          <div className="table-div">
+            {
+              customers?.length > 0 &&         
 
             <div className="title-head">
                 <div className='title-sub-head'>
@@ -78,15 +80,21 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
             columns={productColumns}                
            />
           }
+          </div>
           
 
           { customers?.length === 0 && !fetching && 
-            <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
-              <Empty /> 
+            <div style={{ width: "100vw", display: "flex", height:"100%", 
+              alignItems: "center", justifyContent: "center", }}>
+              <Empty> 
+                <button className="home-btn" onClick={handleShowDrawer}>
+                  <CreditCardIcon />Add New State
+                </button>
+              </Empty>
             </div>
           }  
         </section>
     )
   }
 
-  export default PersonTableView
+  export default OrderTableView
