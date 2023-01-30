@@ -505,21 +505,6 @@ const WalletDetails = async () => {
 }
 
 
-// ====================Wallet Transactions======================
-
-// const GetTransactions = async (page) => {
-//   try{
-//     await apiGetAuthorization('customer/wallet/transactions').then((res) => {
-//       setGetTransactions([...getTransactions, res.data.content]);
-//       console.log(getTransactions)
-//       console.log(res.data.content[0]);
-//     })
-//   }catch(err){
-//     console.log(err.response.data);
-//   }
-// }
-
-
 // ===========================GET WALLET TRX===================================
 
 const FetchTrx = useCallback(() => {
@@ -532,10 +517,7 @@ const FetchTrx = useCallback(() => {
                     setTotalPages(data.totalPages)
                     setTotalElements(data.totalElements)
                     setNumOfElements(data.numberOfElements)
-        // setGetTrx([...res.data.content]);
         console.log(getTrx)
-        // console.log(res.data.content)
-        // console.log(getTrx)
       })
     }catch(err){
       console.log(err.response.data.message)
