@@ -14,7 +14,9 @@ import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSyst
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import Menu from "@mui/icons-material/Menu";
-import { WarehouseSharp } from "@mui/icons-material";
+import { GpsFixedSharp, Warehouse, WarehouseSharp } from "@mui/icons-material";
+import { FaCity } from "react-icons/fa";
+import { FiActivity } from "react-icons/fi";
 
 const Sidebar = () => {
   const sidebarRef = useRef()
@@ -57,7 +59,7 @@ const Sidebar = () => {
             </li>
           </Link>
 
-          <Link to="/admin" style={{ textDecoration: "none" }}>
+          <Link to="/admin/products" style={{ textDecoration: "none" }}>
             <li className="options hover-text">
                 <StoreIcon className="icon" />
                 <p>Products</p>
@@ -84,7 +86,7 @@ const Sidebar = () => {
           
           <Link to="/admin/states" style={{ textDecoration: "none" }}>
             <li className="options hover-text">
-            <WarehouseSharp className="icon" />
+            <GpsFixedSharp className="icon" />
             <p>States</p>
             <span className="tooltip-text" id="right">States </span>
             </li>
@@ -92,7 +94,7 @@ const Sidebar = () => {
           
           <Link to="/admin/pickupCenter" style={{ textDecoration: "none" }}>
             <li className="options hover-text">
-            <WarehouseSharp className="icon" />
+            <Warehouse className="icon" />
             <p>Pickup Center</p>
             <span className="tooltip-text" id="right">Pickup Center</span>
             </li>

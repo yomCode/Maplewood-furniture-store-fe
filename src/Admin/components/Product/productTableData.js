@@ -37,8 +37,9 @@ const HandleAddNewProductDetails = ({ product, setShowDrawer }) => {
   );
 }
 
-const confirmDeleteProduct = (product, deleteProduct) => {
+const confirmDeleteProduct = (product, deleteProduct, getProducts) => {
   deleteProduct(product)
+  getProducts()
 };
 
 const cancelDeleteProduct = (e) => {

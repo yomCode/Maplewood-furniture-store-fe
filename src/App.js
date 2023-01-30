@@ -32,7 +32,8 @@ import OrdersTableView from './Admin/components/Order/OrdersTableView'
 import Orders from "./screens/Orders/Orders";
 import CheckMail from "./screens/Signup/CheckMail";
 import PickupTableView from "./Admin/components/PickupCenter/PickupTableView";
-import StatesTableView from "./Admin/components/States/PickupTableView";
+import StatesTableView from "./Admin/components/States/StatesTableView";
+import Dashboard from "./Admin/components/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -136,7 +137,7 @@ function App() {
           
           <Route element={<RequireAdminAuth /> } >
             <Route path='/admin' element={<Layout />}>
-                <Route index element={<TableView tableTitle={ "PRODUCTS" }/>} />
+                <Route index element={<Dashboard />} />
                 <Route path="/admin/products" element={<TableView tableTitle={ "PRODUCTS" }/>} />
                 <Route path="/admin/users" element={<PersonTableView tableTitle={"ALL USERS"}/>} />
                 <Route path="/admin/orders" element={<OrdersTableView tableTitle={"ALL ORDERS"}/>} />

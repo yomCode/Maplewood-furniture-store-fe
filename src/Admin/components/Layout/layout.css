@@ -7,8 +7,9 @@
 }
 
 .admin-dashboard-layout {
-    margin-top: 80px;
-    height: 90vh;
+    margin-top: 8px;
+    height: 96vh;
+    width: 100vw;
 }
 
 .container {
@@ -25,7 +26,7 @@
 
 .children {
     display: flex;
-    min-width: 80vw;
+    min-width: 82vw;
     height: 100%;
     border: 1px solid lightslategray;
     /* margin-right: 3%; */

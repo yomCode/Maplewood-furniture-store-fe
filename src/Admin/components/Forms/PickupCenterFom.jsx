@@ -17,8 +17,8 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const PickupCenterForm = ({ setShowDrawer }) => {
     const [ form ] = Form.useForm() 
     const[submitting, setSubmitting] = useState(false);
-    const { singleProduct, headerTitle } = useProduct()
-    const { subcategories, createNewPickupCenter, updatePickupCenter } = useCategory()
+    const { headerTitle } = useProduct()
+    const { states, singlePickupCenter, createNewPickupCenter, updatePickupCenter } = useCategory()
 
     const onClose = () => setShowDrawer(false);
     
@@ -27,8 +27,8 @@ const PickupCenterForm = ({ setShowDrawer }) => {
         console.log(JSON.stringify(newPickupCenter, null, 2));
         if(headerTitle === "Add New Pickup Center")
             createNewPickupCenter(setSubmitting, onClose, newPickupCenter)
-        // else
-            // editPickupCenter(onClose, newPickupCenter)
+        else
+            updatePickupCenter(onClose, newPickupCenter)
     };
 
     const onFinishFailed = errorInfo => {
@@ -42,7 +42,7 @@ const PickupCenterForm = ({ setShowDrawer }) => {
     <Form layout="vertical"
             form={form}
             onFinishFailed={onFinishFailed}
-            fields={form.setFieldsValue(singleProduct)}
+            fields={form.setFieldsValue(singlePickupCenter)}
             onFinish={onFinish}>
         <Row gutter={rowGutterSize}>
             <Col span={spanSize}>
@@ -51,7 +51,7 @@ const PickupCenterForm = ({ setShowDrawer }) => {
                     label="Name"
                     rules={[{required: true, message: 'Pickup Center name required'}]}
                 >
-                    <Input placeholder="Product Name"/>
+                    <Input placeholder="Pickup center Address"/>
                 </Form.Item>
             </Col>
         </Row>
@@ -101,10 +101,10 @@ const PickupCenterForm = ({ setShowDrawer }) => {
                 >
                     <Select placeholder="Please select a state">
                         { 
-                        subcategories?.map((subCat, index) => 
+                        states?.map((state, index) => 
                             <Option 
                                 key={index} 
-                                value={subCat.name}>{subCat.name}
+                                value={state.name}>{state.name}
                             </Option>
                         )}
                     </Select>
@@ -120,7 +120,7 @@ const PickupCenterForm = ({ setShowDrawer }) => {
                     label="Delivery Fee"
                     rules={[{required: true, message: 'Please enter delivery fee'}]}
                 >
-                    <Input type="number" placeholder="Product Image URL"/>
+                    <Input type="number" placeholder="Enter delivery fee"/>
                 </Form.Item>
             </Col>
         </Row>
