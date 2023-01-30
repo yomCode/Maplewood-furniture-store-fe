@@ -35,14 +35,16 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
             />}
           />
           {
-              personFetching &&
-              <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
-                 <Spin indicator={antIcon} style={{ color: "rgb(218, 196, 161)" }}/>
-              </div>
-            }
+            personFetching &&
+            <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
+                <Spin indicator={antIcon} style={{ color: "rgb(218, 196, 161)" }}/>
+            </div>
+          }
 
 
         <div className="table-div">
+        {
+          persons?.length > 0 &&          
           <div className="title-head"> 
               <div className='title-sub-head'>
                   <button style={{padding: "15px 30px"}}
@@ -63,6 +65,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
                 activeClassName={"paginationActive"}
               />
             </div> 
+          }
 
 
           { !personFetching && persons?.length > 0 && 
@@ -80,7 +83,8 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
           { persons?.length === 0 && !personFetching && 
             <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
               <Empty /> 
-            </div> }
+            </div>
+          }   
         </section>
     )
   }
