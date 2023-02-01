@@ -16,17 +16,16 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const StatesForm = ({ setShowDrawer }) => {
     const [ form ] = Form.useForm() 
     const[submitting, setSubmitting] = useState(false);
-    const { singleProduct, headerTitle } = useProduct()
-    const {  createNewState, updateState } = useCategory()
+    const { headerTitle } = useProduct()
+    const { createNewState, updateState, singleState } = useCategory()
 
     const onClose = () => setShowDrawer(false);
 
     const onFinish = newState => {
-        console.log(JSON.stringify(newState, null, 2));
-        if(headerTitle === "Add New Pickup Center")
+        if(headerTitle === "Add New State")
             createNewState(setSubmitting, onClose, newState)
-        // else
-            // updateState(onClose, newState)
+        else
+            updateState(onClose, newState)
     };
 
     const onFinishFailed = errorInfo => {
@@ -40,16 +39,16 @@ const StatesForm = ({ setShowDrawer }) => {
     <Form layout="vertical"
             form={form}
             onFinishFailed={onFinishFailed}
-            fields={form.setFieldsValue(singleProduct)}
+            fields={form.setFieldsValue({nameOfState: singleState.name})}
             onFinish={onFinish}>
         <Row gutter={rowGutterSize}>
             <Col span={spanSize}>
                 <Form.Item
-                    name="name"
+                    name="nameOfState"
                     label="Name"
-                    rules={[{required: true, message: 'Pickup Center name required'}]}
+                    rules={[{required: true, message: 'Name  of State Required'}]}
                 >
-                    <Input placeholder="Product Name"/>
+                    <Input placeholder="State"/>
                 </Form.Item>
             </Col>
         </Row>

@@ -2,7 +2,7 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import axios from 'axios'
 import { message } from "antd";
 import { errorNotification, successNotification } from "../components/Notification";
-import { apiGetAuthorization, apiPut, apiPostAuthorization, apiDeleteAuthorization } from "../utils/api/axios";
+import { apiGetAuthorization, apiPut, apiGet, apiPostAuthorization, apiDeleteAuthorization } from "../utils/api/axios";
 
 const ProductsContext = createContext();
 
@@ -31,7 +31,7 @@ const ProductProvider = ({ children }) => {
         setFetching(true)
         if(productUrl.length > 0) {
             const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
-                axios.get(allProductsUrl)
+                apiGet(allProductsUrl)
                 .then((res) => {
                     const data = res.data.data
                     setProducts(data.content)
@@ -187,7 +187,7 @@ const ProductProvider = ({ children }) => {
         if(productUrl.length > 0) {
             console.log(`ProductUrl: ${productUrl}`)
             const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
-                axios.get(allProductsUrl)
+                apiGet(allProductsUrl)
                 .then((res) => {
                     const data = res.data.data
                     setProducts(data.content)

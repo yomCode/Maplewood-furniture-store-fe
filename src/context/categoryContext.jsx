@@ -1,6 +1,6 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import axios from 'axios'
-import { apiDeleteAuthorization, apiGet, apiPostAuthorization } from "../utils/api/axios";
+import { apiDeleteAuthorization, apiGet, apiPostAuthorization, apiPut } from "../utils/api/axios";
 
 import { errorNotification, 
         successNotification } 
@@ -28,7 +28,8 @@ export const CategoryProvider = ({ children }) => {
 
     //STATES
     const[states, setStates] = useState([])
-    const[singleState, setSingleState] = useState()
+    const[singleState, setSingleState] = useState([])
+    const[totalStates, setTotalStates] = useState(0)
 
     useEffect(() => {
         const subCategoriesUrl = `/subcategory/view-all`
@@ -135,19 +136,43 @@ export const CategoryProvider = ({ children }) => {
     }
 
 
-    const updatePickUpCenter = () => {
+    const updatePickupCenter = (onClose, newPickupCenter) => {
+        apiPut(`pickup/update/${singlePickupCenter.id}`, newPickupCenter)
+        .then(res => {
+            successNotification("Pickup center updated!", "Success")
+            getPickupCenters()
+            onClose()
+        })
+        .catch(err => {
+            console.log(err)
 
+        })
     }
+
+
+    const deletePickupCenter = () => {
+        apiPut(`pickup/delete/${singlePickupCenter.id}`)
+       .then(res => {
+            successNotification("Pickup center deleted!", "Success")
+            getPickupCenters()
+        })
+        .catch(err => {
+            console.log(err)
+
+        })
+    }
+
 
     /*****=============STATE===================*****/
      const createNewState = (setSubmitting, onClose, newState) => {
         setSubmitting(true);
+        console.log("Received input: " + newState.nameOfState)
         apiPostAuthorization("state/admin/create_state", newState)
         .then(res => {
             console.log(res.data);
             onClose();
-            successNotification("newProduct Successfully Added", `${newState.name} was added to the system.`)
-            getPickupCenters();
+            successNotification("Successful", `${newState.nameOfState} was added to the system.`)
+            getAllStates();
         })
         .catch(err => {
             console.log(err)
@@ -156,7 +181,7 @@ export const CategoryProvider = ({ children }) => {
                 errorNotification("UnAuthorized", "Contact your admin for access.", "topLeft")
             if(err.response.status >= 500)
                 errorNotification("Internal Server Error", "Not connected", "topLeft")
-            else errorNotification("No Access", "An Errr Occurred", "topLeft")
+            else errorNotification("Error", err.response.message, "topLeft")
         })
         .finally(() => {
             setSubmitting(false)
@@ -164,9 +189,10 @@ export const CategoryProvider = ({ children }) => {
     }
 
     const deleteState = (stateId) => {
-        apiDeleteAuthorization(`state/admin/delete_state${stateId}`)
+        apiDeleteAuthorization(`state/admin/delete_state/${stateId}`)
         .then(res => {
             console.log(res.data)
+            getAllStates()
         })
         .catch(err => {
             console.log(err)
@@ -177,14 +203,32 @@ export const CategoryProvider = ({ children }) => {
         apiGet(`state/view-states`)
         .then(res => {
             console.log(res)
+            setStates(res.data)
+            setTotalStates(res.data.length)
         })
         .catch(err => {
             console.log(err)
         })
     }
 
-    const updateState = () => {
+    const getAllStatesCallback = useCallback(() => {
+        apiGet(`state/view-states`)
+        .then(res => {
+            console.log(res)
+            setStates(res.data)
+            setTotalStates(res.data.length)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }, [])
 
+    useEffect(() => {
+        getAllStatesCallback()
+    }, [getAllStatesCallback])
+
+    const updateState = () => {
+        console.log("Updating state")
     }
 
 
@@ -207,7 +251,8 @@ export const CategoryProvider = ({ children }) => {
         pickupCenters,
         getPickupCenters,
         createNewPickupCenter,
-        updatePickUpCenter,
+        updatePickupCenter,
+        deletePickupCenter,
         states,
         singleState,
         setSingleState,
@@ -215,6 +260,7 @@ export const CategoryProvider = ({ children }) => {
         getAllStates,
         deleteState,
         updateState,
+        totalStates,
 
         }}>
         { children }
