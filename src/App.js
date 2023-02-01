@@ -33,6 +33,7 @@ import Orders from "./screens/Orders/Orders";
 import CheckMail from "./screens/Signup/CheckMail";
 import PickupTableView from "./Admin/components/PickupCenter/PickupTableView";
 import StatesTableView from "./Admin/components/States/PickupTableView";
+// import SuperAdminDashBoard from "./SuperAdmin/Dashboard";
 
 function App() {
   return (
@@ -153,6 +154,7 @@ function App() {
           } />
           <Route path="/confirm-payment" element={<VerifyPayment />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="super/dashboard" element={< Layout />} />
         </Routes>
         <BackToTop />
         <Footer />
