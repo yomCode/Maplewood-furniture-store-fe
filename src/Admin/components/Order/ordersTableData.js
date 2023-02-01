@@ -7,10 +7,6 @@ import {
 
 import PopupConfirm from "../../../components/PopupNotification/PopupConfirm";
 
-const CustomAvatar = ({firstName, lastName, style}) => {
-    return <Avatar style={style}>{`${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`}</Avatar>
-}
-
 const HandleAddNewProductDetails = () => {
   
   return(

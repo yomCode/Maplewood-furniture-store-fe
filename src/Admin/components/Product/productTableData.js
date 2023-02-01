@@ -1,21 +1,12 @@
-import { Avatar, Button, message } from "antd";
+import { Button, message } from "antd";
 import {
-  UserOutlined,
   DeleteOutlined,
   EditOutlined,
 } from '@ant-design/icons';
 import PopupConfirm from "../../../components/PopupNotification/PopupConfirm";
 import useProduct from "../../../hooks/useProduct";
+import CustomAvatar from '../Layout/CustomAvatar'
 
-const CustomAvatar = ({name, style}) => {
-  let trim = name.trim();
-  if(trim.length === 0) return <Avatar style={style} icon={<UserOutlined />}/>
-
-  const split = trim.split(" ");
-  if(split.length === 1) return <Avatar style={style}>{name.charAt(0).toUpperCase()}</Avatar>
-
-  else if(split.length > 1) return <Avatar style={style}>{`${name.charAt(0)}${name.charAt(name.indexOf(' ') + 1)}`}</Avatar>
-}
 
 const HandleAddNewProductDetails = ({ product, setShowDrawer }) => {
   const { getProducts, deleteProduct, setSingleProduct, setHeaderTitle } = useProduct()
@@ -69,7 +60,7 @@ const productColumns = (setShowDrawer) => [
     render: (_, product) => <CustomAvatar  key={product.id}
     style={{ 
       color: '#f56a00', backgroundColor: '#fde3cf' }} 
-      name={product.name} />
+      name={product.name} url={product.imageUrl} />
   },
   {
     title: 'Id',
