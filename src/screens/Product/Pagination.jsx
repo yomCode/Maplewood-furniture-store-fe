@@ -29,9 +29,15 @@ const Pagination = ({ url, isEditable }) => {
               )}
             </div>
 
+            </div>
+        ) 
+    }
+
+
             <ReactPaginate 
               previousLabel={<CaretLeftOutlined />}
               nextLabel={<CaretRightOutlined />}
+              breakLabel="..."
               pageCount={totalPages} 
               onPageChange={changePage}
               containerClassName={"paginationBtns"}
@@ -40,9 +46,6 @@ const Pagination = ({ url, isEditable }) => {
               disabledClassName={"paginationDisabled"}
               activeClassName={"paginationActive"}
             />
-            </div>
-        ) 
-    }
 
   { products?.length === 0 && !fetching &&
     <div className="favorites-div" style={{minHeight: "40vh"}}>

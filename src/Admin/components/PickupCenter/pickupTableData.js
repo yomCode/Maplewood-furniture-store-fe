@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import PopupConfirm from "../../../components/PopupNotification/PopupConfirm";
 import useProduct from "../../../hooks/useProduct";
+import useCategory from "../../../hooks/useCategory";
 
 const CustomAvatar = ({name, style}) => {
   let trim = name.trim();
@@ -17,19 +18,21 @@ const CustomAvatar = ({name, style}) => {
   else if(split.length > 1) return <Avatar style={style}>{`${name.charAt(0)}${name.charAt(name.indexOf(' ') + 1)}`}</Avatar>
 }
 
-const HandleAddNewProductDetails = ({ product, setShowDrawer }) => {
-  const { getProducts, deleteProduct, setSingleProduct, setHeaderTitle } = useProduct()
+const HandleColumnEvents = ({ pickupCenter, setShowDrawer }) => {
+  const { setHeaderTitle } = useProduct()
+  const { deletePickupCenter, setSinglePickupCenter } = useCategory()
+  
   return(
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "20px"}}>
       <PopupConfirm 
-        description={`Delete ${product.name.toUpperCase()}?`} 
-        confirm={() => confirmDeleteProduct(product, deleteProduct, getProducts)} 
-        cancel={() => cancelDeleteProduct(product)}
+        description={`Delete ${pickupCenter.name.toUpperCase()}?`} 
+        confirm={() => confirmDeleteProduct(pickupCenter, deletePickupCenter)} 
+        cancel={() => cancelDeleteProduct(pickupCenter)}
         component={ <Button type="primary default" 
         danger ghost icon={<DeleteOutlined />}></Button> }/>
 
-      <PopupConfirm description={`Do you want to edit product ${product.name}?`} 
-        confirm={() => confirmEditProduct(product, setShowDrawer, setSingleProduct, setHeaderTitle)}
+      <PopupConfirm description={`Do you want to edit pickup center ${pickupCenter.name}?`} 
+        confirm={() => confirmEditProduct(pickupCenter, setShowDrawer, setSinglePickupCenter, setHeaderTitle)}
         cancel={() => cancelEditProduct(setShowDrawer)}
         component={ <Button type="primary danger" 
         ghost icon={<EditOutlined />}></Button> }/>
@@ -37,9 +40,8 @@ const HandleAddNewProductDetails = ({ product, setShowDrawer }) => {
   );
 }
 
-const confirmDeleteProduct = (product, deleteProduct, getProducts) => {
-  deleteProduct(product)
-  getProducts()
+const confirmDeleteProduct = (pickupCenter, deletePickupCenter) => {
+  deletePickupCenter(pickupCenter)
 };
 
 const cancelDeleteProduct = (e) => {
@@ -48,9 +50,9 @@ const cancelDeleteProduct = (e) => {
 };
 
 
-const confirmEditProduct = (product, setShowDrawer, setSingleProduct, setHeaderTitle) => {
-  setHeaderTitle(`Update Product: ${product.name}`)
-  setSingleProduct(product)
+const confirmEditProduct = (pickupCenter, setShowDrawer, setSinglePickupCenter, setHeaderTitle) => {
+  setHeaderTitle(`Update PickupCenter: ${pickupCenter.name}`)
+  setSinglePickupCenter(pickupCenter)
   setShowDrawer(true)
   message.success('Click on Yes');
 };
@@ -61,11 +63,12 @@ const cancelEditProduct = (setShowDrawer) => {
 };
 
 
-const productColumns = (setShowDrawer) => [
+const pickupColumns = (setShowDrawer) => [
   {
     title : "Image",
     dataIndex: 'imageUrl',
     key: 'imageUrl',
+    width: '80px',
     render: (_, product) => <CustomAvatar  key={product.id}
     style={{ 
       color: '#f56a00', backgroundColor: '#fde3cf' }} 
@@ -82,32 +85,38 @@ const productColumns = (setShowDrawer) => [
     key: 'name',
   },
   {
-    title: 'Price',
-    dataIndex: 'price',
-    key: 'price',
+    title: 'Location',
+    dataIndex: 'location',
+    key: 'location',
   },
   {
-    title: 'Quantity',
-    dataIndex: 'availableQty',
-    key: 'availableQty',
+    title: 'State',
+    dataIndex: 'state',
+    key: 'state',
   },
   {
-    title: 'Color',
-    dataIndex: 'color',
-    key: 'color',
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
   },
   {
-    title: 'Description',
-    dataIndex: 'description',
-    key: 'description',
+    title: 'Phone',
+    dataIndex: 'phone',
+    key: 'phone',
+  },
+
+  {
+    title: 'Delivery',
+    dataIndex: 'delivery',
+    key: 'delivery'
   },
   {
     title: "Actions",
     dataIndex: 'actions',
     key: 'actions',
-    render: (_, product) => <HandleAddNewProductDetails key={product.id}
-      product={product} setShowDrawer={setShowDrawer}/>
+    render: (_, pickupCenter) => <HandleColumnEvents setShowDrawer={setShowDrawer}
+      pickupCenter={pickupCenter}/>
   },
 ];
 
-export { productColumns, }
+export { pickupColumns, }

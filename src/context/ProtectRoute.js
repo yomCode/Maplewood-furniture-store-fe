@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 
 
-
 export const ProtectAdminRoute = ({children}) => {
     const location = useLocation()
     const isAuthenticated = localStorage.getItem('signature')
@@ -58,7 +57,6 @@ export const IsAuthenticated = ({children}) => {
     }
     return children
 }
-
 
 export const RequireAdminAuth = () => {
     const location = useLocation()

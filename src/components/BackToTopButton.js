@@ -12,8 +12,7 @@ const BackToTop = () => {
                 setBackToTopBtn(true)
             }else{
                 setBackToTopBtn(false)
-            }
-            
+            }    
         })
     }, [])
 

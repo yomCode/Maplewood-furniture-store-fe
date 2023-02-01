@@ -17,8 +17,7 @@
   const TableView = ({ tableTitle }) => {
     const changePage = ({ selected }) => setPageNumber(selected)
     const { products,  totalPages, setPageNumber, fetching, 
-      totalElements, setSingleProduct, 
-      setHeaderTitle, headerTitle } = useProduct()
+      totalElements, setSingleProduct, setHeaderTitle, headerTitle } = useProduct()
     const[showDrawer, setShowDrawer] = useState(false)
 
     const handleShowDrawer = () => {
@@ -42,31 +41,27 @@
             showDrawer={showDrawer}
             setShowDrawer={setShowDrawer}
             formLayout={<AddProductForm 
-                setShowDrawer={ setShowDrawer } 
-              />}
+            setShowDrawer={ setShowDrawer } 
+            />}
           />
-          {fetching ? 
+          {fetching &&
             <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
                 <Spin indicator={antIcon} style={{ color: "rgb(218, 196, 161)" }}/>
             </div>
-            :
-            <Table 
-            dataSource={ products }
-            rowkey={ product => product.name } 
-            bordered
-            pagination={false}
-            scroll={{ x: '400px', y: 600 }}  
-            columns={productColumns(setShowDrawer)} 
-            title={() => 
-              <div className="title-head"> 
-                <div className='title-sub-head'>
-                  <button className="home-btn" onClick={handleShowDrawer}>
-                    <UserAddOutlined />Add New Product
-                  </button>
-                    <button className="btn-count">{totalElements}</button>
-                </div>
-                <h2 className='"layout-h2-header'>{tableTitle}</h2>
+          }
 
+            <div className="table-div">
+            {
+              products?.length > 0 &&          
+
+              <div className="title-head">
+                  <div className='title-sub-head'>
+                    <button className="home-btn" onClick={handleShowDrawer}>
+                      <UserAddOutlined />Add New Product
+                    </button>
+                      <button className="btn-count">{totalElements}</button>
+                  </div>
+                  <h2 className='"layout-h2-header'>{tableTitle}</h2>
                 <ReactPaginate 
                   previousLabel={<CaretLeftOutlined />}
                   nextLabel={<CaretRightOutlined />}
@@ -78,12 +73,27 @@
                   disabledClassName={"paginationDisabled"}
                   activeClassName={"paginationActive"}
                 />
-              </div>                
+              </div> 
             }
-        />
-          }
 
-          { products?.length === 0 && !fetching && <Empty /> }
+            {products?.length > 0 && 
+              <Table 
+              dataSource={ products }
+              rowkey={ product => product.name } 
+              bordered
+              pagination={false}
+              scroll={{ x: '400px', y: 600 }}  
+              columns={productColumns(setShowDrawer)} 
+            />
+           }
+          </div>
+          
+
+          { products?.length === 0 && !fetching && 
+            <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
+              <Empty /> 
+            </div>
+          }   
         </section>
     )
   }

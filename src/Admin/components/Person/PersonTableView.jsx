@@ -18,16 +18,11 @@ import useProduct from '../../../hooks/useProduct';
 const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
 
   const PersonTableView = ({ tableTitle }) => {
-    const { setHeaderTitle, headerTitle } = useProduct()
+    const { headerTitle } = useProduct()
     const {persons, personTotalPages, setPersonPageNumber, personFetching, personTotalElements } = usePerson()
 
     const changePage = ({ selected }) => setPersonPageNumber(selected)
     const[showDrawer, setShowDrawer] = useState(false)
-
-    const handleShowDrawer = () => {
-      setHeaderTitle("Add New Product")
-      // setShowDrawer(!showDrawer);
-    }
 
     return (
         <section className="table-data-section">
@@ -39,44 +34,57 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
             setShowDrawer={ setShowDrawer } 
             />}
           />
-          {personFetching ? 
+          {
+            personFetching &&
             <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
                 <Spin indicator={antIcon} style={{ color: "rgb(218, 196, 161)" }}/>
             </div>
-            :
-            <Table 
-            dataSource={ persons }
-            rowkey={ person => person.email } 
-            bordered
-            pagination={false}
-            scroll={{ x: '400px', y: 600 }}  
-            columns={productColumns} 
-            title={() => 
-              <div className="title-head"> 
-                <div className='title-sub-head'>
-                    <button style={{padding: "15px 30px"}}
-                      className="btn-count">{personTotalElements}
-                    </button>
-                </div>
-                <h2 className='"layout-h2-header'>{tableTitle}</h2>
-
-                <ReactPaginate 
-                  previousLabel={<CaretLeftOutlined />}
-                  nextLabel={<CaretLeftOutlined />}
-                  pageCount={personTotalPages} 
-                  onPageChange={changePage}
-                  containerClassName={"paginationBtns"}
-                  previousLinkClassName={"prevBtn"}
-                  nextLinkClassName={"nextBtn"}
-                  disabledClassName={"paginationDisabled"}
-                  activeClassName={"paginationActive"}
-                />
-              </div>                
-            }
-        />
           }
 
-          { persons?.length === 0 && !personFetching && <Empty /> }
+
+        <div className="table-div">
+        {
+          persons?.length > 0 &&          
+          <div className="title-head"> 
+              <div className='title-sub-head'>
+                  <button style={{padding: "15px 30px"}}
+                    className="btn-count">{personTotalElements}
+                  </button>
+              </div>
+              <h2 className='"layout-h2-header'>{tableTitle}</h2>
+
+              <ReactPaginate 
+                previousLabel={<CaretLeftOutlined />}
+                nextLabel={<CaretLeftOutlined />}
+                pageCount={personTotalPages} 
+                onPageChange={changePage}
+                containerClassName={"paginationBtns"}
+                previousLinkClassName={"prevBtn"}
+                nextLinkClassName={"nextBtn"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              />
+            </div> 
+          }
+
+
+          { !personFetching && persons?.length > 0 && 
+            <Table 
+              dataSource={ persons }
+              rowkey={ person => person.id } 
+              bordered
+              pagination={false}
+              scroll={{ x: '400px', y: 600 }}  
+              columns={productColumns} 
+            />
+          }
+          </div>
+
+          { persons?.length === 0 && !personFetching && 
+            <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
+              <Empty /> 
+            </div>
+          }   
         </section>
     )
   }

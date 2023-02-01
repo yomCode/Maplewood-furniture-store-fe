@@ -40,6 +40,8 @@ const DataProvider = ({ children }) => {
   const [allStates, setAllStates] = useState([]);
   const [pickupCenterByEmail, setPickupCenterByEmail] = useState(null);
 
+  const[localStorageValue, setLocalStorageValue] = useState(false)
+
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
     try {
@@ -115,6 +117,7 @@ const DataProvider = ({ children }) => {
       await apiPost("auth/login", LoginData)
         .then((res) => {
           console.log(res.data.message);
+          successNotification(res.data.message);
           if(res.data.message === 'Login Successful'){
             successNotification(res.data.message);
             console.log(res.data.message);
@@ -122,6 +125,7 @@ const DataProvider = ({ children }) => {
             localStorage.setItem("signature", res.data.data);
             localStorage.setItem("role", jwtInfo.roles);
 
+            setLocalStorageValue(localStorage.getItem("signature"))
             redirectToUserPage(location, navigate, jwtInfo.roles)
           }
           else{
@@ -489,21 +493,6 @@ const WalletDetails = async () => {
 }
 
 
-// ====================Wallet Transactions======================
-
-// const GetTransactions = async (page) => {
-//   try{
-//     await apiGetAuthorization('customer/wallet/transactions').then((res) => {
-//       setGetTransactions([...getTransactions, res.data.content]);
-//       console.log(getTransactions)
-//       console.log(res.data.content[0]);
-//     })
-//   }catch(err){
-//     console.log(err.response.data);
-//   }
-// }
-
-
 // ===========================GET WALLET TRX===================================
 
 const FetchTrx = useCallback(() => {
@@ -516,10 +505,7 @@ const FetchTrx = useCallback(() => {
                     setTotalPages(data.totalPages)
                     setTotalElements(data.totalElements)
                     setNumOfElements(data.numberOfElements)
-        // setGetTrx([...res.data.content]);
         console.log(getTrx)
-        // console.log(res.data.content)
-        // console.log(getTrx)
       })
     }catch(err){
       console.log(err.response.data.message)
@@ -699,6 +685,7 @@ useEffect(() => {
           pickupCenterByEmail,
           OrderConfig,
           ProcessPaymentForPurchaseConfig,
+          localStorageValue
       }}
     >
       {children}

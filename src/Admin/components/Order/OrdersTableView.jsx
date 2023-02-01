@@ -3,6 +3,7 @@ import { productColumns } from './ordersTableData'
 import DrawerForm from '../Forms/DrawerForm'
 import ReactPaginate from 'react-paginate';
 import AddProductForm from '../Forms/AddProductForm'
+import CreditCardIcon from "@mui/icons-material/CreditCard";
 
 import {
   UserAddOutlined,
@@ -15,7 +16,7 @@ import { Table, Spin, Empty } from 'antd';
 import useProduct from '../../../hooks/useProduct';
 const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
 
-  const PersonTableView = ({ tableTitle }) => {
+  const OrderTableView = ({ tableTitle }) => {
     const { customers,  totalPages, setPageNumber, fetching, totalElements, 
             setHeaderTitle, headerTitle } = useProduct()
 
@@ -37,20 +38,17 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
                 setShowDrawer={ setShowDrawer } 
               />}
           />
-          {fetching ? 
+          {fetching && 
             <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
                 <Spin indicator={antIcon} style={{ color: "rgb(218, 196, 161)" }}/>
             </div>
-            :
-            <Table 
-            dataSource={ customers }
-            rowkey={ customer => customer.id } 
-            bordered
-            pagination={false}
-            scroll={{ x: '400px', y: 600 }}  
-            columns={productColumns} 
-            title={() => 
-              <div className="title-head"> 
+          }
+
+          <div className="table-div">
+            {
+              customers?.length > 0 &&         
+
+            <div className="title-head">
                 <div className='title-sub-head'>
                   <button className="home-btn" onClick={handleShowDrawer}>
                     <UserAddOutlined />Add New Product
@@ -58,26 +56,45 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
                     <button className="btn-count">{totalElements}</button>
                 </div>
                 <h2 className='"layout-h2-header'>{tableTitle}</h2>
-
-                <ReactPaginate 
-                  previousLabel={<CaretLeftOutlined />}
-                  nextLabel={<CaretRightOutlined />}
-                  pageCount={totalPages} 
-                  onPageChange={changePage}
-                  containerClassName={"paginationBtns"}
-                  previousLinkClassName={"prevBtn"}
-                  nextLinkClassName={"nextBtn"}
-                  disabledClassName={"paginationDisabled"}
-                  activeClassName={"paginationActive"}
-                />
-              </div>                
-            }
-        />
+              <ReactPaginate 
+                previousLabel={<CaretLeftOutlined />}
+                nextLabel={<CaretRightOutlined />}
+                pageCount={totalPages} 
+                onPageChange={changePage}
+                containerClassName={"paginationBtns"}
+                previousLinkClassName={"prevBtn"}
+                nextLinkClassName={"nextBtn"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              />
+            </div> 
           }
 
-          { customers?.length === 0 && !fetching && <Empty /> }
+          { customers?.length > 0 && 
+            <Table 
+            dataSource={ customers }
+            rowkey={ customer => customer.id } 
+            bordered
+            pagination={false}
+            scroll={{ x: '400px', y: 600 }}  
+            columns={productColumns}                
+           />
+          }
+          </div>
+          
+
+          { customers?.length === 0 && !fetching && 
+            <div style={{ width: "100vw", display: "flex", height:"100%", 
+              alignItems: "center", justifyContent: "center", }}>
+              <Empty> 
+                <button className="home-btn" onClick={handleShowDrawer}>
+                  <CreditCardIcon />Add New State
+                </button>
+              </Empty>
+            </div>
+          }  
         </section>
     )
   }
 
-  export default PersonTableView
+  export default OrderTableView

@@ -1,5 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from "react"
-import axios from 'axios'
+import { apiGetAuthorization } from "../utils/api/axios"
 
 export const PersonContext = createContext()
 
@@ -12,25 +12,25 @@ export const PersonProvider = ({ children }) => {
     const[personNumOfElements, setPersonNumOfElements] = useState(0)
     const[personFetching, setPersonFetching] = useState(true)
     
-    // const getCustomers = () => {
-    //     axios.get(`/admin/customers-profile/page-sort?pageNo=${pageNumber}`)
-    //     .then(res => {
-    //             const data = res.data.data
-    //             setPersons(data.content)
-    //             setPersonPageNumber(data.number)
-    //             setPersonPageElementSize(data.size)
-    //             setPersonTotalPages(data.totalPages)
-    //             setPersonTotalElements(data.totalElements)
-    //             setPersonNumOfElements(data.numberOfElements)
-    //             setPersonFetching(false)
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //     })
-    // }
+    const getCustomers = () => {
+        apiGetAuthorization(`admin/customers-profile/page-sort?pageNo=${pageNumber}`)
+        .then(res => {
+                const data = res.data.data
+                setPersons(data.content)
+                setPersonPageNumber(data.number)
+                setPersonPageElementSize(data.size)
+                setPersonTotalPages(data.totalPages)
+                setPersonTotalElements(data.totalElements)
+                setPersonNumOfElements(data.numberOfElements)
+                setPersonFetching(false)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     const getPersonsCallback = useCallback(() => {
-            axios.get(`/admin/customers-profile/page-sort?pageNo=${pageNumber}`)
+            apiGetAuthorization(`admin/customers-profile/page-sort?pageNo=${pageNumber}`)
             .then(res => {
                     const data = res.data.data
                     setPersons(data.content)
