@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import {
-  apiDelete,
   apiGet,
   apiGetAuthorization,
   apiPost,
@@ -13,6 +12,7 @@ import {
   successNotification,
 } from "../components/Notification";
 import jwt_decode from "jwt-decode";
+import swal from 'sweetalert';
 import { decodeJwt, redirectToUserPage } from "../utils/roleUrlRouter";
 
 export const dataContext = createContext();
@@ -37,6 +37,8 @@ const DataProvider = ({ children }) => {
   const[totalElements, setTotalElements] = useState(0)
   const[numOfElements, setNumOfElements] = useState(0)
   const [pickupCentersInState, setPickupCentersInState] = useState([]);
+  const [allStates, setAllStates] = useState([]);
+  const [pickupCenterByEmail, setPickupCenterByEmail] = useState(null);
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -102,20 +104,6 @@ const DataProvider = ({ children }) => {
     }
   };
 
-  /**==============Resend OTP ======= **/
-
-  const ResendOTP = async (signature) => {
-    try {
-      await apiGet(`/users/resend-otp/${signature}`).then((res) => {
-       
-        setTimeout(() => {
-          window.location.href = "/otp";
-        }, 2000);
-      });
-    } catch (err) {
-      
-    }
-  };
 
   /**==============Login ======= **/
   const LoginConfig = async (formData, location, navigate) => {
@@ -126,7 +114,6 @@ const DataProvider = ({ children }) => {
       };
       await apiPost("auth/login", LoginData)
         .then((res) => {
-          successNotification(res.data.message);
           console.log(res.data.message);
           if(res.data.message === 'Login Successful'){
             successNotification(res.data.message);
@@ -586,6 +573,72 @@ useEffect(() => {
     }
   }
 
+    // ====================Get All States======================
+    const GetAllStatesConfig = async () => {
+      try{
+        await apiGetAuthorization(`state/view-all`).then((res) => {
+          setAllStates(res.data);
+          console.log(res.data);
+        })
+      }catch(err){
+        console.log(err.response.data);
+      }
+    }
+
+    // ===================Get Pickup Center By Email ================//
+    const GetPickupCenterByEmailConfig = async (email) => {
+      try{
+        await apiGetAuthorization(`pickup/${email}`).then((res) => {
+          setPickupCenterByEmail(res.data);
+          console.log(res.data);
+        })
+      }catch(err){
+        console.log(err.response.data);
+      }
+    }
+
+    /**==============Save New Order======= **/
+  const OrderConfig = async (formData) => {
+    try {
+      const saveOrderData = {
+        grandTotal: formData.grandTotal,
+        pickupCenterEmail: formData.pickupCenterEmail,
+      };
+      await apiPostAuthorization(`customer/order/new`, saveOrderData).then((res) => {
+        swal(res.data, {
+          buttons: {
+            catch: {
+              text: "OK",
+              value: "OK",
+            },
+          },
+        });
+        console.log(res.data);
+        setTimeout(() => {
+          window.location.href = "/orders";
+        }, 1500);
+      });
+    } catch (err) {
+      //swal(err.res.data.data);
+      console.log(err.response.data.message);
+    }
+  };
+
+  /**=================Process Payment For Purchase=============**/
+  const ProcessPaymentForPurchaseConfig =  async (paymentData) => {
+    const formData = {
+      grandTotal: paymentData
+    }
+    try{
+      await apiPut(`customer/wallet/process-payment`, formData).then((res) => {
+        successNotification(res.data);
+        console.log(res.data)
+      })
+    }catch(err) {
+      errorNotification(err.response.data);
+      console.log(err.response.data)
+    }
+  }
 
   return (
     <dataContext.Provider
@@ -610,8 +663,6 @@ useEffect(() => {
         IncreaseItemQuantityConfig,
         ReduceFromItemQuantityConfig,
         cartItems,
-        OTPConfig,
-        ResendOTP,
         GetAllCartItems,
         RemoveItemFromCartConfig, 
         ClearCartConfig,
@@ -642,6 +693,12 @@ useEffect(() => {
           WalletDetails,
           GetPickUpCentersByStateConfig,
           pickupCentersInState,
+          GetAllStatesConfig,
+          allStates,
+          GetPickupCenterByEmailConfig,
+          pickupCenterByEmail,
+          OrderConfig,
+          ProcessPaymentForPurchaseConfig,
       }}
     >
       {children}

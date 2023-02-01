@@ -75,9 +75,8 @@ function App() {
           <Route path="/shopping-cart" element={<ShoppingCart />}/>
           <Route path="/verifyRegistration" element={<VerifyRegistration />} />
           <Route path="/check-mail" element={<CheckMail />} />
-          <Route path="/checkout" element={<Checkout />} />
           <Route path="/process-payment" element={<ProcessPayment />} />
-          <Route path="/checkout2" element={<Checkout2 />} />
+          <Route path="/checkout" element={<Checkout2 />} />
 
           <Route
             path="/shop"
