@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { IoMdClose } from 'react-icons/io';
 import { useAuth } from '../../context/authcontext';
@@ -22,12 +22,13 @@ const ShoppingCart = () => {
     ClearCartConfig()
   }
   
+  const [isDisabled, setIsDisabled] = useState(false);
+
 
   useEffect(() => {
     GetAllCartItems();
   }, []);
 
-  const deliveryFee = 200;
   const tax = 0.00;
 
   return (
@@ -64,6 +65,7 @@ const ShoppingCart = () => {
               <tbody>
                   {cartItems.items.map((item, index) => {
                   return(
+                    <>
                     <tr key={index}>
                     <td>{index + 1}</td>
                       <td>
@@ -71,12 +73,13 @@ const ShoppingCart = () => {
                       </td>
                       <td>{item.productName}</td>
                       <td>${item.unitPrice}</td>
-                      <td><button className='btn text-white bg-[#917307]' onClick={()=>handleReduceCartItemQuantity(item.product.id)}>-</button>  {item.orderQty} <button className='btn text-white bg-[#917307] xl:mt-0 lg:mt-2' onClick={() => handleIncreaseItemQuantity(item.product.id)}>+</button></td>
+                      <td><button disabled={item.orderQty === 1} className='btn text-white bg-[#917307]' onClick={()=>handleReduceCartItemQuantity(item.product.id)}>-</button>  {item.orderQty} <button className='btn text-white bg-[#917307] xl:mt-0 lg:mt-2' onClick={() => handleIncreaseItemQuantity(item.product.id)}>+</button></td>
                       <td>${item.unitPrice * item.orderQty}</td>
                       <td className='text-center'>
                           <button className='flex justify-center' type='submit' onClick={()=>handleRemoveItemFromCart(item.id)}><IoMdClose className="bg-gray-200 text-lg rounded"/></button>
                       </td>
                   </tr> 
+                  </>
                   )}
                   )}
               </tbody>
@@ -98,20 +101,16 @@ const ShoppingCart = () => {
                     <p>${cartItems.total}</p>
               </div>
               <div className="flex justify-between my-3 border-b pb-3">
-                    <p className='font-bold-900 text-black'>Delivery Fee</p>
-                    <p>${deliveryFee}</p>
-              </div>
-              <div className="flex justify-between my-3 border-b pb-3">
                     <p className='font-bold-900 text-black'>Tax</p>
                     <p>${tax}</p>
               </div>
-              <div className="flex justify-between my-3">
+              <div className="flex justify-between my-3 mb-4">
                     <h1 className='text-2xl text-gray-800 font-bold-900'>Total</h1>
-                    <p>${cartItems.total + deliveryFee + tax}</p>
+                    <p>${cartItems.total + tax}</p>
               </div>
                     
-              <p>
-                <Link to="/checkout" ><button className='w-100 text-white bg-[#917307] px-3 py-2 text-md rounded-sm font-extrabold'>Proceed to Checkout</button></Link>
+              <p className="w-100">
+                <Link to="/checkout" className='w-100 text-white bg-[#917307] px-3 py-3 mb-2 text-center text-md rounded-sm font-extrabold  w-100 text-2xl block'>Proceed to Checkout</Link>
               </p>
           </div>
         </div>

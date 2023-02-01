@@ -18,9 +18,6 @@ const CheckoutLeft = ({ itemsInCart }) => {
             {console.log("My Items",item)}
             {/* <div className="checkout-order"> */}
             <div key={item.id} className="checkout-order">
-              <div className="checkout-order-img">
-                <img src={item.imageUrl} alt="furniture-couch" />
-              </div>
               <div className="checkout-order-details">
                 <p>{item.productName}</p>
                 <p>Qty: {item.orderQty}</p>

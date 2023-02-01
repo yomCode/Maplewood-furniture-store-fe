@@ -30,6 +30,8 @@ import TableView from './Admin/components/Product/TableView';
 import PersonTableView from "./Admin/components/Person/PersonTableView";
 import OrdersTableView from './Admin/components/Order/OrdersTableView'
 import Orders from "./screens/Orders/Orders";
+import ProcessPayment from "./screens/ProcessPayment/ProcessPayment";
+import Checkout2 from "./screens/Checkout2/Checkout2";
 import CheckMail from "./screens/Signup/CheckMail";
 import PickupTableView from "./Admin/components/PickupCenter/PickupTableView";
 import StatesTableView from "./Admin/components/States/StatesTableView";
@@ -80,7 +82,8 @@ function App() {
           <Route path="/shopping-cart" element={<ShoppingCart />}/>
           <Route path="/verifyRegistration" element={<VerifyRegistration />} />
           <Route path="/check-mail" element={<CheckMail />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/process-payment" element={<ProcessPayment />} />
+          <Route path="/checkout" element={<Checkout2 />} />
 
           <Route
             path="/shop"
