@@ -34,12 +34,16 @@ import CheckMail from "./screens/Signup/CheckMail";
 import PickupTableView from "./Admin/components/PickupCenter/PickupTableView";
 import StatesTableView from "./Admin/components/States/StatesTableView";
 import Dashboard from "./Admin/components/Dashboard/Dashboard";
+import SubcategoryTableView from "./Admin/components/Cat_SubCat/SubcategoryTableView";
+import Home from "./Admin/components/Dashboard/Home";
+import { useAuth } from "./context/authcontext";
 
 function App() {
   return (
     <React.Fragment>
       <Router>
-        <NavBar />
+
+        { localStorage.getItem("role") === "USER" && <NavBar /> }
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
@@ -137,10 +141,11 @@ function App() {
           
           <Route element={<RequireAdminAuth /> } >
             <Route path='/admin' element={<Layout />}>
-                <Route index element={<Dashboard />} />
+                <Route index element={<Home />} />
                 <Route path="/admin/products" element={<TableView tableTitle={ "PRODUCTS" }/>} />
                 <Route path="/admin/users" element={<PersonTableView tableTitle={"ALL USERS"}/>} />
                 <Route path="/admin/orders" element={<OrdersTableView tableTitle={"ALL ORDERS"}/>} />
+                <Route path="/admin/category" element={<SubcategoryTableView tableTitle={"CATEGORIES/SUBCATEGORIES"}/>} />
                 <Route path="/admin/pickupCenter" element={<PickupTableView tableTitle={"ALL PICKUP CENTERS"}/>} />
                 <Route path="/admin/delivery" element={<PickupTableView tableTitle={"ALL PICKUP CENTERS"}/>} />
                 <Route path="/admin/states" element={<StatesTableView tableTitle={"ALL STATES"}/>} />

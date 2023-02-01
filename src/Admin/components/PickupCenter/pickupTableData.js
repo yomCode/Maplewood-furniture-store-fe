@@ -1,22 +1,12 @@
 import { Avatar, Button, message } from "antd";
 import {
-  UserOutlined,
   DeleteOutlined,
   EditOutlined,
 } from '@ant-design/icons';
 import PopupConfirm from "../../../components/PopupNotification/PopupConfirm";
 import useProduct from "../../../hooks/useProduct";
 import useCategory from "../../../hooks/useCategory";
-
-const CustomAvatar = ({name, style}) => {
-  let trim = name.trim();
-  if(trim.length === 0) return <Avatar style={style} icon={<UserOutlined />}/>
-
-  const split = trim.split(" ");
-  if(split.length === 1) return <Avatar style={style}>{name.charAt(0).toUpperCase()}</Avatar>
-
-  else if(split.length > 1) return <Avatar style={style}>{`${name.charAt(0)}${name.charAt(name.indexOf(' ') + 1)}`}</Avatar>
-}
+import CustomAvatar from '../Layout/CustomAvatar'
 
 const HandleColumnEvents = ({ pickupCenter, setShowDrawer }) => {
   const { setHeaderTitle } = useProduct()

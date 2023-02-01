@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Input, Col, Select, Form, Row, Spin, } from 'antd';
-import { errorNotification, successNotification } from '../../../components/Notification'
+import { errorNotification } from '../../../components/Notification'
 import {
     LoadingOutlined,
   } from '@ant-design/icons';
   
 import useProduct from '../../../hooks/useProduct'
 import useCategory from '../../../hooks/useCategory'
+import UploadImageBtn from './UploadImageBtn';
 const {Option} = Select;
 const { TextArea } = Input;
 
@@ -18,14 +19,15 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const AddProductForm = ({ setShowDrawer }) => {
     const [ form ] = Form.useForm() 
     const[submitting, setSubmitting] = useState(false);
-    const { singleProduct, headerTitle, addNewProduct, editProduct } = useProduct()
+    const { singleProduct, headerTitle, addNewProduct, editProduct, productImgUrl } = useProduct()
     const { subcategories } = useCategory()
 
     const onClose = () => setShowDrawer(false);
     
 
-    const onFinish = newProduct => {
-        console.log(JSON.stringify(newProduct, null, 2));
+    const onFinish = product => {
+        console.log(JSON.stringify(product, null, 2));
+        const newProduct = [{ ...product, imageUrl: productImgUrl }]
         if(headerTitle === "Add New Product")
             addNewProduct(setSubmitting, onClose, newProduct)
         else
@@ -40,10 +42,12 @@ const AddProductForm = ({ setShowDrawer }) => {
 
     
   return (
+    <section className="form-section">
+    <UploadImageBtn />
     <Form layout="vertical"
             form={form}
             onFinishFailed={onFinishFailed}
-            fields={form.setFieldsValue(singleProduct)}
+            fields={form.setFieldsValue({ ...singleProduct, imageUrl: productImgUrl})}
             onFinish={onFinish}>
         <Row gutter={rowGutterSize}>
             <Col span={spanSize}>
@@ -101,20 +105,6 @@ const AddProductForm = ({ setShowDrawer }) => {
             </Col>
         </Row>
 
-
-        <Row gutter={rowGutterSize}>
-            <Col span={spanSize}>
-                <Form.Item
-                    name="imageUrl"
-                    label="Image Url"
-                    rules={[{required: true, message: 'Please enter newProduct email'}]}
-                >
-                    <Input placeholder="Product Image URL"/>
-                </Form.Item>
-            </Col>
-        </Row>
-
-
         <Row gutter={rowGutterSize}>
             <Col span={spanSize}>
                 <Form.Item
@@ -156,6 +146,8 @@ const AddProductForm = ({ setShowDrawer }) => {
             { submitting && <Spin indicator={antIcon}/> }
         </Row>
     </Form>
+
+    </section>
   )
 }
 
