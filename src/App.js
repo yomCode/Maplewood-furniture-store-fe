@@ -34,6 +34,7 @@ import ProcessPayment from "./screens/ProcessPayment/ProcessPayment";
 import Checkout2 from "./screens/Checkout2/Checkout2";
 import CheckMail from "./screens/Signup/CheckMail";
 import PickupTableView from "./Admin/components/PickupCenter/PickupTableView";
+// import SuperAdminDashBoard from "./SuperAdmin/Dashboard";
 import StatesTableView from "./Admin/components/States/StatesTableView";
 import Dashboard from "./Admin/components/Dashboard/Dashboard";
 import SubcategoryTableView from "./Admin/components/Cat_SubCat/SubcategoryTableView";
@@ -45,7 +46,7 @@ function App() {
     <React.Fragment>
       <Router>
 
-        { localStorage.getItem("role") === "USER" && <NavBar /> }
+        { localStorage.getItem("role") === "CUSTOMER" || localStorage.getItem("role") === null  && <NavBar /> }
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
@@ -162,6 +163,7 @@ function App() {
           } />
           <Route path="/confirm-payment" element={<VerifyPayment />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="super/dashboard" element={< Layout />} />
         </Routes>
         <BackToTop />
         <Footer />
