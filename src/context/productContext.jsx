@@ -26,6 +26,7 @@ const ProductProvider = ({ children }) => {
     const[favTotalElements, setFavTotalElements] = useState(0)
     const[favNumOfElements, setFavNumOfElements] = useState(0)
 
+    const[productImgUrl, setProductImgUrl] = useState("")
 
     const getProducts = () => {
         setFetching(true)
@@ -248,6 +249,8 @@ const ProductProvider = ({ children }) => {
             setFavTotalElements,
             favNumOfElements, 
             setFavNumOfElements,
+            productImgUrl,
+            setProductImgUrl,
             }}>
             { children }
         </ProductsContext.Provider>

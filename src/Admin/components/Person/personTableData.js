@@ -1,15 +1,12 @@
 
-import { Avatar, Button, message } from "antd";
+import { Button, message } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
 } from '@ant-design/icons';
 
 import PopupConfirm from "../../../components/PopupNotification/PopupConfirm";
-
-const CustomAvatar = ({firstName, lastName, style}) => {
-    return <Avatar style={style}>{`${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`}</Avatar>
-}
+import CustomAvatar from '../Layout/CustomAvatar'
 
 const HandleAddNewProductDetails = () => {
   
@@ -53,6 +50,7 @@ const productColumns = [
     title : "Image",
     dataIndex: 'imageUrl',
     key: 'imageUrl',
+    width: '50px',
     render: (_, person) => <CustomAvatar  key={person.id} style={{ 
       color: '#f56a00', backgroundColor: '#fde3cf' }} 
       firstName={person.firstName} lastName={person.lastName}/>

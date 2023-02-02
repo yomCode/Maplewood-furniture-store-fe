@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react'
 
 const BackToTop = () => {
 
-    const [backToTopBtn, setBackToTopBtn] = useState(false);
+    const [backToTopBtn, setBackToTopBtn] = useState(null);
 
     useEffect(() =>{
         window.addEventListener('scroll', ()=>{

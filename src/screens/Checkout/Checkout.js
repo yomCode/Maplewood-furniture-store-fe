@@ -2,6 +2,7 @@ import "./Checkout.css";
 import { useEffect, useState } from "react";
 import CheckoutLeft from "../../components/Checkout/CheckoutLeft";
 import CheckoutRight from "../../components/Checkout/CheckoutRight";
+import Modal from "../../components/Modal/Modal";
 import { apiGetAuthorization } from "../../utils/api/axios";
 
 const Checkout = () => {
@@ -33,6 +34,10 @@ const Checkout = () => {
           <CheckoutRight />
         </div>
       </div>
+
+      <div className="App h-screen flex flex-col items-center justify-center bg-purple-200">
+        <Modal />
+    </div>
     </div>
   );
 };
