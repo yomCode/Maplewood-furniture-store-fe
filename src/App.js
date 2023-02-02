@@ -46,7 +46,7 @@ function App() {
     <React.Fragment>
       <Router>
 
-        { localStorage.getItem("role") === "USER" && <NavBar /> }
+        { localStorage.getItem("role") === "CUSTOMER" || localStorage.getItem("role") === null  && <NavBar /> }
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />

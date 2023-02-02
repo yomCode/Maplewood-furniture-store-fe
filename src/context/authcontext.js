@@ -116,8 +116,6 @@ const DataProvider = ({ children }) => {
       };
       await apiPost("auth/login", LoginData)
         .then((res) => {
-          console.log(res.data.message);
-          successNotification(res.data.message);
           if(res.data.message === 'Login Successful'){
             successNotification(res.data.message);
             console.log(res.data.message);
