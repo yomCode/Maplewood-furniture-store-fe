@@ -32,7 +32,6 @@ import OrdersTableView from './Admin/components/Order/OrdersTableView'
 import Orders from "./screens/Orders/Orders";
 import CheckMail from "./screens/Signup/CheckMail";
 import PickupTableView from "./Admin/components/PickupCenter/PickupTableView";
-import StatesTableView from "./Admin/components/States/PickupTableView";
 // import SuperAdminDashBoard from "./SuperAdmin/Dashboard";
 import StatesTableView from "./Admin/components/States/StatesTableView";
 import Dashboard from "./Admin/components/Dashboard/Dashboard";
