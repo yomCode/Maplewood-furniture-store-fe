@@ -20,7 +20,7 @@ const Widget = ({ type }) => {
         title: "USERS",
         isMoney: false,
         value: 2000,
-        link: (<Link to="/shop">"See all users"</Link>),
+        link: (<Link to="/admin/users">"See all users"</Link>),
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -36,7 +36,7 @@ const Widget = ({ type }) => {
       data = {
         title: "ORDERS",
         isMoney: false,
-        link: (<Link to="/shop">"View all orders"</Link>),
+        link: (<Link to="/admin/orders">"View all orders"</Link>),
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -52,7 +52,7 @@ const Widget = ({ type }) => {
       data = {
         title: "PICKUP CENTERS",
         isMoney: true,
-        link: (<Link to="/shop">"View pickup centers"</Link>),
+        link: (<Link to="/admin/pickupCenter">"View pickup centers"</Link>),
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -65,7 +65,7 @@ const Widget = ({ type }) => {
       data = {
         title: "BALANCE",
         isMoney: true,
-        link: (<Link to="/shop">"See details"</Link>),
+        link: (<Link to="/admin">"See details"</Link>),
         icon: (
           <AccountBalanceWalletOutlinedIcon
             className="icon"
