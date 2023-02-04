@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 export const FooterCard = (props) =>{
     return(
         <div className="">
-            <h6 className=" font-bold mb-3 text-[#403414] text-[0.7rem] after:h-[4px] after:bg-black after:inline-block after:relative after:align-middle after:w-1/2" >{props.heading}</h6>
+            <h6 className=" font-bold mb-3 text-[#403414] text-[0.7rem] after:h-[4px] after:bg-black after:inline-block after:align-middle after:w-1/2" >{props.heading}</h6>
             <a href="/"><p>{props.link1}</p></a> 
             <a href="/"><p>{props.link2}</p></a> 
             <a href="/checkout"><p>{props.link3}</p></a> 
@@ -20,10 +20,10 @@ export const FooterCard = (props) =>{
 
 const Footer = () => {
     return(
-        <footer className="w-full bg-[#bcbcbc] mt-[5rem] p-4 divide-y">
+        <footer className="min-w-[100%] bg-[#bcbcbc] mt-[5rem] p-4 divide-y">
             <div className="flex gap-[5rem] md:flex-row flex-col md:justify-center">
                 <div className="text-gray-600 flex flex-col md:items-start items-center gap-2">
-                    <h6 className="font-bold text-black mb-3 after:h-[4px] text-[0.7rem] after:bg-black after:inline-block after:relative after:align-middle after:w-3/4">ABOUT US</h6>
+                    <h6 className="font-bold text-black mb-3 after:h-[4px] text-[0.7rem] after:bg-black after:inline-block after:align-middle after:w-3/4">ABOUT US</h6>
                     
                     <div className='flex gap-2 items-center'>
                         <span className=''>< ImLocation /></span><span>Okhoromi community, Benin city, Edo state</span>
