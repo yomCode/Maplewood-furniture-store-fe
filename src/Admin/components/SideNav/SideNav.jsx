@@ -108,25 +108,6 @@ const Sidebar = () => {
             </li>
           </Link>
 
-          <p className="title">SERVICE</p>
-          <li className="options hover-text">
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <p>System Health</p>
-            <span className="tooltip-text" id="right">System Health</span>
-          </li>
-
-          <li className="options hover-text">
-            <PsychologyOutlinedIcon className="icon" />
-            <p>Logs</p>
-            <span className="tooltip-text" id="right">Logs</span>
-          </li>
-
-          <li className="options hover-text">
-            <SettingsApplicationsIcon className="icon" />
-            <p>Settings</p>
-            <span className="tooltip-text" id="right">Settings</span>
-          </li>
-
           <p className="title">USER</p>
           <li className="options hover-text">
             <AccountCircleOutlinedIcon className="icon" />

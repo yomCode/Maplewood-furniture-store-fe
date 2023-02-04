@@ -5,8 +5,11 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { Link } from "react-router-dom";
+import usePerson from "../../../hooks/usePerson";
 
 const Widget = ({ type }) => {
+
+  const { personTotalElements } = usePerson()
 
   let data;
 
@@ -19,7 +22,7 @@ const Widget = ({ type }) => {
       data = {
         title: "USERS",
         isMoney: false,
-        value: 2000,
+        value: personTotalElements,
         link: (<Link to="/admin/users">"See all users"</Link>),
         icon: (
           <PersonOutlinedIcon
