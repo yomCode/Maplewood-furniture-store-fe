@@ -6,10 +6,14 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { Link } from "react-router-dom";
 import usePerson from "../../../hooks/usePerson";
+import useCategory from "../../../hooks/useCategory";
+import useProduct from "../../../hooks/useProduct";
 
 const Widget = ({ type }) => {
 
   const { personTotalElements } = usePerson()
+  const { pickupCenterSize } = useCategory()
+  const { totalElements, orderTotalElements } = useProduct()
 
   let data;
 
@@ -39,6 +43,7 @@ const Widget = ({ type }) => {
       data = {
         title: "ORDERS",
         isMoney: false,
+        value: orderTotalElements,
         link: (<Link to="/admin/orders">"View all orders"</Link>),
         icon: (
           <ShoppingCartOutlinedIcon
@@ -53,8 +58,9 @@ const Widget = ({ type }) => {
       break;
     case "earning":
       data = {
-        title: "PICKUP CENTERS",
-        isMoney: true,
+        title: "PICKUP CEN.",
+        isMoney: false,
+        value: pickupCenterSize,
         link: (<Link to="/admin/pickupCenter">"View pickup centers"</Link>),
         icon: (
           <MonetizationOnOutlinedIcon

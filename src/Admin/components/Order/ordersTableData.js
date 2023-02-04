@@ -1,8 +1,7 @@
 
-import { Avatar, Button, message } from "antd";
+import { Button, message } from "antd";
 import {
   DeleteOutlined,
-  EditOutlined,
 } from '@ant-design/icons';
 
 import PopupConfirm from "../../../components/PopupNotification/PopupConfirm";
@@ -18,11 +17,11 @@ const HandleAddNewProductDetails = () => {
         component={ <Button type="primary default" 
         danger ghost icon={<DeleteOutlined />}></Button> }/>
 
-      <PopupConfirm description={"description"} 
+      {/* <PopupConfirm description={"description"} 
         confirm={() => confirmEditProduct()}
         cancel={() => cancelEditProduct()}
         component={ <Button type="primary danger" 
-        ghost icon={<EditOutlined />}></Button> }/>
+        ghost icon={<EditOutlined />}></Button> }/> */}
     </div>
   );
 }
@@ -31,15 +30,6 @@ const confirmDeleteProduct = () => {
 };
 
 const cancelDeleteProduct = (e) => {
-  message.error('Click on No');
-};
-
-
-const confirmEditProduct = () => {
-
-};
-
-const cancelEditProduct = () => {
   message.error('Click on No');
 };
 
@@ -137,12 +127,12 @@ const productColumns = [
     ]
 
   },  
-  {
-    title: "Actions",
-    dataIndex: 'actions',
-    key: 'actions',
-    render: (_, product) => <HandleAddNewProductDetails />
-  },
+  // {
+  //   title: "Actions",
+  //   dataIndex: 'actions',
+  //   key: 'actions',
+  //   render: (_, order) => <HandleAddNewProductDetails />
+  // },
 ];
 
 export { productColumns, }

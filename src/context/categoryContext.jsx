@@ -27,6 +27,7 @@ export const CategoryProvider = ({ children }) => {
     const[numOfElements, setNumOfElements] = useState(0)
     const[fetching, setFetching] = useState(true)
     const[singlePickupCenter, setSinglePickupCenter] = useState([])
+    const[pickupCenterSize, setPickupCenterSize] = useState(0)
 
 
     //STATES
@@ -202,6 +203,7 @@ export const CategoryProvider = ({ children }) => {
             setPageElementSize(data.size)
             setTotalPages(data.totalPages)
             setTotalElements(data.totalElements)
+            setPickupCenterSize(data.totalElements)
             setNumOfElements(data.numberOfElements)
             setFetching(false)
         })
@@ -221,6 +223,7 @@ export const CategoryProvider = ({ children }) => {
             setPageElementSize(data.size)
             setTotalPages(data.totalPages)
             setTotalElements(data.totalElements)
+            setPickupCenterSize(data.totalElements)
             setNumOfElements(data.numberOfElements)
             setFetching(false)
         })
@@ -398,6 +401,7 @@ export const CategoryProvider = ({ children }) => {
         updateSubcategory,
         deleteCategory,
         deleteSubcategory,
+        pickupCenterSize,
 
         }}>
         { children }
