@@ -40,13 +40,14 @@ import Dashboard from "./Admin/components/Dashboard/Dashboard";
 import SubcategoryTableView from "./Admin/components/Cat_SubCat/SubcategoryTableView";
 import Home from "./Admin/components/Dashboard/Home";
 import { useAuth } from "./context/authcontext";
+import { EditAddress } from "./components/AddressBook/AddressBookCard";
 
 function App() {
   return (
     <React.Fragment>
       <Router>
 
-        { localStorage.getItem("role") === "CUSTOMER" || localStorage.getItem("role") === null  && <NavBar /> }
+        { (localStorage.getItem("role") === "CUSTOMER" || localStorage.length === 0) && <NavBar /> }
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />

@@ -55,7 +55,7 @@ const NewAddress = () => {
     }
 
     return(
-        <div className='account-dashboard py-5 pb-0'>
+        <div className='py-5 pb-0'>
         {screenSize > 768 ? (
           <div className='row mx-auto'>
             {/* Desktop layout */}
@@ -71,7 +71,7 @@ const NewAddress = () => {
                 </div>
   
                 <div className='grid xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-1 gap-3 px-1 pt-4'>
-                    <div className="w-[720px] min-h-[88%]">
+                    <div className="w-[100%] min-h-[88%]">
                         <form action="" onSubmit={handleSubmit} className='flex flex-col gap-4 '>
                         <div className="flex gap-4">
                             <div className='flex flex-col w-[45%]'>
@@ -113,11 +113,50 @@ const NewAddress = () => {
                     </div>
                 </div>
             </div>
-          </div>
+           </div>
         ) : (
-          <div>
-            {/* Mobile layout */}
-          </div>
+            <div className='flex justify-center items-center'>
+                    <div className=" bg-[white] border-2 p-5">
+                        <form action="" onSubmit={handleSubmit} className='flex flex-col gap-4 '>
+                        <div className="flex gap-4">
+                            <div className='flex flex-col w-[45%]'>
+                                <input className="border-b border-l px-2" type="text" name="fullName" onChange={handleChange} value={address.fullName} id="" required />
+                                <label htmlFor="fullName">Full Name</label>
+                            </div>
+                            <div className='flex flex-col w-[45%]'>
+                                <input className="border-b border-l px-2" type="text" name="phone" onChange={handleChange} value={address.phone} id="" required />
+                                <label htmlFor="phone">Phone Number</label>
+                            </div>
+                        </div>
+                        <div className="flex gap-4">
+                            <div className='flex flex-col w-[45%]'>
+                                <input className="border-b border-l px-2" type="email" name="email" onChange={handleChange} value={address.email} id=""  required/>
+                                <label htmlFor="fullName">Email Address</label>
+                            </div>
+                            <div className='flex flex-col w-[45%]'>
+                                <input className="border-b border-l px-2" type="text" name="street" onChange={handleChange} value={address.street} id="" required />
+                                <label htmlFor="street">Street</label>
+                            </div>
+                        </div>
+                        <div className="flex gap-4">
+                            <div className='flex flex-col w-[45%]'>
+                                <input className="border-b border-l px-2" type="text" name="state" onChange={handleChange} value={address.state} id="" required />
+                                <label htmlFor="state">State</label>
+                            </div>
+                            <div className='flex flex-col w-[45%]'>
+                                <input className="border-b border-l px-2" type="text" name="country" onChange={handleChange} value={address.country} id="" required />
+                                <label htmlFor="country">Country</label>
+                            </div>
+                        </div>
+                        <div className='flex gap-4 justify-center mt-6'>
+                            <Link to='/addressbook' onClick={handleCancel} className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md">Cancel</Link>
+                            <button type="submit" className="bg-[#7e6a17] text-[white] py-2 px-4 rounded-md">Save</button>
+                        </div>
+
+                        </form>
+                        {isLoading && <Loader />}
+                    </div>
+                </div>
         )}
       </div>
     )

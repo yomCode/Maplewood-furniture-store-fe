@@ -20,7 +20,7 @@ const DashboardInfo= () => {
   }, []);
 
   return (
-    <div className='account-dashboard py-5 pb-0'>
+    <div className='md:py-5 pb-0'>
       {screenSize > 768 ? (
         <div className='row mx-auto'>
           {/* Desktop layout */}
@@ -38,8 +38,15 @@ const DashboardInfo= () => {
           </div>
         </div>
       ) : (
-        <div>
-          {/* Mobile layout */}
+        <div className='min-h-[100vh] min-w[100vw bg-[white] px-2'>
+          <div className='bg-[white] divide-y'>
+            <div className="flex justify-between items-center border-gray-300 border-b-1 py-3">
+              <h1 className='text-2xl'>&#8678; <Link to='/dashboard'>Back</Link></h1>
+              <h1 className='text-2xl font-bold-900 '> Account Information</h1>
+            </div>
+
+              <UserInformation />
+          </div>
         </div>
       )}
     </div>

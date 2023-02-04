@@ -20,7 +20,7 @@ const AddressbookDashboard= () => {
   }, []);
 
   return (
-    <div className='account-dashboard py-5 pb-0'>
+    <div className='min-h-[100vh] md:py-5 p-2 pb-0'>
       {screenSize > 768 ? (
         <div className='row mx-auto'>
           {/* Desktop layout */}
@@ -41,8 +41,13 @@ const AddressbookDashboard= () => {
           </div>
         </div>
       ) : (
-        <div>
-          {/* Mobile layout */}
+        <div className='m-w-[100vw] px-2'>
+          <div className="border-gray-300 border-b-1 py-3 flex justify-between">
+            <h1 className='text-2xl'>&#8678; <Link to='/dashboard'>Back</Link></h1>
+            <h1 className='text-2xl font-bold-900 '>Address Book</h1>
+            <Link to='/new-address' className='bg-[#7e6a17] text-[white] p-2 rounded-md hover:text-[black]'>New Address</Link>
+          </div>
+          <AddressBook />
         </div>
       )}
     </div>

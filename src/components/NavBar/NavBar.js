@@ -61,10 +61,10 @@ const Navbar = () => {
 
   useEffect(() => {
     const localStorageValue = localStorage.getItem("signature");
-    if (localStorageValue !== null && localStorageValue.length > 5) {
-      setKey(true);
-    } else {
+    if (localStorageValue === null || localStorageValue.length <= 4 || localStorage.length === 0) {
       setKey(false);
+    } else {
+      setKey(true);
     }
   }, [localStorageValue]);
 
@@ -319,7 +319,7 @@ const Navbar = () => {
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
               </li>
-              <li className="flex items-center text-[0.7rem] p-2">DASHBOARD</li>
+              <li className="flex items-center text-[0.7rem] p-2"><Link to='/dashboard'>DASHBOARD</Link></li>
               <li className="p-2">
                 <button onClick={Logout}>
                   <FiLogOut className="text-[1.3rem]" />
@@ -395,7 +395,7 @@ const Navbar = () => {
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
               </li>
-              <li className="flex items-center text-[0.7rem] p-2">DASHBOARD</li>
+              <li className="flex items-center text-[0.7rem] p-2"><Link to='/dashboard'>DASHBOARD</Link></li>
               <li className="p-2">
                 <button onClick={Logout}>
                   <FiLogOut className="text-[1.3rem]" />
