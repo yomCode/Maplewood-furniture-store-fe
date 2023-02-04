@@ -20,7 +20,7 @@ const DashboardInfo= () => {
   }, []);
 
   return (
-    <div className='md:py-5 pb-0'>
+    <div className='md:px-[5%] lg:py-[5%] pb-0'>
       {screenSize > 768 ? (
         <div className='row mx-auto'>
           {/* Desktop layout */}

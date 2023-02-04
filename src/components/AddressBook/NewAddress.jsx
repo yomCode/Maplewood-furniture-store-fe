@@ -55,7 +55,7 @@ const NewAddress = () => {
     }
 
     return(
-        <div className='py-5 pb-0'>
+        <div className='md:px-[5%] py-[5%] pb-0'>
         {screenSize > 768 ? (
           <div className='row mx-auto'>
             {/* Desktop layout */}
@@ -64,15 +64,15 @@ const NewAddress = () => {
               <p className='text-20xl text-red-700'></p>
             </div>
   
-            <div className='col-md-8 bg-white drop-shadow-md rounded-md pb-2 divide-y'>
+            <div className='col-md-8 bg-[white] drop-shadow-md rounded-md pb-2 divide-y'>
                 <div className="border-gray-300 border-b-1 py-3 flex justify-between">
                   <h1 className='text-2xl font-bold-900 '>Address Book</h1>
                   <button className='bg-[#7e6a17] text-[white] p-2 rounded-md'>New Address</button>
                 </div>
   
-                <div className='grid xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-1 gap-3 px-1 pt-4'>
-                    <div className="w-[100%] min-h-[88%]">
-                        <form action="" onSubmit={handleSubmit} className='flex flex-col gap-4 '>
+                <div className='bg-[white]'>
+                    <div className="w-[100%] min-h-[88%] flex justify-center items-center">
+                        <form action="" onSubmit={handleSubmit} className='flex flex-col gap-4 w-[80%] py-[5%]'>
                         <div className="flex gap-4">
                             <div className='flex flex-col w-[45%]'>
                                 <input className="border-b border-l px-2" type="text" name="fullName" onChange={handleChange} value={address.fullName} id="" required />

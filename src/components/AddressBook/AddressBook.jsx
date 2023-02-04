@@ -32,14 +32,10 @@ const AddressBook = () => {
     return(
         <div>
             {screenSize > 768 ? (
-                <div className="flex flex-wrap justify-start w-[100%] min-h-[88%] gap-4">
-            {
-                getAddressbook.map((address) => 
-                    <div key={address.id}> 
-                        <AddressBookCard fullName={address.fullName} address={address.street + "," + address.state + " " + address.country} phoneNumber={address.phone} emailAddress={address.email} id={address.id} />
-                    </div>
-                )
-            }
+                <div className="flex flex-wrap justify-start w-[95%] min-h-[85%] gap-4 bg-[white] p-1 fixed ">
+                    {getAddressbook.map((address) =>
+                            <AddressBookCard fullName={address.fullName} address={address.street + "," + address.state + " " + address.country} phoneNumber={address.phone} emailAddress={address.email} id={address.id} />
+                    )}
                 </div>
             ):(
                 <div className="m-w-[100vw]">
