@@ -1,9 +1,10 @@
 import "./home.scss";
 import Widget from "./Widget";
 import Featured from "./Featured";
-import Chart from "./Chart";
 import OrderTableView from "../Order/OrdersTableView";
 import PersonTableView from "../Person/PersonTableView";
+import TableView from "../Product/TableView";
+import PickupTableView from "../PickupCenter/PickupTableView";
 
 const Home = () => {
   return (
@@ -15,13 +16,19 @@ const Home = () => {
           <Widget type="balance" />
         </div>
         <div className="charts">
-          <Featured />
-          <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
+          <div className="featured" style={{height: "40vh", width: "40vw", overflow: "hidden"}}>
+              <PickupTableView title="PICKUP CENTERS" />
+          </div>
+          {/* <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} /> */}
+          <div className="featured" style={{height: "40vh", width: "40vw", overflow: "hidden"}}>
+            <TableView tableTitle={ "PRODUCTS" }/>
+          </div>
         </div>
         <div className="listContainer">
           <div className="listTitle">Latest Transactions</div>
-          <OrderTableView tableTitle={"ORDERS"}/>
-          <PersonTableView tableTitle={"RECENT USERS"}/>
+          <OrderTableView tableTitle={"ORDERS"}/> 
+          <PickupTableView tableTitle="PICKUP CENTERS" />
+
         </div>
     </div>
   );

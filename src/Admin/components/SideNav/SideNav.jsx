@@ -17,9 +17,11 @@ import Menu from "@mui/icons-material/Menu";
 import { Category, GpsFixedSharp, Warehouse, WarehouseSharp } from "@mui/icons-material";
 import { FaCity } from "react-icons/fa";
 import { FiActivity } from "react-icons/fi";
+import { useAuth } from "../../../context/authcontext";
 
 const Sidebar = () => {
   const sidebarRef = useRef()
+  const { Logout } = useAuth()
 
   const handleNavDisplay = () => {
     sidebarRef.current.classList.toggle("sidebar-hidden")
@@ -108,37 +110,22 @@ const Sidebar = () => {
             </li>
           </Link>
 
-          <p className="title">SERVICE</p>
-          <li className="options hover-text">
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <p>System Health</p>
-            <span className="tooltip-text" id="right">System Health</span>
-          </li>
-
-          <li className="options hover-text">
-            <PsychologyOutlinedIcon className="icon" />
-            <p>Logs</p>
-            <span className="tooltip-text" id="right">Logs</span>
-          </li>
-
-          <li className="options hover-text">
-            <SettingsApplicationsIcon className="icon" />
-            <p>Settings</p>
-            <span className="tooltip-text" id="right">Settings</span>
-          </li>
-
           <p className="title">USER</p>
-          <li className="options hover-text">
-            <AccountCircleOutlinedIcon className="icon" />
-            <p>Profile</p>
-            <span className="tooltip-text" id="right">Profile</span>
-          </li>
+          <Link to="/admin/category" style={{ textDecoration: "none" }}>
+            <li className="options hover-text">
+              <AccountCircleOutlinedIcon className="icon" />
+              <p>Profile</p>
+              <span className="tooltip-text" id="right">Profile</span>
+            </li>
+          </Link>
 
-          <li className="options hover-text">
-            <ExitToAppIcon className="icon" />
-            <p>Logout</p>
-            <span className="tooltip-text" id="right">Logout</span>
-          </li>
+          <Link onClick={Logout} style={{ textDecoration: "none" }}>
+            <li className="options hover-text">
+              <ExitToAppIcon className="icon" />
+              <p>Logout</p>
+              <span className="tooltip-text" id="right">Logout</span>
+            </li>
+          </Link>
 
         </ul>
 

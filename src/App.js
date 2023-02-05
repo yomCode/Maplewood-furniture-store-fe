@@ -43,11 +43,13 @@ import { useAuth } from "./context/authcontext";
 import { EditAddress } from "./components/AddressBook/AddressBookCard";
 
 function App() {
+  console.log("ROLE: "+ localStorage.getItem("role"))
   return (
     <React.Fragment>
       <Router>
 
-        { (localStorage.getItem("role") === "CUSTOMER" || localStorage.length === 0) && <NavBar /> }
+        { (localStorage.getItem("role") === "CUSTOMER" || localStorage.getItem("role") === 0) && <NavBar /> }
+
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
