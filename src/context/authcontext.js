@@ -39,6 +39,8 @@ const DataProvider = ({ children }) => {
   const [pickupCentersInState, setPickupCentersInState] = useState([]);
   const [allStates, setAllStates] = useState([]);
   const [pickupCenterByEmail, setPickupCenterByEmail] = useState(null);
+  const [bestSelling, setBestSelling] = useState([]);
+  const [newArrival, setNewArrival] = useState([]);
 
   const[localStorageValue, setLocalStorageValue] = useState(false)
 
@@ -624,6 +626,33 @@ useEffect(() => {
     }
   }
 
+
+  // =====================Best selling====================
+
+  const BestSelling = async () => {
+    try{
+      await apiGet('products/best-selling').then((res) => {
+          setBestSelling(res.data)
+          console.log(res.data);
+      })
+    }catch(err){
+      console.log(err.response.message)
+    }
+  }
+
+
+  // ================New Arrival======================
+
+  const NewArrival = async () => {
+    try{
+      await apiGet('products/new-arrival').then((res) => {
+        setNewArrival(res.data)
+      })
+    }catch(err){
+      console.log(err.response.message)
+    }
+  }
+
   return (
     <dataContext.Provider
       value={{
@@ -683,7 +712,11 @@ useEffect(() => {
           pickupCenterByEmail,
           OrderConfig,
           ProcessPaymentForPurchaseConfig,
-          localStorageValue
+          localStorageValue,
+          BestSelling,
+          bestSelling,
+          NewArrival,
+          newArrival
       }}
     >
       {children}

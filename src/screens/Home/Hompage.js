@@ -8,7 +8,7 @@ import Features from '../../components/Features';
 
 const HomePage = () =>{
     return( 
-        <div>
+        <div className='bg-white'>
             <HeaderComponent />
             <ProductOverview />
             < BestSelling />
