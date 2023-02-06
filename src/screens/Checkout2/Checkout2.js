@@ -10,7 +10,7 @@ import "./checkout.css";
 const Checkout2 = () => {
   const [pickupState, setPickUpState] = useState("");
   const { cartItems, GetAllCartItems, GetPickUpCentersByStateConfig, pickupCentersInState,  GetAllStatesConfig,
-    allStates, GetPickupCenterByEmailConfig,pickupCenterByEmail, OrderConfig, ProcessPaymentForPurchaseConfig,} = useAuth();
+    allStates, GetPickupCenterByEmailConfig,pickupCenterByEmail, OrderConfig } = useAuth();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => setIsModalOpen(!isModalOpen);
@@ -46,15 +46,12 @@ const Checkout2 = () => {
   }
 
 
- 
-
   useEffect(() => {
     GetAllCartItems();
     GetPickUpCentersByStateConfig();
     GetAllStatesConfig();
     GetPickupCenterByEmailConfig();
     OrderConfig();
-    ProcessPaymentForPurchaseConfig();
   }, []);
 
   const orderData = {
@@ -65,8 +62,7 @@ const Checkout2 = () => {
   const handleProcessPayment = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    await ProcessPaymentForPurchaseConfig(cartItems.total);
-    OrderConfig(orderData);
+    await OrderConfig(orderData);
     setIsLoading(false);
     togglePaymentModal();
   }

@@ -42,7 +42,7 @@ export const UserMenuDropdown = ({ closeMenu }) => {
 };
 
 const Navbar = () => {
-  const { Logout, localStorageValue } = useAuth();
+  const { Logout, localStorageValue, cartItems, GetAllCartItems } = useAuth();
 
   const [nav, setNav] = useState(false);
   const [key, setKey] = useState(false);
@@ -59,6 +59,8 @@ const Navbar = () => {
     setSideBar(!sideBar);
   };
 
+  const [data, setData] = useState( localStorage.getItem("signature"));
+
   useEffect(() => {
     const localStorageValue = localStorage.getItem("signature");
     if (localStorageValue === null || localStorageValue.length <= 4 || localStorage.length === 0) {
@@ -70,8 +72,8 @@ const Navbar = () => {
 
   useEffect(() => {
     GetUser();
+    GetAllCartItems();
   }, []);
-
 
   return (
     <div className="text-black items-center w-[100%] top-0 mb-[3rem]">
@@ -108,12 +110,14 @@ const Navbar = () => {
         </ul>
         <ul className="hidden lg:flex w-[200px]">
           <li className="">
-            <span style={{ color: "rgb(81, 81, 81)" }}>$0.00&nbsp;&nbsp;</span>
-            <Link to="/shopping-cart">
-              <Badge color="secondary">
+            <span style={{ color: "rgb(81, 81, 81)" }}>₦0.00&nbsp;&nbsp;</span>
+            {data && 
+            (<Link to="/shopping-cart">
+              <Badge color="secondary" badgeContent={itemCount}>
                 <ShoppingCart className="text-[#403414]" />
               </Badge>
-            </Link>
+            </Link>)
+            }
           </li>
         </ul>
         {!key ? (
@@ -256,12 +260,14 @@ const Navbar = () => {
           </h1>
         </div>
         <div className="self-center hidden md:block lg:hidden">
-          <span style={{ color: "rgb(81, 81, 81)" }}>$0.00&nbsp;&nbsp;</span>
-          <Link to="/shopping-cart">
-            <Badge color="secondary" badgeContent={itemCount}>
-              <ShoppingCart className="text-[#403414]" />
-            </Badge>
-          </Link>
+          <span style={{ color: "rgb(81, 81, 81)" }}>₦0.00&nbsp;&nbsp;</span>
+          {data && 
+            (<Link to="/shopping-cart">
+              <Badge color="secondary" badgeContent={itemCount}>
+                <ShoppingCart className="text-[#403414]" />
+              </Badge>
+            </Link>)
+          }
         </div>
 
         <div
