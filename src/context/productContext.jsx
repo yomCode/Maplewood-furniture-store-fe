@@ -7,6 +7,7 @@ import { apiGetAuthorization, apiPut, apiGet, apiPostAuthorization, apiDeleteAut
 const ProductsContext = createContext();
 
 const ProductProvider = ({ children }) => {
+    const[ordersUrl, setOrdersUrl] = useState("admin/orders")
     const[productUrl, setProductUrl] = useState("products/paginated-all")
     const[favoriteUrl, setFavoriteUrl] = useState("customer/products/favorites/viewAllFavorites")
     const[products, setProducts] = useState([])
@@ -26,6 +27,15 @@ const ProductProvider = ({ children }) => {
     const[favTotalElements, setFavTotalElements] = useState(0)
     const[favNumOfElements, setFavNumOfElements] = useState(0)
 
+
+    const[orders, setOrders] = useState([])
+    const[orderPageNumber, setOrderPageNumber] = useState(0)
+    const[favOrderElementSize, setOrderPageElementSize] = useState(0)
+    const[orderTotalPages, setOrderTotalPages] = useState(0)
+    const[orderTotalElements, setOrderTotalElements] = useState(0)
+    const[orderNumOfElements, setOrderNumOfElements] = useState(0)
+
+    const[productImgUrl, setProductImgUrl] = useState("")
 
     const getProducts = () => {
         setFetching(true)
@@ -208,6 +218,56 @@ const ProductProvider = ({ children }) => {
     useEffect(() => {
         getProductsCallback()
     }, [getProductsCallback])
+
+
+
+    const getOrders = () => {
+        setFetching(true)
+        if(productUrl.length > 0) {
+            console.log(`ProductUrl: ${productUrl}`)
+            const allProductsUrl = `${productUrl}?pageNo=${pageNumber}`
+                apiGet(allProductsUrl)
+                .then((res) => {
+                    const data = res.data.data
+                    setProducts(data.content)
+                    setPageNumber(data.number)
+                    setPageElementSize(data.size)
+                    setTotalPages(data.totalPages)
+                    setTotalElements(data.totalElements)
+                    setNumOfElements(data.numberOfElements)
+                    setFetching(false)
+                })
+                .catch((err) => {
+                    console.log(err)
+                    setFetching(false)
+                })
+        } 
+    }
+
+
+    const getOrdersCallback = useCallback(() => {
+        setFetching(true)
+        apiGetAuthorization(`${ordersUrl}?pageNo=${pageNumber}`)
+        .then(res => {
+                console.log(res.data)
+                const data = res.data
+                setOrders(data.content)
+                setOrderPageNumber(data.number)
+                setOrderPageElementSize(data.size)
+                setOrderTotalPages(data.totalPages)
+                setOrderTotalElements(data.totalElements)
+                setOrderNumOfElements(data.numberOfElements)
+                setFetching(false)
+        })
+        .catch(err => {
+            setFetching(false)
+            console.log(err)
+        })
+    }, [pageNumber, ordersUrl])
+
+    useEffect(() => {
+        getOrdersCallback()
+    }, [getOrdersCallback])
     
 
     return( 
@@ -222,6 +282,7 @@ const ProductProvider = ({ children }) => {
             totalElements,
             numOfElements,
             setProductUrl,
+
             fetching,
             setFetching,
             getProducts,
@@ -236,6 +297,7 @@ const ProductProvider = ({ children }) => {
             getFavorites,
             favoriteUrl,
             setFavoriteUrl,
+
             favorites,
             setFavorites,
             favPageNumber, 
@@ -248,6 +310,24 @@ const ProductProvider = ({ children }) => {
             setFavTotalElements,
             favNumOfElements, 
             setFavNumOfElements,
+            productImgUrl,
+            setProductImgUrl,
+            setOrdersUrl,
+
+            orders, 
+            setOrders,
+            orderPageNumber, 
+            setOrderPageNumber,
+            favOrderElementSize, 
+            setOrderPageElementSize,
+            orderTotalPages, 
+            setOrderTotalPages,
+            orderTotalElements, 
+            setOrderTotalElements,
+            orderNumOfElements, 
+            setOrderNumOfElements,
+            getOrders,
+
             }}>
             { children }
         </ProductsContext.Provider>

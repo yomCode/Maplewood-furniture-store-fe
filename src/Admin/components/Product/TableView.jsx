@@ -12,6 +12,7 @@
     CaretRightOutlined  } from '@ant-design/icons';
   
   import { Table, Spin, Empty } from 'antd';
+import { Star } from '@mui/icons-material';
   const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
 
   const TableView = ({ tableTitle }) => {
@@ -90,8 +91,13 @@
           
 
           { products?.length === 0 && !fetching && 
-            <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
-              <Empty /> 
+              <div style={{ width: "100vw", display: "flex", height:"100%", 
+              alignItems: "center", justifyContent: "center", }}>
+              <Empty> 
+                <button className="home-btn" onClick={handleShowDrawer}>
+                  <Star />Add New Product
+                </button>
+              </Empty>
             </div>
           }   
         </section>

@@ -1,6 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import axios from 'axios'
-import { apiDeleteAuthorization, apiGet, apiPostAuthorization, apiPut } from "../utils/api/axios";
+import { apiDeleteAuthorization, apiGet, apiPatch, apiPostAuthorization, apiPut } from "../utils/api/axios";
 
 import { errorNotification, 
         successNotification } 
@@ -12,6 +11,10 @@ export const CategoryProvider = ({ children }) => {
     const[categoryUrl, setCategoryUrl] = useState("")
     const[subcategories, setSubcategories] = useState([])
     const[categories, setCategories] = useState([])
+    const[totalCategories, setTotalCatgories] = useState(0)
+    const [totalSubcategories, setTotalSubcategories] = useState(0)
+    const[singleCategory, setSingleCategory] = useState([])
+    const[singleSubcategory, setSingleSubcategory] = useState([])
     const[singleSubcategories, setSingleSubcategories] = useState([])
 
 
@@ -24,6 +27,7 @@ export const CategoryProvider = ({ children }) => {
     const[numOfElements, setNumOfElements] = useState(0)
     const[fetching, setFetching] = useState(true)
     const[singlePickupCenter, setSinglePickupCenter] = useState([])
+    const[pickupCenterSize, setPickupCenterSize] = useState(0)
 
 
     //STATES
@@ -31,12 +35,15 @@ export const CategoryProvider = ({ children }) => {
     const[singleState, setSingleState] = useState([])
     const[totalStates, setTotalStates] = useState(0)
 
+
+    /***CATEGORY AND SUBCATEGORY */
     useEffect(() => {
-        const subCategoriesUrl = `/subcategory/view-all`
-        axios.get(subCategoriesUrl)
+        const subCategoriesUrl = `subcategory/view-all`
+        apiGet(subCategoriesUrl)
         .then(res => {
             console.log(res.data)
             setSubcategories(res.data)
+            setTotalSubcategories(res.data.length)
         }).catch(err => {
             console.log(err)
         })
@@ -44,10 +51,12 @@ export const CategoryProvider = ({ children }) => {
 
     useEffect(() => {
         if(categoryUrl){
-            axios.get(categoryUrl)
+            apiGet(categoryUrl)
             .then(res => {
               console.log(res.data)
               setSingleSubcategories(res.data)
+              setTotalSubcategories(res.data.length)
+              
          })
         .catch(err => {
             console.log(err)
@@ -55,17 +64,133 @@ export const CategoryProvider = ({ children }) => {
         }
       }, [categoryUrl])
 
+    
+    const getSubcategories = () => {
+        const subCategoriesUrl = `subcategory/view-all`
+        apiGet(subCategoriesUrl)
+        .then(res => {
+            console.log(res.data)
+            setSubcategories(res.data)
+            setTotalSubcategories(res.data.length)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
-    useEffect(() => {
-        const categoriesUrl = `/category/all`
-        axios.get(categoriesUrl)
+    const getCategories = () => {
+        const categoriesUrl = `category/all`
+        apiGet(categoriesUrl)
         .then(res => {
             console.log(res.data)
             setCategories(res.data)
+            setTotalCatgories(res.data.length)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    useEffect(() => {
+        const categoriesUrl = `category/all`
+        apiGet(categoriesUrl)
+        .then(res => {
+            console.log(res.data)
+            setCategories(res.data)
+            setTotalCatgories(res.data.length)
         }).catch(err => {
             console.log(err)
         })
     }, [])
+
+    const createSubcategory = (setSubmitting, onClose, data) => {
+        setSubmitting(true)
+        apiPostAuthorization(`subcategory/admin/new/${singleCategory.id}`, data)
+        .then(res => {
+            console.log(res.data);
+            onClose();
+            successNotification("Subcategory Successfully Added", `${data.name} was added to the system.`)
+            getCategories();
+        })
+        .catch(err => {
+            console.log(err)
+            if(err.response.status === 401)
+                errorNotification("UnAuthorized", "Contact your admin for access.", "topLeft")
+            if(err.response.status >= 500)
+                errorNotification("Internal Server Error", "Not connected", "topLeft")
+            else errorNotification("No Access", "An Errr Occurred", "topLeft")
+        })
+        .finally(() => {
+            setSubmitting(false)
+        });
+    }
+
+    const updateSubcategory = (subcategoryId, updateData) => {
+        apiPatch(`subcategory/admin/update/${subcategoryId}`, updateData)
+        .then(res => {
+
+        })
+        .catch(err => {
+            console.log(err)
+
+        })
+    }
+
+    const deleteSubcategory = (subcategoryId) => {
+        apiDeleteAuthorization(`category/admin/delete/${subcategoryId}`)
+        .then(res => {
+            successNotification("Subcategory Successfully Deleted", ``)
+            getSubcategories()
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    const createCategory = (setSubmitting, onClose, data) => {
+        setSubmitting(true)
+        apiPostAuthorization(`category/admin/new`, data)
+        .then(res => {
+            console.log(res.data);
+            onClose();
+            successNotification("Category Successfully Added", `${data.name} was added to the system.`)
+            getCategories();
+        })
+        .catch(err => {
+            console.log(err)
+            if(err.response.status === 401)
+                errorNotification("UnAuthorized", "Contact your admin for access.", "topLeft")
+            if(err.response.status >= 500)
+                errorNotification("Internal Server Error", "Not connected", "topLeft")
+            else errorNotification("No Access", "An Errr Occurred", "topLeft")
+        })
+        .finally(() => {
+            setSubmitting(false)
+        });
+    }
+
+    const updateCategory = (setSubmitting, onClose, updateData) => {
+        setSubmitting(true)
+        apiPut(`category/admin/update/${singleCategory.id}`, updateData)
+        .then(res => {
+            onClose()
+            successNotification("Category updated!", "Success")
+            getCategories()
+        })
+        .catch(err => {
+            console.log(err)
+
+        }).finally(() => setSubmitting(false))
+    }
+
+    const deleteCategory = (category) => {
+        apiDeleteAuthorization(`category/admin/delete/${category.id}`)
+        .then(res => {
+            successNotification("Category Successfully Deleted", ``)
+            getCategories()
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     /**=======PICKUP CENTERS=========== */
     const getPickupCenters = () => {
@@ -78,6 +203,7 @@ export const CategoryProvider = ({ children }) => {
             setPageElementSize(data.size)
             setTotalPages(data.totalPages)
             setTotalElements(data.totalElements)
+            setPickupCenterSize(data.totalElements)
             setNumOfElements(data.numberOfElements)
             setFetching(false)
         })
@@ -97,6 +223,7 @@ export const CategoryProvider = ({ children }) => {
             setPageElementSize(data.size)
             setTotalPages(data.totalPages)
             setTotalElements(data.totalElements)
+            setPickupCenterSize(data.totalElements)
             setNumOfElements(data.numberOfElements)
             setFetching(false)
         })
@@ -261,6 +388,20 @@ export const CategoryProvider = ({ children }) => {
         deleteState,
         updateState,
         totalStates,
+        singleCategory,
+        setSingleCategory,
+        singleSubcategory,
+        setSingleSubcategory,
+        totalCategories,
+        totalSubcategories,
+
+        createSubcategory,
+        createCategory,
+        updateCategory,
+        updateSubcategory,
+        deleteCategory,
+        deleteSubcategory,
+        pickupCenterSize,
 
         }}>
         { children }

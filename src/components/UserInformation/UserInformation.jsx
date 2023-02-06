@@ -58,7 +58,7 @@ const UserInformation = () =>{
                             <label htmlFor="email">Email Address</label>
                         </div>
                         <div className="flex flex-col g-3 w-[45%]">
-                            <input className="border-b border-l px-1 " type="date" name="date_of_birth" value={getUser.date_of_birth} id=""  onChange={onChange} placeholder="Date of Birth" />
+                            <input className="border-b border-l px-1 " type="date" name="date_of_birth" value={getUser.date_of_birth} id=""  onChange={onChange} placeholder="DoB" />
                             <label htmlFor="dob">Date of Birth</label>
                         </div>
                     </div>

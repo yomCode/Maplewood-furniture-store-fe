@@ -35,14 +35,22 @@ import ProcessPayment from "./screens/ProcessPayment/ProcessPayment";
 import Checkout2 from "./screens/Checkout2/Checkout2";
 import CheckMail from "./screens/Signup/CheckMail";
 import PickupTableView from "./Admin/components/PickupCenter/PickupTableView";
+// import SuperAdminDashBoard from "./SuperAdmin/Dashboard";
 import StatesTableView from "./Admin/components/States/StatesTableView";
 import Dashboard from "./Admin/components/Dashboard/Dashboard";
+import SubcategoryTableView from "./Admin/components/Cat_SubCat/SubcategoryTableView";
+import Home from "./Admin/components/Dashboard/Home";
+import { useAuth } from "./context/authcontext";
+import { EditAddress } from "./components/AddressBook/AddressBookCard";
 
 function App() {
+  console.log("ROLE: "+ localStorage.getItem("role"))
   return (
     <React.Fragment>
       <Router>
-        <NavBar />
+
+        { (localStorage.getItem("role") === "CUSTOMER" || localStorage.length == 0) && <NavBar /> }
+
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
@@ -141,10 +149,11 @@ function App() {
           
           <Route element={<RequireAdminAuth /> } >
             <Route path='/admin' element={<Layout />}>
-                <Route index element={<Dashboard />} />
+                <Route index element={<Home />} />
                 <Route path="/admin/products" element={<TableView tableTitle={ "PRODUCTS" }/>} />
                 <Route path="/admin/users" element={<PersonTableView tableTitle={"ALL USERS"}/>} />
                 <Route path="/admin/orders" element={<OrdersTableView tableTitle={"ALL ORDERS"}/>} />
+                <Route path="/admin/category" element={<SubcategoryTableView tableTitle={"CATEGORIES/SUBCATEGORIES"}/>} />
                 <Route path="/admin/pickupCenter" element={<PickupTableView tableTitle={"ALL PICKUP CENTERS"}/>} />
                 <Route path="/admin/delivery" element={<PickupTableView tableTitle={"ALL PICKUP CENTERS"}/>} />
                 <Route path="/admin/states" element={<StatesTableView tableTitle={"ALL STATES"}/>} />
@@ -159,6 +168,7 @@ function App() {
           <Route path="/confirm-payment" element={<VerifyPayment />} />
           <Route path="/open-orders" element={<OpenOrders />} />
           <Route path="/closed-orders" element={<ClosedOrders />} />
+          <Route path="super/dashboard" element={< Layout />} />
         </Routes>
         <BackToTop />
         <Footer />

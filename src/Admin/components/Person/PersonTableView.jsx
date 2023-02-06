@@ -2,14 +2,11 @@ import { useState } from 'react'
 import { productColumns } from './personTableData'
 import DrawerForm from '../Forms/DrawerForm'
 import ReactPaginate from 'react-paginate';
-import { ArrowLeftTwoTone, ArrowRightAltOutlined,  } from '@mui/icons-material';
 import AddProductForm from '../Forms/AddProductForm'
 
 import {
-  UserAddOutlined,
   LoadingOutlined,
   CaretLeftOutlined, 
-  CaretRightOutlined
 } from '@ant-design/icons';
 
 import { Table, Spin, Empty } from 'antd';

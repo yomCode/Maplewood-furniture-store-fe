@@ -17,7 +17,8 @@ import useProduct from '../../../hooks/useProduct';
 const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
 
   const OrderTableView = ({ tableTitle }) => {
-    const { customers,  totalPages, setPageNumber, fetching, totalElements, 
+    const { orders,  totalPages, setPageNumber, fetching, 
+            orderTotalElements, 
             setHeaderTitle, headerTitle } = useProduct()
 
     const changePage = ({ selected }) => setPageNumber(selected)
@@ -46,14 +47,14 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
 
           <div className="table-div">
             {
-              customers?.length > 0 &&         
+              orders?.length > 0 &&         
 
             <div className="title-head">
                 <div className='title-sub-head'>
                   <button className="home-btn" onClick={handleShowDrawer}>
                     <UserAddOutlined />Add New Product
                   </button>
-                    <button className="btn-count">{totalElements}</button>
+                    <button className="btn-count">{orderTotalElements}</button>
                 </div>
                 <h2 className='"layout-h2-header'>{tableTitle}</h2>
               <ReactPaginate 
@@ -70,10 +71,10 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
             </div> 
           }
 
-          { customers?.length > 0 && 
+          { orders?.length > 0 && 
             <Table 
-            dataSource={ customers }
-            rowkey={ customer => customer.id } 
+            dataSource={ orders }
+            rowkey={ order => order.id } 
             bordered
             pagination={false}
             scroll={{ x: '400px', y: 600 }}  
@@ -83,12 +84,13 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
           </div>
           
 
-          { customers?.length === 0 && !fetching && 
+          { orders?.length === 0 && !fetching && 
             <div style={{ width: "100vw", display: "flex", height:"100%", 
               alignItems: "center", justifyContent: "center", }}>
               <Empty> 
-                <button className="home-btn" onClick={handleShowDrawer}>
-                  <CreditCardIcon />Add New State
+                <button className="home-btn" >
+                {/* onClick={handleShowDrawer}> */}
+                  <CreditCardIcon />You have no orders
                 </button>
               </Empty>
             </div>

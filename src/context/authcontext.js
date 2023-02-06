@@ -53,6 +53,10 @@ const DataProvider = ({ children }) => {
   const[closedOrdersTotalPages, setClosedOrdersTotalPages] = useState(0)
   const[closedOrdersTotalElements, setClosedOrdersTotalElements] = useState(0)
   const[closedOrdersNumOfElements, setClosedOrdersNumOfElements] = useState(0)
+  const [bestSelling, setBestSelling] = useState([]);
+  const [newArrival, setNewArrival] = useState([]);
+
+
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -128,8 +132,6 @@ const DataProvider = ({ children }) => {
       };
       await apiPost("auth/login", LoginData)
         .then((res) => {
-          console.log(res.data.message);
-          successNotification(res.data.message);
           if(res.data.message === 'Login Successful'){
             successNotification(res.data.message);
             console.log(res.data.message);
@@ -589,6 +591,7 @@ useEffect(() => {
 // }
 
 
+
   // ====================VerifyRegistration======================
   const VerifyReg = async (token) => {
     try{
@@ -683,6 +686,33 @@ useEffect(() => {
   };
 
 
+
+  // =====================Best selling====================
+
+  const BestSelling = async () => {
+    try{
+      await apiGet('products/best-selling').then((res) => {
+          setBestSelling(res.data)
+          console.log(res.data);
+      })
+    }catch(err){
+      console.log(err.response.message)
+    }
+  }
+
+
+  // ================New Arrival======================
+
+  const NewArrival = async () => {
+    try{
+      await apiGet('products/new-arrival').then((res) => {
+        setNewArrival(res.data)
+      })
+    }catch(err){
+      console.log(err.response.message)
+    }
+  }
+
   return (
     <dataContext.Provider
       value={{
@@ -759,6 +789,11 @@ useEffect(() => {
           closedOrdersTotalPages,
           closedOrdersTotalElements,
           closedOrdersNumOfElements,
+          localStorageValue,
+          BestSelling,
+          bestSelling,
+          NewArrival,
+          newArrival
       }}
     >
       {children}
