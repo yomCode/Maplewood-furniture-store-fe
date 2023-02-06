@@ -17,7 +17,7 @@ const AccountDashboard = () => {
 
   const { GetUser, getUser, setGetUser } = useAuth();
 
-  console.log(getUser);
+  //console.log(getUser);
 
   const { GetWallet, getWallet, setGetWallet } = useAuth();
 
@@ -28,11 +28,11 @@ const AccountDashboard = () => {
 
   useEffect(() => {
     GetUser();
-  }, [GetUser]);
+  }, []);
 
  useEffect(() => {
    GetWallet();
- }, [GetWallet]);
+ }, []);
 
 
   const onChange = (e) => {

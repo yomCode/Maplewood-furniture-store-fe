@@ -29,7 +29,8 @@ import Layout from './Admin/components/Layout/Layout';
 import TableView from './Admin/components/Product/TableView';
 import PersonTableView from "./Admin/components/Person/PersonTableView";
 import OrdersTableView from './Admin/components/Order/OrdersTableView'
-import Orders from "./screens/Orders/Orders";
+import OpenOrders from "./screens/Orders/OpenOrders";
+import ClosedOrders from "./screens/Orders/ClosedOrders";
 import ProcessPayment from "./screens/ProcessPayment/ProcessPayment";
 import Checkout2 from "./screens/Checkout2/Checkout2";
 import CheckMail from "./screens/Signup/CheckMail";
@@ -156,7 +157,8 @@ function App() {
             </ ProtectCustomerRoute>
           } />
           <Route path="/confirm-payment" element={<VerifyPayment />} />
-          <Route path="/orders" element={<Orders />} />
+          <Route path="/open-orders" element={<OpenOrders />} />
+          <Route path="/closed-orders" element={<ClosedOrders />} />
         </Routes>
         <BackToTop />
         <Footer />

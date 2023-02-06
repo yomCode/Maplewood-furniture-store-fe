@@ -12,7 +12,7 @@ import {
   successNotification,
 } from "../components/Notification";
 import jwt_decode from "jwt-decode";
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { decodeJwt, redirectToUserPage } from "../utils/roleUrlRouter";
 
 export const dataContext = createContext();
@@ -39,8 +39,20 @@ const DataProvider = ({ children }) => {
   const [pickupCentersInState, setPickupCentersInState] = useState([]);
   const [allStates, setAllStates] = useState([]);
   const [pickupCenterByEmail, setPickupCenterByEmail] = useState(null);
-
-  const[localStorageValue, setLocalStorageValue] = useState(false)
+  const[localStorageValue, setLocalStorageValue] = useState(false);
+  const [openOrders, setOpenOrders] = useState(null);
+  const [openOrdersPageNumber, setOpenOrdersPageNumber] = useState(0);
+  const[openOrdersPageElementSize, setOpenOrdersPageElementSize] = useState(0)
+  const[openOrdersTotalPages, setOpenOrdersTotalPages] = useState(0)
+  const[openOrdersTotalElements, setOpenOrdersTotalElements] = useState(0)
+  const[openOrdersNumOfElements, setOpenOrdersNumOfElements] = useState(0)
+  const [orderStatus, setOrderStatus] = useState("");
+  const [closedOrders, setClosedOrders] = useState(null);
+  const [closedOrdersPageNumber, setClosedOrdersPageNumber] = useState(0);
+  const[closedOrdersPageElementSize, setClosedOrdersPageElementSize] = useState(0)
+  const[closedOrdersTotalPages, setClosedOrdersTotalPages] = useState(0)
+  const[closedOrdersTotalElements, setClosedOrdersTotalElements] = useState(0)
+  const[closedOrdersNumOfElements, setClosedOrdersNumOfElements] = useState(0)
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -273,7 +285,7 @@ const DataProvider = ({ children }) => {
     try {
       await apiGetAuthorization(`customer/view-profile`).then((res) => {
         setGetUser(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       });
     } catch (err) {
       console.log(err);
@@ -285,7 +297,7 @@ const DataProvider = ({ children }) => {
     try {
       await apiGetAuthorization(`customer/wallet/info`).then((res) => {
         setGetWallet(res.data.data);
-        console.log(res.data.data);
+        //console.log(res.data.data);
       });
     } catch (err) {
       console.log(err);
@@ -519,6 +531,51 @@ useEffect(() => {
 }, [FetchTrx])
 
 
+   // ====================Get All Open Orders======================
+   const GetAllOpenOrders = useCallback(() => {
+    try{
+      apiGetAuthorization(`customer/order/pickup-status?status=YET_TO_BE_PICKED_UP&pageNo=${openOrdersPageNumber}`).then((res) => {
+        const data = res.data;
+        setOpenOrders(data.content);
+        setOpenOrdersPageNumber(data.number)
+        setOpenOrdersPageElementSize(data.size)
+        setOpenOrdersTotalPages(data.totalPages)
+        setOpenOrdersTotalElements(data.totalElements)
+        setOpenOrdersNumOfElements(data.numberOfElements)
+        console.log(res.data);
+      })
+    }catch(err){
+      console.log(err.response.data);
+    }
+  }, [openOrdersPageNumber])
+
+  useEffect(() => {
+    GetAllOpenOrders();
+  }, [GetAllOpenOrders])
+
+
+     // ====================Get All Closed Orders======================
+     const GetAllClosedOrders = useCallback(() => {
+      try{
+        apiGetAuthorization(`customer/order/pickup-status?status=PICKED_UP&pageNo=${closedOrdersPageNumber}`).then((res) => {
+          const data = res.data;
+          setClosedOrders(data.content);
+          setClosedOrdersPageNumber(data.number)
+          setClosedOrdersPageElementSize(data.size)
+          setClosedOrdersTotalPages(data.totalPages)
+          setClosedOrdersTotalElements(data.totalElements)
+          setClosedOrdersNumOfElements(data.numberOfElements)
+          console.log(res.data);
+        })
+      }catch(err){
+        console.log(err.response.data);
+      }
+    }, [closedOrdersPageNumber])
+  
+    useEffect(() => {
+      GetAllClosedOrders();
+    }, [GetAllClosedOrders])
+
 // const FetchTrx = async () => {
 //   try{
 //     await apiGetAuthorization('customer/wallet/transactions').then((res) => {
@@ -591,40 +648,40 @@ useEffect(() => {
         pickupCenterEmail: formData.pickupCenterEmail,
       };
       await apiPostAuthorization(`customer/order/new`, saveOrderData).then((res) => {
-        swal(res.data, {
-          buttons: {
-            catch: {
-              text: "OK",
-              value: "OK",
-            },
+        Swal.fire({title: res.data,
+          text: 'Your payment was received successfully',
+          icon: 'success',
+          confirmButtonText: 'Okay',
+          confirmButtonColor: '#28a745',
+          background: '#e9f5e9',
+          padding: '1.25rem',
+          borderRadius: '.25rem',
+          customClass: {
+            title: 'text-xl font-medium',
+            content: 'text-base font-light',
+            confirmButton: 'bg-green-500 text-white px-5 py-2',
           },
         });
         console.log(res.data);
         setTimeout(() => {
-          window.location.href = "/orders";
-        }, 1500);
+          window.location.href = "/open-orders";
+        }, 2000);
       });
     } catch (err) {
-      //swal(err.res.data.data);
+      Swal.fire({
+        title: err.response.data.message,
+        text: 'There was a problem with processing your transaction. Please try again later.',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 2000,
+        customClass: {
+          popup: 'swal2-popup-failure'
+        }
+      });
       console.log(err.response.data.message);
     }
   };
 
-  /**=================Process Payment For Purchase=============**/
-  const ProcessPaymentForPurchaseConfig =  async (paymentData) => {
-    const formData = {
-      grandTotal: paymentData
-    }
-    try{
-      await apiPut(`customer/wallet/process-payment`, formData).then((res) => {
-        successNotification(res.data);
-        console.log(res.data)
-      })
-    }catch(err) {
-      errorNotification(err.response.data);
-      console.log(err.response.data)
-    }
-  }
 
   return (
     <dataContext.Provider
@@ -684,8 +741,24 @@ useEffect(() => {
           GetPickupCenterByEmailConfig,
           pickupCenterByEmail,
           OrderConfig,
-          ProcessPaymentForPurchaseConfig,
-          localStorageValue
+          localStorageValue,
+          GetAllOpenOrders,
+          openOrders,
+          openOrdersPageNumber,
+          openOrdersPageElementSize,
+          openOrdersTotalPages,
+          openOrdersTotalElements,
+          openOrdersNumOfElements,
+          orderStatus,
+          setOpenOrdersPageNumber,
+          GetAllClosedOrders,
+          closedOrders,
+          closedOrdersPageNumber, 
+          setClosedOrdersPageNumber,
+          closedOrdersPageElementSize,
+          closedOrdersTotalPages,
+          closedOrdersTotalElements,
+          closedOrdersNumOfElements,
       }}
     >
       {children}
