@@ -7,9 +7,10 @@ import BestSellingCard from './BestSellingCard';
 
 const BestSelling = () =>{
 
+
     const { BestSelling, bestSelling } = useAuth();
 
-    useEffect(() => {
+    useEffect(() =>{
         BestSelling();
     }, [])
 
@@ -21,12 +22,14 @@ const BestSelling = () =>{
            before:w-1/4 before:right-2 after:left-2 text-xl p-4 mt-[4rem]'> BEST SELLING </h6>
             <div className="mt-8 flex justify-center flex-wrap gap-5">
                 {
-                 bestSelling.length > 0 ? bestSelling.map(product => {
-                    <BestSellingCard pName={product.name} price={product.price} source={product.imageUrl} alt="#" />
-                 })
-                 :
-                <Empty />
+                    bestSelling.length > 0?
+                    bestSelling.map(product =>
+                            <BestSellingCard pName={product.name} price={product.price} source={product.imageUrl} alt="#" id={product.id} />
+                        )
+                    : 
+                    <Empty />
                 }
+            
             </div> 
         </div>
 

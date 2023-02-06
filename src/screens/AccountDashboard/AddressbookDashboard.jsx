@@ -35,7 +35,7 @@ const AddressbookDashboard= () => {
                 <Link to='/new-address' className='bg-[#7e6a17] text-[white] p-2 rounded-md hover:text-[black]'>New Address</Link>
               </div>
 
-              <div className='grid xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-1 gap-3 px-1 w-[100%] bg-[red]'>
+              <div className='grid xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-1 gap-3 px-1 w-[100%]'>
                   <AddressBook />
               </div>
           </div>

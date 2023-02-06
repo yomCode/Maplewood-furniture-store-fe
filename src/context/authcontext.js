@@ -41,7 +41,6 @@ const DataProvider = ({ children }) => {
   const [pickupCenterByEmail, setPickupCenterByEmail] = useState(null);
   const [bestSelling, setBestSelling] = useState([]);
   const [newArrival, setNewArrival] = useState([]);
-
   const[localStorageValue, setLocalStorageValue] = useState(false)
 
   /**==============Registration======= **/
@@ -517,20 +516,6 @@ const FetchTrx = useCallback(() => {
 useEffect(() => {
   FetchTrx()
 }, [FetchTrx])
-
-
-// const FetchTrx = async () => {
-//   try{
-//     await apiGetAuthorization('customer/wallet/transactions').then((res) => {
-//       setGetTrx([...res.data.content]);
-//       console.log(res.data.content)
-//       console.log(getTrx)
-//     })
-//   }catch(err){
-//     console.log(err.response.data.message)
-//   }
-// }
-
 
   // ====================VerifyRegistration======================
   const VerifyReg = async (token) => {
