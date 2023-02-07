@@ -16,11 +16,11 @@ const Home = () => {
           <Widget type="balance" />
         </div>
         <div className="charts">
-          <div className="featured" style={{height: "40vh", width: "40vw", overflow: "hidden"}}>
-              <PickupTableView title="PICKUP CENTERS" />
+          <div className="featured" style={{height: "40vh", width: "100%", overflow: "hidden", marginBottom: "50px", }}>
+              <PickupTableView tableTitle="PICKUP CENTERS" />
           </div>
           {/* <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} /> */}
-          <div className="featured" style={{height: "40vh", width: "40vw", overflow: "hidden"}}>
+          <div className="featured" style={{height: "40vh", width: "100%", overflow: "hidden", marginBottom: "50px", }}>
             <TableView tableTitle={ "PRODUCTS" }/>
           </div>
         </div>
