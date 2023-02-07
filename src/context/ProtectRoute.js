@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { errorNotification } from '../components/Notification';
 import { isTokenValid } from '../utils/roleUrlRouter';
+import { useAuth } from './authcontext';
 
 
 export const ProtectAdminRoute = ({children}) => {
@@ -20,6 +21,7 @@ export const ProtectAdminRoute = ({children}) => {
 
 
 export const ProtectCustomerRoute = ({children}) => {
+    const { setShowNavbar } = useAuth()
     const location = useLocation()
     let isAuthenticated;
     const userRole = localStorage.getItem('role')
@@ -30,7 +32,7 @@ export const ProtectCustomerRoute = ({children}) => {
         isAuthenticated = true;
     }
 
-     
+    setShowNavbar(true)
     if(!isAuthenticated || userRole ==="ADMIN" ||  userRole ==="SUPER_ADMIN"){
         return (
             <Navigate to="/login" state={{from:location} }/>
@@ -60,14 +62,25 @@ export const IsAuthenticated = ({children}) => {
 }
 
 export const RequireAdminAuth = () => {
+    const { setShowNavbar } = useAuth()
     const location = useLocation()
     const isAuthenticated = localStorage.getItem('signature')
     const userRole = localStorage.getItem('role')
-    const tokenValid = isTokenValid(isAuthenticated)
+    let tokenValid = null;
 
-    if(!tokenValid) {
-        localStorage.setItem("signature", "")
-        errorNotification("Token expired!")
+    setShowNavbar(false)
+
+    if(isAuthenticated !== ''){
+        tokenValid = isTokenValid(isAuthenticated)
+
+        if(!tokenValid) {
+            localStorage.setItem("signature", "")
+            localStorage.setItem("role", "")
+            errorNotification("Token expired!")
+        }
+    }else {
+         errorNotification("Session expired!")
+
     }
   
     return (

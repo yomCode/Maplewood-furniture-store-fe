@@ -27,7 +27,7 @@ const AccountDashboard = () => {
 
   const { GetUser, getUser, setGetUser } = useAuth();
 
-  console.log(getUser);
+  //console.log(getUser);
 
   const { GetWallet, getWallet, setGetWallet } = useAuth();
 
@@ -39,11 +39,11 @@ const AccountDashboard = () => {
 
   useEffect(() => {
     GetUser();
-  }, [GetUser]);
+  }, []);
 
  useEffect(() => {
    GetWallet();
- }, [GetWallet]);
+ }, []);
 
 
   const onChange = (e) => {
@@ -53,7 +53,7 @@ const AccountDashboard = () => {
   };
 
   return (
-    <div className="md:pl-[15%] md:pr-[7%] lg:py-[5%] pb-0">
+    <div className="md:px-[5%] lg:py-[5%] pb-0">
       {screenSize > 768 ? (
         <div className="row mx-auto">
           {/* Desktop layout */}

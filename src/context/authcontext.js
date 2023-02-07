@@ -12,7 +12,7 @@ import {
   successNotification,
 } from "../components/Notification";
 import jwt_decode from "jwt-decode";
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { decodeJwt, redirectToUserPage } from "../utils/roleUrlRouter";
 
 export const dataContext = createContext();
@@ -39,8 +39,28 @@ const DataProvider = ({ children }) => {
   const [pickupCentersInState, setPickupCentersInState] = useState([]);
   const [allStates, setAllStates] = useState([]);
   const [pickupCenterByEmail, setPickupCenterByEmail] = useState(null);
+  const[localStorageValue, setLocalStorageValue] = useState(false);
+  const [openOrders, setOpenOrders] = useState(null);
+  const [openOrdersPageNumber, setOpenOrdersPageNumber] = useState(0);
+  const[openOrdersPageElementSize, setOpenOrdersPageElementSize] = useState(0)
+  const[openOrdersTotalPages, setOpenOrdersTotalPages] = useState(0)
+  const[openOrdersTotalElements, setOpenOrdersTotalElements] = useState(0)
+  const[openOrdersNumOfElements, setOpenOrdersNumOfElements] = useState(0)
+  const [orderStatus, setOrderStatus] = useState("");
+  const [closedOrders, setClosedOrders] = useState(null);
+  const [closedOrdersPageNumber, setClosedOrdersPageNumber] = useState(0);
+  const[closedOrdersPageElementSize, setClosedOrdersPageElementSize] = useState(0)
+  const[closedOrdersTotalPages, setClosedOrdersTotalPages] = useState(0)
+  const[closedOrdersTotalElements, setClosedOrdersTotalElements] = useState(0)
+  const[closedOrdersNumOfElements, setClosedOrdersNumOfElements] = useState(0)
+  const [bestSelling, setBestSelling] = useState([]);
+  const [newArrival, setNewArrival] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+// localStorage.getItem("role") === "CUSTOMER" || localStorage.length == 0)
+  const [showNavbar, setShowNavbar] = useState(true)
+  const[itemCount, setItemCount] = useState(0)
 
-  const[localStorageValue, setLocalStorageValue] = useState(false)
+
 
   /**==============Registration======= **/
   const registerConfig = async (formData) => {
@@ -122,11 +142,13 @@ const DataProvider = ({ children }) => {
             const jwtInfo = decodeJwt(res.data.data);   
             localStorage.setItem("signature", res.data.data);
             localStorage.setItem("role", jwtInfo.roles);
+            GetUser()
 
             setLocalStorageValue(localStorage.getItem("signature"))
             redirectToUserPage(location, navigate, jwtInfo.roles)
           }
           else{
+            successNotification(res.data.message);
             setTimeout(() => {
               window.location.href = "/login"
             }, 1500);
@@ -149,6 +171,7 @@ const DataProvider = ({ children }) => {
         .then((res) => {
           successNotification(res.data);
           console.log(res.data);
+          setItemCount(itemCount + 1);
       })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -167,9 +190,11 @@ const DataProvider = ({ children }) => {
       .then((res) => {
         successNotification(res.data);
         console.log(res.data);
-        setTimeout(() => {
-          window.location.href = "/shopping-cart";
-        }, 2000);
+        setItemCount(itemCount - 1)
+        GetAllCartItems()
+        // setTimeout(() => {
+        //   window.location.href = "/shopping-cart";
+        // }, 2000);
     })
       .catch((err) => {
         console.log(err.response.data.message);
@@ -185,16 +210,18 @@ const DataProvider = ({ children }) => {
       try{
         await apiPut(`customer/cart/item/add-to-quantity/${productId}`)
           .then((res) => {
-            successNotification(res.data.message);
+            successNotification(res.data);
             const index = cartItems.items.findIndex(item=>item.product.id === productId)
             setCartItems(prev=>{
               prev.items[index].orderQty = prev.items[index].orderQty + 1
               return prev;
             });
-            setTimeout(() => {
-              window.location.href = "/shopping-cart";
-            }, 2000);
-            console.log(res.data.message);
+            
+            GetAllCartItems()
+            // setTimeout(() => {
+            //   window.location.href = "/shopping-cart";
+            // }, 2000);
+            console.log(res.data);
 
         })
           .catch((err) => {
@@ -211,11 +238,12 @@ const DataProvider = ({ children }) => {
       try {
       await apiPut(`customer/cart/item/reduce-quantity/${productId}`)
         .then((res) => {
-          successNotification(res.data.message);
-          setTimeout(() => {
-            window.location.href = "/shopping-cart";
-          }, 2000);
-          console.log(res.data.message);
+          successNotification(res.data);
+          GetAllCartItems()
+          // setTimeout(() => {
+          //   window.location.href = "/shopping-cart";
+          // }, 2000);
+          console.log(res.data);
       })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -232,6 +260,7 @@ const DataProvider = ({ children }) => {
     try {
       await apiGetAuthorization(`customer/cart/view`).then((res) => {
         setCartItems(res.data);
+        setItemCount(res.data.items.length)
         console.log("cart",res.data.items);
         
       });
@@ -246,9 +275,12 @@ const DataProvider = ({ children }) => {
     await apiDeleteAuthorization(`customer/cart/clear`)
       .then((res) => {
         successNotification(res.data);
-        setTimeout(() => {
-          window.location.href = "/shopping-cart";
-        }, 2000);
+        setItemCount(0)
+        // GetAllCartItems()
+        // setTimeout(() => {
+        //   window.location.href = "/shopping-cart";
+        // }, 2000);
+        setCartItems(null)
         console.log(res.data);
     })
       .catch((err) => {
@@ -271,7 +303,7 @@ const DataProvider = ({ children }) => {
     try {
       await apiGetAuthorization(`customer/view-profile`).then((res) => {
         setGetUser(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       });
     } catch (err) {
       console.log(err);
@@ -283,7 +315,7 @@ const DataProvider = ({ children }) => {
     try {
       await apiGetAuthorization(`customer/wallet/info`).then((res) => {
         setGetWallet(res.data.data);
-        console.log(res.data.data);
+        //console.log(res.data.data);
       });
     } catch (err) {
       console.log(err);
@@ -517,6 +549,51 @@ useEffect(() => {
 }, [FetchTrx])
 
 
+   // ====================Get All Open Orders======================
+   const GetAllOpenOrders = useCallback(() => {
+    try{
+      apiGetAuthorization(`customer/order/pickup-status?status=YET_TO_BE_PICKED_UP&pageNo=${openOrdersPageNumber}`).then((res) => {
+        const data = res.data;
+        setOpenOrders(data.content);
+        setOpenOrdersPageNumber(data.number)
+        setOpenOrdersPageElementSize(data.size)
+        setOpenOrdersTotalPages(data.totalPages)
+        setOpenOrdersTotalElements(data.totalElements)
+        setOpenOrdersNumOfElements(data.numberOfElements)
+        console.log(res.data);
+      })
+    }catch(err){
+      console.log(err.response.data);
+    }
+  }, [openOrdersPageNumber])
+
+  useEffect(() => {
+    GetAllOpenOrders();
+  }, [GetAllOpenOrders])
+
+
+     // ====================Get All Closed Orders======================
+     const GetAllClosedOrders = useCallback(() => {
+      try{
+        apiGetAuthorization(`customer/order/pickup-status?status=PICKED_UP&pageNo=${closedOrdersPageNumber}`).then((res) => {
+          const data = res.data;
+          setClosedOrders(data.content);
+          setClosedOrdersPageNumber(data.number)
+          setClosedOrdersPageElementSize(data.size)
+          setClosedOrdersTotalPages(data.totalPages)
+          setClosedOrdersTotalElements(data.totalElements)
+          setClosedOrdersNumOfElements(data.numberOfElements)
+          console.log(res.data);
+        })
+      }catch(err){
+        console.log(err.response.data);
+      }
+    }, [closedOrdersPageNumber])
+  
+    useEffect(() => {
+      GetAllClosedOrders();
+    }, [GetAllClosedOrders])
+
 // const FetchTrx = async () => {
 //   try{
 //     await apiGetAuthorization('customer/wallet/transactions').then((res) => {
@@ -530,17 +607,21 @@ useEffect(() => {
 // }
 
 
+
   // ====================VerifyRegistration======================
   const VerifyReg = async (token) => {
+    setIsLoading(true)
     try{
       await apiGet(`customer/verifyRegistration?${token}`).then((res) => {
         setVerifyReg(res.data)
         console.log(res.data)
+        setIsLoading(false)
       })
 
     }catch(err){
       setVerifyReg(err.response.data)
       console.log(err.response.data)
+      setIsLoading(false)
     }
   }
 
@@ -589,38 +670,65 @@ useEffect(() => {
         pickupCenterEmail: formData.pickupCenterEmail,
       };
       await apiPostAuthorization(`customer/order/new`, saveOrderData).then((res) => {
-        swal(res.data, {
-          buttons: {
-            catch: {
-              text: "OK",
-              value: "OK",
-            },
+        Swal.fire({title: res.data,
+          text: 'Your payment was received successfully',
+          icon: 'success',
+          confirmButtonText: 'Okay',
+          confirmButtonColor: '#28a745',
+          background: '#e9f5e9',
+          padding: '1.25rem',
+          borderRadius: '.25rem',
+          customClass: {
+            title: 'text-xl font-medium',
+            content: 'text-base font-light',
+            confirmButton: 'bg-green-500 text-white px-5 py-2',
           },
         });
         console.log(res.data);
         setTimeout(() => {
-          window.location.href = "/orders";
-        }, 1500);
+          window.location.href = "/open-orders";
+        }, 2000);
       });
     } catch (err) {
-      //swal(err.res.data.data);
+      Swal.fire({
+        title: err.response.data.message,
+        text: 'There was a problem with processing your transaction. Please try again later.',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 2000,
+        customClass: {
+          popup: 'swal2-popup-failure'
+        }
+      });
       console.log(err.response.data.message);
     }
   };
 
-  /**=================Process Payment For Purchase=============**/
-  const ProcessPaymentForPurchaseConfig =  async (paymentData) => {
-    const formData = {
-      grandTotal: paymentData
-    }
+
+
+  // =====================Best selling====================
+
+  const BestSelling = async () => {
     try{
-      await apiPut(`customer/wallet/process-payment`, formData).then((res) => {
-        successNotification(res.data);
-        console.log(res.data)
+      await apiGet('products/best-selling').then((res) => {
+          setBestSelling(res.data)
+          console.log(res.data);
       })
-    }catch(err) {
-      errorNotification(err.response.data);
-      console.log(err.response.data)
+    }catch(err){
+      console.log(err.response.message)
+    }
+  }
+
+
+  // ================New Arrival======================
+
+  const NewArrival = async () => {
+    try{
+      await apiGet('products/new-arrival').then((res) => {
+        setNewArrival(res.data)
+      })
+    }catch(err){
+      console.log(err.response.message)
     }
   }
 
@@ -682,8 +790,34 @@ useEffect(() => {
           GetPickupCenterByEmailConfig,
           pickupCenterByEmail,
           OrderConfig,
-          ProcessPaymentForPurchaseConfig,
-          localStorageValue
+          localStorageValue,
+          GetAllOpenOrders,
+          openOrders,
+          openOrdersPageNumber,
+          openOrdersPageElementSize,
+          openOrdersTotalPages,
+          openOrdersTotalElements,
+          openOrdersNumOfElements,
+          orderStatus,
+          setOpenOrdersPageNumber,
+          GetAllClosedOrders,
+          closedOrders,
+          closedOrdersPageNumber, 
+          setClosedOrdersPageNumber,
+          closedOrdersPageElementSize,
+          closedOrdersTotalPages,
+          closedOrdersTotalElements,
+          closedOrdersNumOfElements,
+          localStorageValue,
+          BestSelling,
+          bestSelling,
+          NewArrival,
+          newArrival,
+          setShowNavbar,
+          showNavbar,
+          itemCount,
+          isLoading,
+          setIsLoading,
       }}
     >
       {children}

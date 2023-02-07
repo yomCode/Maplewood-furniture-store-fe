@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaRegUser, FaRegAddressCard } from "react-icons/fa";
 import { AiOutlineInbox, AiOutlineHeart, AiOutlineCloseCircle } from "react-icons/ai";
 import { BiEditAlt } from "react-icons/bi";
@@ -8,11 +8,17 @@ import { useAuth } from '../../context/authcontext';
 
 const SideBar = () => {
   const { Logout } = useAuth();
+  const [currentPage, setCurrentPage] = useState('default');
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  }
+  
   return (
     <div className='bg-white drop-shadow-md rounded-md lg:h-100'>
-      <div>
-        <SideBarElement name="My Oakland Account" icon={<FaRegUser />} to="/dashboard"/>
-        <SideBarElement name="Orders" icon={<AiOutlineInbox />} to="/orders" />
+      <div className='user-sidebar'>
+        <SideBarElement name="My Oakland Account" icon={<FaRegUser />} to="/dashboard" dsh='active'/>
+        <SideBarElement name="Orders" icon={<AiOutlineInbox />} to="/open-orders" />
         <SideBarElement name="Favourites" icon={<AiOutlineHeart to="/"/>}/>
         <SideBarElement name="Edit Profile" icon={<BiEditAlt />} to="/dashboard-acc-info"/>
         <SideBarElement name="Address Book" icon={<FaRegAddressCard />} to="/addressbook"/>

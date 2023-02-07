@@ -71,6 +71,31 @@ textarea::placeholder{
   margin-right: 0;
 }
 
+a {
+  transition: color 2s ease-out;
+}
 
+a:hover {
+ font-size: larger;
+ color: black !important;
+ font-weight: bolder;
+ animation: color-change 2s ease-in forwards;
+}
+
+@keyframes color-change {
+  from {
+    color: indigo;
+  }
+  to {
+    color: #5c6ac4;
+  }
+}
+
+.active {
+  color:crimson !important;
+}
+.dsh {
+  color: crimson !important;
+}
 
 

@@ -25,9 +25,9 @@ const Home = () => {
           </div>
         </div>
         <div className="listContainer">
-          <div className="listTitle">Latest Transactions</div>
+          <div className="listTitle">Latest Orders</div>
           <OrderTableView tableTitle={"ORDERS"}/> 
-          <PickupTableView tableTitle="PICKUP CENTERS" />
+          {/* <PickupTableView tableTitle="PICKUP CENTERS" /> */}
 
         </div>
     </div>

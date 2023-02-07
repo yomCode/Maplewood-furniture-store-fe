@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, Col, Select, Form, Row, Spin, } from 'antd';
 import { errorNotification } from '../../../components/Notification'
 import {
@@ -19,15 +19,19 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const AddProductForm = ({ setShowDrawer }) => {
     const [ form ] = Form.useForm() 
     const[submitting, setSubmitting] = useState(false);
-    const { singleProduct, headerTitle, addNewProduct, editProduct, productImgUrl } = useProduct()
-    const { subcategories } = useCategory()
+    const { singleProduct, headerTitle, addNewProduct, editProduct, productImgUrl, } = useProduct()
+    const { subcategories, getSubcategories } = useCategory()
 
     const onClose = () => setShowDrawer(false);
+
+    useEffect(() => {
+        getSubcategories()
+    }, [])
     
 
     const onFinish = product => {
-        console.log(JSON.stringify(product, null, 2));
-        const newProduct = [{ ...product, imageUrl: productImgUrl }]
+        const newProduct = { ...product, imageUrl: productImgUrl }
+        console.log(JSON.stringify(newProduct, null, 2));
         if(headerTitle === "Add New Product")
             addNewProduct(setSubmitting, onClose, newProduct)
         else

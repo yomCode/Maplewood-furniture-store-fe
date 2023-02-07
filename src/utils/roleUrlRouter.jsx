@@ -25,6 +25,7 @@ export const decodeJwt = (token) => {
 }
 
 export const isTokenValid = (token) => {
+    if(token === '') return false
     const decoded = jwt_decode(token);
 
     if(Date.now() >= decoded.exp * 1000) {
@@ -38,7 +39,7 @@ export const isTokenValid = (token) => {
 export const redirectToUserPage = (location, navigate, roles) => {
     let from = location.state?.from?.pathname
     
-    if(isTokenValid){
+    if(isTokenValid(localStorage.getItem("signature"))){
         if(roles === "ADMIN" || roles === "SUPERADMIN")
             from = location.state?.from?.pathname || "/admin"
         else if(roles === "CUSTOMER")

@@ -362,6 +362,7 @@ export const CategoryProvider = ({ children }) => {
     return <CategoryContext.Provider value={{ 
         subcategories, 
         categories,
+        getSubcategories,
         setCategoryUrl,
         setSingleSubcategories,
         singleSubcategories,
