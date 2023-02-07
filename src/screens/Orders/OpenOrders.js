@@ -42,7 +42,7 @@ const OpenOrders= () => {
   }, []);
 
   return (
-    <div className='account-dashboard py-5 pb-0'>
+    <div className='min-h-[100vh] md:px-[5%] lg:py-[5%] pl-2 pr-2 '>
       {screenSize > 768 ? (
         <div className='row mx-auto'>
           {/* Desktop layout */}

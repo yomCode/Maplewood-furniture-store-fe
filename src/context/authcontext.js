@@ -164,6 +164,38 @@ const DataProvider = ({ children }) => {
     }
   };
 
+  /**==============Admin Login ======= **/  const AdminLoginConfig = async (formData, location, navigate) => {
+    try {
+      const LoginData = {
+        email: formData.email,
+        password: formData.password,
+      };
+      await apiPost("auth/login", LoginData)
+        .then((res) => {
+          if(res.data.message === 'Login Successful'){
+            successNotification(res.data.message);
+            console.log(res.data.message);
+            const jwtInfo = decodeJwt(res.data.data);   
+            localStorage.setItem("signature", res.data.data);
+            localStorage.setItem("role", jwtInfo.roles);
+            setLocalStorageValue(localStorage.getItem("signature"))
+            redirectToUserPage(location, navigate, jwtInfo.roles)
+          }
+          else{
+            setTimeout(() => {
+              window.location.href = "/admin/login"            }, 1500);
+          }  
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          errorNotification(err.response.data);
+        });
+    } catch (err) {
+      console.log(err.response.data.message);
+      errorNotification(err.response.data.message);
+    }
+  };
+
    /**============= Add to Cart ======= **/
     const AddToCartConfig = async (productId, data) => {
       try {
