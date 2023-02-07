@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 
 import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { errorNotification } from '../components/Notification';
+import { isTokenValid } from '../utils/roleUrlRouter';
 
 
 export const ProtectAdminRoute = ({children}) => {
     const location = useLocation()
     const isAuthenticated = localStorage.getItem('signature')
     const userRole = localStorage.getItem('role')
-
       
     if(!isAuthenticated ||userRole ==="user" ||  userRole ==="vendor"){
         return (
@@ -62,9 +63,15 @@ export const RequireAdminAuth = () => {
     const location = useLocation()
     const isAuthenticated = localStorage.getItem('signature')
     const userRole = localStorage.getItem('role')
+    const tokenValid = isTokenValid(isAuthenticated)
+
+    if(!tokenValid) {
+        localStorage.setItem("signature", "")
+        errorNotification("Token expired!")
+    }
   
     return (
-      userRole === "ADMIN" || userRole === "SUPERADMIN"  &&  isAuthenticated ? 
-        <Outlet /> : <Navigate to="/login" state={ { from: location } } />
+        (userRole === "ADMIN" || userRole === "SUPERADMIN")  &&  tokenValid ? 
+         <Outlet /> : <Navigate to="/login" state={ { from: location } } />
     )
   }

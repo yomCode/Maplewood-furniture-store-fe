@@ -24,20 +24,28 @@ export const decodeJwt = (token) => {
  */
 }
 
-// export const isTokenValid = (token) => {
-//     const decoded = jwt_decode(token);
+export const isTokenValid = (token) => {
+    const decoded = jwt_decode(token);
 
-//     if
+    if(Date.now() >= decoded.exp * 1000) {
+        console.log("Token expired!")
+        return false
+    }
+    return true
 
-// }
+}
 
 export const redirectToUserPage = (location, navigate, roles) => {
     let from = location.state?.from?.pathname
-
+    
+    if(isTokenValid){
         if(roles === "ADMIN" || roles === "SUPERADMIN")
             from = location.state?.from?.pathname || "/admin"
-        else if(roles === "USER")
+        else if(roles === "CUSTOMER")
             from = location.state?.from?.pathname || "/shop"
+    }else {
+        from = location.state?.from?.pathname || "/login"
+    }
 
     navigate(from, { replace: true })
 }
