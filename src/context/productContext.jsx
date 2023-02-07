@@ -113,7 +113,6 @@ const ProductProvider = ({ children }) => {
         })
         .catch(err => {
             console.log(err)
-            console.log(err.status)
             if(err.response.status === 401)
                 errorNotification("UnAuthorized", "Contact your admin for access.", "topLeft")
             if(err.response.status >= 500)

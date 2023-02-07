@@ -51,7 +51,7 @@ const ProductItem = ({ product, isEditable, url }) => {
             <h5 className="product-name">{ name }</h5>
             <span>
                 <Rate tooltips={desc} onChange={setValue} value={value}  />
-                <p className="product-price">${ price }</p>
+                <p className="product-price">{ price }</p>
             </span>
           </Link>
           <p className="add-tocart-btn btn" onClick={addItemToCartHandler}>ADD TO CART</p>

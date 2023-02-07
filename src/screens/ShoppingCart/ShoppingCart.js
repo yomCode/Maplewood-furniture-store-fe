@@ -5,7 +5,7 @@ import { useAuth } from '../../context/authcontext';
 import "./shoppingcart.css";
 
 const ShoppingCart = () => {
-  const { RemoveItemFromCartConfig, cartItems, IncreaseItemQuantityConfig, ReduceFromItemQuantityConfig, GetAllCartItems, ClearCartConfig} = useAuth();
+  const { RemoveItemFromCartConfig, cartItems, IncreaseItemQuantityConfig, ReduceFromItemQuantityConfig, GetAllCartItems, ClearCartConfig,} = useAuth();
 
   const handleIncreaseItemQuantity = (productId) => {
     IncreaseItemQuantityConfig(productId);
@@ -33,7 +33,7 @@ const ShoppingCart = () => {
 
   return (
     <div className='cart'>
-       {(cartItems === null || cartItems.items.length === 0) && 
+       {(cartItems === null || cartItems?.items.length === 0) && 
        <div className='text-center mt-30'>
           <h1 className='text-3xl font-bold-900 my-5 pb-30'>You have 0 item(s) in your cart</h1>
           <div className='flex justify-center align-middle py-3 text-xl'>
@@ -43,7 +43,7 @@ const ShoppingCart = () => {
             </Link>
           </div>
       </div>}
-       {cartItems !== null && cartItems.items.length !== 0  && 
+       {cartItems !== null && cartItems?.items.length !== 0  && 
       <>
         <div>
           <h1 className='text-4xl font-bold-1000 mb-5'>Shopping Cart</h1>
@@ -63,7 +63,7 @@ const ShoppingCart = () => {
               </thead>
 
               <tbody>
-                  {cartItems.items.map((item, index) => {
+                  {cartItems?.items.sort((a, b) => a.id > b.id).map((item, index) => {
                   return(
                     <>
                     <tr key={index}>

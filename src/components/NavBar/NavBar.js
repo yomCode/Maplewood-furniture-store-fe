@@ -42,11 +42,11 @@ export const UserMenuDropdown = ({ closeMenu }) => {
 };
 
 const Navbar = () => {
-  const { Logout, localStorageValue, cartItems, GetAllCartItems } = useAuth();
+  const { Logout, localStorageValue, cartItems, GetAllCartItems, itemCount } = useAuth();
 
   const [nav, setNav] = useState(false);
   const [key, setKey] = useState(false);
-  const itemCount = 1;
+  // const itemCount = 1;
   const [sideBar, setSideBar] = useState(false);
   const { getUser, GetUser } = useAuth();
   const [userMenu, setUserMenu] = useState(false);
@@ -67,6 +67,7 @@ const Navbar = () => {
       setKey(false);
     } else {
       setKey(true);
+      setData(localStorageValue)
     }
   }, [localStorageValue]);
 
@@ -110,7 +111,7 @@ const Navbar = () => {
         </ul>
         <ul className="hidden lg:flex w-[200px]">
           <li className="">
-            <span style={{ color: "rgb(81, 81, 81)" }}>₦0.00&nbsp;&nbsp;</span>
+            <span style={{ color: "rgb(81, 81, 81)" }}>&nbsp;&nbsp;</span>
             {data && 
             (<Link to="/shopping-cart">
               <Badge color="secondary" badgeContent={itemCount}>
