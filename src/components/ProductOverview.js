@@ -18,7 +18,7 @@ const ProductOverview = () => {
                 {  
                     newArrival.length > 0 ? 
                     newArrival.map(product =>
-                        <Card title="NEW ARRIVAL" pName={product.name} image={product.imageUrl} />)
+                        <Card title="NEW ARRIVAL" pName={product.name} image={product.imageUrl} id={product.id}  />)
                     :
                     < Empty />
                 }

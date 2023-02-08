@@ -42,6 +42,7 @@ const VerifyRegistration = () => {
             <Link className="bg-[#7e6a17] text-[white] py-2 px-3 rounded-md" to='/'>Resend Token</Link> 
         </div>            }
     </div> 
+
     )
 }
 

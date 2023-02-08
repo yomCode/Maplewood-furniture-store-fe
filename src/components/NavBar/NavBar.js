@@ -46,7 +46,6 @@ const Navbar = () => {
 
   const [nav, setNav] = useState(false);
   const [key, setKey] = useState(false);
-  // const itemCount = 1;
   const [sideBar, setSideBar] = useState(false);
   const { getUser, GetUser } = useAuth();
   const [userMenu, setUserMenu] = useState(false);
@@ -73,8 +72,15 @@ const Navbar = () => {
 
   useEffect(() => {
     GetUser();
-    GetAllCartItems();
   }, []);
+
+  useEffect(() => {
+    GetAllCartItems()
+  }, [GetAllCartItems])
+
+  let itemCount;
+  
+  // cartItems.items.length === 0 ? itemCount = 0 : itemCount = cartItems.items.length
 
   return (
     <div className="text-black items-center w-[100%] top-0 mb-[3rem]">
