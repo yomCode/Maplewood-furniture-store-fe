@@ -247,10 +247,10 @@ export const CategoryProvider = ({ children }) => {
             onClose();
             successNotification("newProduct Successfully Added", `${newPickupCenter.name} was added to the system.`)
             getPickupCenters();
+            setSubmitting(false)
         })
         .catch(err => {
             console.log(err)
-            console.log(err.status)
             if(err.response.status === 401)
                 errorNotification("UnAuthorized", "Contact your admin for access.", "topLeft")
             if(err.response.status >= 500)
@@ -362,6 +362,7 @@ export const CategoryProvider = ({ children }) => {
     return <CategoryContext.Provider value={{ 
         subcategories, 
         categories,
+        getSubcategories,
         setCategoryUrl,
         setSingleSubcategories,
         singleSubcategories,

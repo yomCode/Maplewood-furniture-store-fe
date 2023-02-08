@@ -55,6 +55,10 @@ const DataProvider = ({ children }) => {
   const[closedOrdersNumOfElements, setClosedOrdersNumOfElements] = useState(0)
   const [bestSelling, setBestSelling] = useState([]);
   const [newArrival, setNewArrival] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+// localStorage.getItem("role") === "CUSTOMER" || localStorage.length == 0)
+  const [showNavbar, setShowNavbar] = useState(true)
+  const[itemCount, setItemCount] = useState(0)
 
 
 
@@ -138,13 +142,48 @@ const DataProvider = ({ children }) => {
             const jwtInfo = decodeJwt(res.data.data);   
             localStorage.setItem("signature", res.data.data);
             localStorage.setItem("role", jwtInfo.roles);
+            GetUser()
 
             setLocalStorageValue(localStorage.getItem("signature"))
             redirectToUserPage(location, navigate, jwtInfo.roles)
           }
           else{
+            successNotification(res.data.message);
             setTimeout(() => {
               window.location.href = "/login"
+            }, 1500);
+          }  
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          errorNotification(err.response.data);
+        });
+    } catch (err) {
+      console.log(err.response.data.message);
+      errorNotification(err.response.data.message);
+    }
+  };
+
+  /**==============Admin Login ======= **/  const AdminLoginConfig = async (formData, location, navigate) => {
+    try {
+      const LoginData = {
+        email: formData.email,
+        password: formData.password,
+      };
+      await apiPost("auth/login", LoginData)
+        .then((res) => {
+          if(res.data.message === 'Login Successful'){
+            successNotification(res.data.message);
+            console.log(res.data.message);
+            const jwtInfo = decodeJwt(res.data.data);   
+            localStorage.setItem("signature", res.data.data);
+            localStorage.setItem("role", jwtInfo.roles);
+            setLocalStorageValue(localStorage.getItem("signature"))
+            redirectToUserPage(location, navigate, jwtInfo.roles)
+          }
+          else{
+            setTimeout(() => {
+              window.location.href = "/admin/login"            
             }, 1500);
           }  
         })
@@ -165,6 +204,7 @@ const DataProvider = ({ children }) => {
         .then((res) => {
           successNotification(res.data);
           console.log(res.data);
+          setItemCount(itemCount + 1);
       })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -183,9 +223,11 @@ const DataProvider = ({ children }) => {
       .then((res) => {
         successNotification(res.data);
         console.log(res.data);
-        setTimeout(() => {
-          window.location.href = "/shopping-cart";
-        }, 2000);
+        setItemCount(itemCount - 1)
+        GetAllCartItems()
+        // setTimeout(() => {
+        //   window.location.href = "/shopping-cart";
+        // }, 2000);
     })
       .catch((err) => {
         console.log(err.response.data.message);
@@ -207,10 +249,12 @@ const DataProvider = ({ children }) => {
               prev.items[index].orderQty = prev.items[index].orderQty + 1
               return prev;
             });
-            setTimeout(() => {
-              window.location.href = "/shopping-cart";
-            }, 2000);
-            console.log(res.data.message);
+            
+            GetAllCartItems()
+            // setTimeout(() => {
+            //   window.location.href = "/shopping-cart";
+            // }, 2000);
+            console.log(res.data);
 
         })
           .catch((err) => {
@@ -227,11 +271,12 @@ const DataProvider = ({ children }) => {
       try {
       await apiPut(`customer/cart/item/reduce-quantity/${productId}`)
         .then((res) => {
-          successNotification(res.data.message);
-          setTimeout(() => {
-            window.location.href = "/shopping-cart";
-          }, 2000);
-          console.log(res.data.message);
+          successNotification(res.data);
+          GetAllCartItems()
+          // setTimeout(() => {
+          //   window.location.href = "/shopping-cart";
+          // }, 2000);
+          console.log(res.data);
       })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -248,6 +293,7 @@ const DataProvider = ({ children }) => {
     try {
       await apiGetAuthorization(`customer/cart/view`).then((res) => {
         setCartItems(res.data);
+        setItemCount(res.data.items.length)
         console.log("cart",res.data.items);
         
       });
@@ -262,9 +308,12 @@ const DataProvider = ({ children }) => {
     await apiDeleteAuthorization(`customer/cart/clear`)
       .then((res) => {
         successNotification(res.data);
-        setTimeout(() => {
-          window.location.href = "/shopping-cart";
-        }, 2000);
+        setItemCount(0)
+        // GetAllCartItems()
+        // setTimeout(() => {
+        //   window.location.href = "/shopping-cart";
+        // }, 2000);
+        setCartItems(null)
         console.log(res.data);
     })
       .catch((err) => {
@@ -594,15 +643,18 @@ useEffect(() => {
 
   // ====================VerifyRegistration======================
   const VerifyReg = async (token) => {
+    setIsLoading(true)
     try{
       await apiGet(`customer/verifyRegistration?${token}`).then((res) => {
         setVerifyReg(res.data)
         console.log(res.data)
+        setIsLoading(false)
       })
 
     }catch(err){
       setVerifyReg(err.response.data)
       console.log(err.response.data)
+      setIsLoading(false)
     }
   }
 
@@ -793,7 +845,12 @@ useEffect(() => {
           BestSelling,
           bestSelling,
           NewArrival,
-          newArrival
+          newArrival,
+          setShowNavbar,
+          showNavbar,
+          itemCount,
+          isLoading,
+          setIsLoading,
       }}
     >
       {children}

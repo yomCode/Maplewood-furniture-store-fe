@@ -8,10 +8,11 @@ import { useAuth } from '../../context/authcontext';
 
 
 const HomePage = () =>{
-    const { cartItems, GetAllCartItems } = useAuth();
+    const { cartItems, GetAllCartItems, setShowNavbar } = useAuth();
 
     useEffect(() => {
         GetAllCartItems();
+        setShowNavbar(true)
       }, []);
     
     return( 

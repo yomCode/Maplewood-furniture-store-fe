@@ -36,7 +36,6 @@ const SingleProduct = () => {
   useEffect(() => {
     apiGet(`products/view/${params.id}`)
     .then(res => {
-         console.log(res)
          setSingleProduct(res.data)
         //  notification('success', res.data)
     })
@@ -74,7 +73,7 @@ const SingleProduct = () => {
         <div className="description-tab">
             <div className="head">
                 <h1 className="title">{ name }</h1>
-                <p className="price-tag">#{ price }</p>
+                <p className="price-tag">{ price }</p>
             </div>
         
             <p className="short-info">This is a sample product</p>
