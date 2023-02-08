@@ -34,99 +34,49 @@ const cancelDeleteProduct = (e) => {
 };
 
 
+
+
 const productColumns = [
   {
-    title : "Mode of Payment",
-    children: [
-      {
-        title: "Name",
-        dataIndex: 'name',
-        key: 'name'
-      }, 
-      {
-        title: 'Provider',
-        dataIndex: 'provider',
-        key: 'provider'
-      }
-    ]
-,
+    title: "FirstName",
+    key: "firstName",
+    dataIndex: "firstName"
   },
   {
-    title: 'Delivery Fee',
-    dataIndex: 'deliveryFee',
-    key: 'deliveryFee',
+    title: "LastName",
+    key: "lastName",
+    dataIndex: "lastName"
   },
   {
-    title: 'First Name',
-    dataIndex: 'firstName',
-    key: 'firstName',
+    title: "Phone Number",
+    key: "phone",
+    dataIndex: "phone"
   },
   {
-    title: 'Mode of Delivery',
-      dataIndex: 'modeOfDelivery',
-      key: 'modeOfDelivery',
+    title: "Grand Total",
+    key: "grandTotal",
+    dataIndex: "grandTotal",
   },
   {
-    title: 'Delivery',
-    children: [
-      {
-        dataIndex: 'delivery',
-        key: 'delivery',
-      }
-    ]
-
+    title: "Transaction",
+    key: "status",
+    dataIndex: "status"
   },
   {
-    title: 'Grand Total',
-    dataIndex: 'grandTotal',
-    key: 'grandTotal',
+    title: "Pickup Center",
+    key: "pickupCenterName",
+    dataIndex: "pickupCenterName"
   },
   {
-    title: 'Discount',
-    dataIndex: 'discount',
-    key: 'discount',
+    title: "Pickup Address",
+    key: "pickupCenterAddress",
+    dataIndex: "pickupCenterAddress",
   },
   {
-    title: 'Address',
-    children: [
-      {
-        title: 'Full Name',
-        dataIndex: 'fullName',
-        key: 'fullName',
-      },
-      {
-        title: 'Phone',
-        dataIndex: 'phone',
-        key: 'phone'
-      },
-      {
-        title: 'Email Address',
-        dataIndex: 'emailAddres',
-        key: 'emailAddress'
-      },
-       {
-        title: 'Street',
-        dataInde: 'street',
-        key: 'street'
-       },
-       {
-        title: 'State',
-        dataInde: 'state',
-        key: 'state'
-       },
-       {
-        title: 'Country',
-        dataInde: 'country',
-        key: 'country'
-       },
-       {
-        title: 'isDefault',
-        dataInde: 'isDefault',
-        key: 'isDefault'
-       },
-    ]
-
-  },  
+    title: "Status",
+    key: "pickupStatus",
+    dataIndex: "pickupStatus",
+  },
   // {
   //   title: "Actions",
   //   dataIndex: 'actions',
