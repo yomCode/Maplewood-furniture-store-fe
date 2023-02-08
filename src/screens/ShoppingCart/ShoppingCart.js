@@ -35,7 +35,7 @@ const ShoppingCart = () => {
     <div className='cart'>
        {(cartItems === null || cartItems?.items.length === 0) && 
        <div className='text-center mt-30'>
-          <h1 className='text-3xl font-bold-900 my-5 pb-30'>You have 0 item(s) in your cart</h1>
+          <h1 className='text-3xl font-bold-900 my-5 pb-30'>Your cart is empty</h1>
           <div className='flex justify-center align-middle py-3 text-xl'>
             <Link to="/shop" className='bg-[#917307] p-3 text-white focus:text-[#917307] active:text-[#917307] focus:bg-white active:bg-white rounded-md drop-shadow-md hover:text-2xl hover:drop-shadow-lg
              hover:text-[#917307] !important ' >
@@ -72,9 +72,9 @@ const ShoppingCart = () => {
                           <img src={item.imageUrl} style={{height: '6rem'}}/>
                       </td>
                       <td>{item.productName}</td>
-                      <td>${item.unitPrice}</td>
+                      <td>₦{item.unitPrice}</td>
                       <td><button disabled={item.orderQty === 1} className='btn text-white bg-[#917307]' onClick={()=>handleReduceCartItemQuantity(item.product.id)}>-</button>  {item.orderQty} <button className='btn text-white bg-[#917307] xl:mt-0 lg:mt-2' onClick={() => handleIncreaseItemQuantity(item.product.id)}>+</button></td>
-                      <td>${item.unitPrice * item.orderQty}</td>
+                      <td>₦{item.unitPrice * item.orderQty}</td>
                       <td className='text-center'>
                           <button className='flex justify-center' type='submit' onClick={()=>handleRemoveItemFromCart(item.id)}><IoMdClose className="bg-gray-200 text-lg rounded"/></button>
                       </td>

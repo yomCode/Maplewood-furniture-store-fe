@@ -45,8 +45,8 @@ const ClosedOrders = () => {
               <div className="border-gray-300 border-b-1 py-3">
                 <h1 className='text-2xl font-bold-900'>Orders</h1>
                 <div className='mt-3'>
-                    <Link to="/open-orders">OPEN ORDERS (0)</Link>
-                    <Link to="/closed-orders" className='ml-3'>CLOSED ORDERS (0)</Link>
+                    <Link to="/open-orders" className="border-r border-black pr-3 hover:text-red-600">OPEN ORDERS</Link>
+                    <Link to="/closed-orders" className='ml-3'>CLOSED ORDERS </Link>
                 </div> 
               </div>
 
@@ -125,13 +125,25 @@ const ClosedOrders = () => {
                       <li className="text-lg font-medium">- Email: {order.pickupCenter.email}</li>
                     </ul>  
                 </CheckoutCard>
-              </div> 
+              </div>
+
+              <ReactPaginate 
+                previousLabel={<ArrowLeftTwoTone />}
+                nextLabel={<ArrowRightTwoTone />}
+                pageCount={closedOrdersTotalPages} 
+                onPageChange={changePage}
+                containerClassName={"paginationBtns"}
+                previousLinkClassName={"prevBtn"}
+                nextLinkClassName={"nextBtn"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              /> 
             </div>
               )
             })} 
 {/* ==============End of Closed Orders Details***************===== */}
           </div>
-
+          
         </div>
       ) : (
         <div>
@@ -139,17 +151,7 @@ const ClosedOrders = () => {
         </div>
       )}
 
-      <ReactPaginate 
-        previousLabel={<ArrowLeftTwoTone />}
-        nextLabel={<ArrowRightTwoTone />}
-        pageCount={closedOrdersTotalPages} 
-        onPageChange={changePage}
-        containerClassName={"paginationBtns"}
-        previousLinkClassName={"prevBtn"}
-        nextLinkClassName={"nextBtn"}
-        disabledClassName={"paginationDisabled"}
-        activeClassName={"paginationActive"}
-      />
+      
 </div>
   );
 }

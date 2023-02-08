@@ -73,7 +73,7 @@ const SingleProduct = () => {
         <div className="description-tab">
             <div className="head">
                 <h1 className="title">{ name }</h1>
-                <p className="price-tag">{ price }</p>
+                <p className="price-tag">₦{ price }</p>
             </div>
         
             <p className="short-info">This is a sample product</p>

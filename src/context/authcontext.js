@@ -164,7 +164,9 @@ const DataProvider = ({ children }) => {
     }
   };
 
-  /**==============Admin Login ======= **/  const AdminLoginConfig = async (formData, location, navigate) => {
+  /**==============Admin Login ======= **/
+
+  const AdminLoginConfig = async (formData, location, navigate) => {
     try {
       const LoginData = {
         email: formData.email,
@@ -183,6 +185,7 @@ const DataProvider = ({ children }) => {
           }
           else{
             setTimeout(() => {
+              errorNotification(res.data.message);
               window.location.href = "/admin/login"            
             }, 1500);
           }  
@@ -386,11 +389,11 @@ const DataProvider = ({ children }) => {
         confirmNewPassword: passwordData.confirmNewPassword
       };
       await apiPut("auth/update-password", updatePasswordData).then((res) => {
-        successNotification(res.data);
+        successNotification(res.data.message);
         console.log(JSON.stringify(res.data));
       });
     } catch (err) {
-      errorNotification(err.response.data);
+      errorNotification(err.response.data.message);
       console.log(err.response.data);
     }
   };

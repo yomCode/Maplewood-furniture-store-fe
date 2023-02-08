@@ -18,7 +18,7 @@ const BestSellingCard = ({pName, price, source, alt, id}) =>{
             </div>
             <div className='flex flex-col items-center'>
                 <h5 className="mt-4 md:text-2xl sm:text-2xl text-1xl font-bold">{pName}</h5>
-                <p className="mb-4 mt-3 text-1xl font-bold text-[brown]">{price}</p>
+                <p className="mb-4 mt-3 text-1xl font-bold text-[brown]">₦{price}</p>
                 <button className="" type='button' onClick={addItemToCartHandler}>ADD TO CART</button>
             </div>
         </div>

@@ -77,8 +77,6 @@ const Navbar = () => {
   useEffect(() => {
     GetAllCartItems()
   }, [GetAllCartItems])
-
-  let itemCount;
   
   // cartItems.items.length === 0 ? itemCount = 0 : itemCount = cartItems.items.length
 
@@ -109,7 +107,7 @@ const Navbar = () => {
         </ul>
         <ul className="hidden lg:flex w-[200px] justify-center">
           <li className="">
-            <Link to="/">BLOG</Link>
+            <Link to="/favorites">FAVOURITES</Link>
           </li>
           <li className="">
             <Link to="/contactus">CONTACT</Link>
@@ -303,7 +301,7 @@ const Navbar = () => {
                 <Link to="/shop">SHOP</Link>
               </li>
               <li className="p-2">
-                <Link to="/">BLOG</Link>
+              <Link to="/favorites">FAVOURITES</Link>
               </li>
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
@@ -327,7 +325,7 @@ const Navbar = () => {
                 <Link to="/shop">SHOP</Link>
               </li>
               <li className="p-2">
-                <Link to="/">BLOG</Link>
+              <Link to="/favorites">FAVOURITES</Link>
               </li>
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
@@ -379,7 +377,7 @@ const Navbar = () => {
                 <Link to="/shop">SHOP</Link>
               </li>
               <li className="p-2">
-                <Link to="/">BLOG</Link>
+              <Link to="/favorites">FAVOURITES</Link>
               </li>
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
@@ -403,7 +401,7 @@ const Navbar = () => {
                 <Link to="/shop">SHOP</Link>
               </li>
               <li className="p-2">
-                <Link to="/">BLOG</Link>
+              <Link to="/favorites">FAVOURITES</Link>
               </li>
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
