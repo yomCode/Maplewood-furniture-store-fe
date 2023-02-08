@@ -1,9 +1,8 @@
 .cart {
-    min-height: 60vh;
     margin: 10% 0 7%;
     padding-left:15%;
     padding-right:15%;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
 }
