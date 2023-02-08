@@ -245,7 +245,7 @@ export const CategoryProvider = ({ children }) => {
         .then(res => {
             console.log(res.data);
             onClose();
-            successNotification("newProduct Successfully Added", `${newPickupCenter.name} was added to the system.`)
+            successNotification("Pickup Center Created", `${newPickupCenter.name} was added to the system.`)
             getPickupCenters();
             setSubmitting(false)
         })
