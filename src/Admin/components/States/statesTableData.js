@@ -18,49 +18,6 @@ const CustomAvatar = ({name, style}) => {
   else if(split.length > 1) return <Avatar style={style}>{`${name.charAt(0)}${name.charAt(name.indexOf(' ') + 1)}`}</Avatar>
 }
 
-const HandleColumnEvents = ({ state, setShowDrawer }) => {
-  const { setSingleState, deleteState } = useCategory()
-  const { setHeaderTitle } = useProduct()
-  return(
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "20px"}}>
-      <PopupConfirm 
-        description={`Delete ${state.name.toUpperCase()}?`} 
-        confirm={() => confirmDelete(state, deleteState)} 
-        cancel={() => cancelDelete(state)}
-        component={ <Button type="primary default" 
-        danger ghost icon={<DeleteOutlined />}></Button> }/>
-
-      <PopupConfirm description={`Do you want to edit product ${ state.name }?`} 
-        confirm={() => confirmEdit(state, setShowDrawer, setSingleState, setHeaderTitle)}
-        cancel={() => cancelEdit(setShowDrawer)}
-        component={ <Button type="primary danger" 
-        ghost icon={<EditOutlined />}></Button> }/>
-    </div>
-  );
-}
-
-const confirmDelete= (state, deleteState) => {
-  deleteState(state.id)
-};
-
-const cancelDelete = (e) => {
-  console.log(e);
-  message.error('Click on No');
-};
-
-
-const confirmEdit = (state, setShowDrawer, setSingleState, setHeaderTitle) => {
-  setHeaderTitle(`Update State: ${state.name}`)
-  setSingleState(state)
-  setShowDrawer(true)
-  message.success('Click on Yes');
-};
-
-const cancelEdit = (setShowDrawer) => {
-  setShowDrawer(false)
-  message.error('Click on No');
-};
-
 
 const stateColumns = (setShowDrawer) => [
   {
@@ -82,12 +39,6 @@ const stateColumns = (setShowDrawer) => [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-  },
-  {
-    title: "Actions",
-    dataIndex: 'actions',
-    key: 'actions',
-    render: (_, state) => <HandleColumnEvents setShowDrawer={setShowDrawer} state={state}/>
   },
 ];
 

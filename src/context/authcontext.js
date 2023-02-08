@@ -183,7 +183,8 @@ const DataProvider = ({ children }) => {
           }
           else{
             setTimeout(() => {
-              window.location.href = "/admin/login"            }, 1500);
+              window.location.href = "/admin/login"            
+            }, 1500);
           }  
         })
         .catch((err) => {

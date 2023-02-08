@@ -51,9 +51,6 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
 
             <div className="title-head">
                 <div className='title-sub-head'>
-                  <button className="home-btn" onClick={handleShowDrawer}>
-                    <UserAddOutlined />Add New Product
-                  </button>
                     <button className="btn-count">{orderTotalElements}</button>
                 </div>
                 <h2 className='"layout-h2-header'>{tableTitle}</h2>

@@ -23,7 +23,8 @@ const PickupCenterForm = ({ setShowDrawer }) => {
     const onClose = () => setShowDrawer(false);
     
 
-    const onFinish = newPickupCenter => {
+    const onFinish = pickupCenter => {
+        const newPickupCenter = { ...pickupCenter, state: pickupCenter.state.toUpperCase() }
         console.log(JSON.stringify(newPickupCenter, null, 2));
         if(headerTitle === "Add New Pickup Center")
             createNewPickupCenter(setSubmitting, onClose, newPickupCenter)
