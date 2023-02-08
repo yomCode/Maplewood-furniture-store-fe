@@ -27,7 +27,7 @@ const AddProductForm = ({ setShowDrawer }) => {
 
     const onFinish = product => {
         console.log(JSON.stringify(product, null, 2));
-        const newProduct = [{ ...product, imageUrl: productImgUrl }]
+        const newProduct = { ...product, imageUrl: productImgUrl }
         if(headerTitle === "Add New Product")
             addNewProduct(setSubmitting, onClose, newProduct)
         else

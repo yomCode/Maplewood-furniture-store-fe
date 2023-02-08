@@ -16,6 +16,7 @@ const Card = ({title, pName, image, id}) =>{
         </div>
         
     );
+    
 
 }
 

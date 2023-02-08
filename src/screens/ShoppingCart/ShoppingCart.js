@@ -34,7 +34,7 @@ const ShoppingCart = () => {
   return (
     <div className='cart'>
        {(cartItems === null || cartItems.items.length === 0) && 
-       <div className='text-center mt-20'>
+       <div className='text-center mt-30'>
           <h1 className='text-3xl font-bold-900 my-5 pb-30'>You have 0 item(s) in your cart</h1>
           <div className='flex justify-center align-middle py-3 text-xl'>
             <Link to="/shop" className='bg-[#917307] p-3 text-white focus:text-[#917307] active:text-[#917307] focus:bg-white active:bg-white rounded-md drop-shadow-md hover:text-2xl hover:drop-shadow-lg
@@ -98,15 +98,15 @@ const ShoppingCart = () => {
             <h1 className='text-4xl font-bold-900 text-black mb-5'>Cart Total</h1>
               <div className="flex justify-between my-2 border-b pb-3">
                     <p className='font-bold-900 text-black'>Subtotal</p>
-                    <p>${cartItems.total}</p>
+                    <p>₦{cartItems.total}</p>
               </div>
               <div className="flex justify-between my-3 border-b pb-3">
                     <p className='font-bold-900 text-black'>Tax</p>
-                    <p>${tax}</p>
+                    <p>₦{tax}</p>
               </div>
               <div className="flex justify-between my-3 mb-4">
                     <h1 className='text-2xl text-gray-800 font-bold-900'>Total</h1>
-                    <p>${cartItems.total + tax}</p>
+                    <p>₦{cartItems.total + tax}</p>
               </div>
                     
               <p className="w-100">
