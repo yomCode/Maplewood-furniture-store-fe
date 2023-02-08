@@ -22,9 +22,9 @@ const Categories = ({ displayCategories }) => {
         </div>
       </div>
 
-      <div className="card-div">
+      {/* <div className="card-div">
         <Card title="NEW ARRIVAL" pName="WOODEN" image="../images/wooden.png" />
-      </div>
+      </div> */}
     </div>
   );
 };

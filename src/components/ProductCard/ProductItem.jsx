@@ -33,7 +33,7 @@ const ProductItem = ({ product, isEditable, url }) => {
   
     const showSingleProduct = () => navigate(from, { replace: true, state: product })
 
-    //*** Cart ***/
+    /*** Cart ***/
     const { AddToCartConfig } = useAuth();
 
     const addItemToCartHandler = () => {
@@ -47,8 +47,8 @@ const ProductItem = ({ product, isEditable, url }) => {
             { !isEditable && <BiHeart className="item-icon"/> }
           </div>
           <Link to={`${url}/${product.id}`} className="link-container">
-            <img src={ imageUrl } alt={ name } />
-            <h5 className="product-name">{ name }</h5>
+            <img style={{ height: "100%" }} src={ imageUrl } alt={ name } />
+            <h6 style={{ fontSize: "14px" }} className="product-name">{ name }</h6>
             <span>
                 <Rate tooltips={desc} onChange={setValue} value={value}  />
                 <p className="product-price">{ price }</p>

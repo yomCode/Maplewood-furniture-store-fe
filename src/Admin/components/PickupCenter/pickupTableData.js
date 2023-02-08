@@ -54,16 +54,16 @@ const cancelEditProduct = (setShowDrawer) => {
 
 
 const pickupColumns = (setShowDrawer) => [
-  {
-    title : "Image",
-    dataIndex: 'imageUrl',
-    key: 'imageUrl',
-    width: '80px',
-    render: (_, product) => <CustomAvatar  key={product.id}
-    style={{ 
-      color: '#f56a00', backgroundColor: '#fde3cf' }} 
-      name={product.name} />
-  },
+  // {
+  //   title : "Image",
+  //   dataIndex: 'imageUrl',
+  //   key: 'imageUrl',
+  //   width: '80px',
+  //   render: (_, product) => <CustomAvatar  key={product.id}
+  //   style={{ 
+  //     color: '#f56a00', backgroundColor: '#fde3cf' }} 
+  //     name={product.name} />
+  // },
   {
     title: 'Id',
     dataIndex: 'id',

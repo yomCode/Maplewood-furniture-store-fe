@@ -24,21 +24,8 @@ const antIcon = <LoadingOutlined style={{ fontSize: 80 }} spin />;
     const changePage = ({ selected }) => setPageNumber(selected)
     const[showDrawer, setShowDrawer] = useState(false)
 
-    const handleShowDrawer = () => {
-      setHeaderTitle("Add New Product")
-      // setShowDrawer(!showDrawer);
-    }
-
     return (
         <section className="table-data-section">
-          <DrawerForm
-            title={headerTitle}
-            showDrawer={showDrawer}
-            setShowDrawer={setShowDrawer}
-            formLayout={<AddProductForm 
-                setShowDrawer={ setShowDrawer } 
-              />}
-          />
           {fetching && 
             <div style={{ width: "100vw", display: "flex", height:"100%", alignItems: "center", justifyContent: "center", }}>
                 <Spin indicator={antIcon} style={{ color: "rgb(218, 196, 161)" }}/>
