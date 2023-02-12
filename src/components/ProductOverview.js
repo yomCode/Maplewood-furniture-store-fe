@@ -1,15 +1,27 @@
+import { Empty } from "antd";
+import { useEffect } from "react";
+import { useAuth } from "../context/authcontext";
 import Card from "./Card/Card";
 
 
 const ProductOverview = () => {
 
+    const { NewArrival, newArrival } = useAuth();
+
+    useEffect(() => {
+        NewArrival();
+    }, [])
+
     return(
         <div className='max-w-[90%] mt-[-30px] p-4 bg-white mx-auto'>
             <div className='flex flex-wrap gap-[2rem] justify-center'>
-                <Card title="NEW ARRIVAL" pName="WOODEN" image="../images/wooden.png" />
-                <Card title="DISCOUNT" pName="TABLE DISK" image="../images/table_Disk.png" />
-                <Card title="SALE" pName="TABLE LIT" image="../images/table_lit.png" />
-                <Card />
+                {  
+                    newArrival.length > 0 ? 
+                    newArrival.map(product =>
+                        <Card title="NEW ARRIVAL" pName={product.name} image={product.imageUrl} id={product.id}  />)
+                    :
+                    < Empty />
+                }
             </div>
         </div>
         
