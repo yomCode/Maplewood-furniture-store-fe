@@ -5,19 +5,10 @@ import { useAuth } from "../../context/authcontext";
 import Loader from "../Loader/Loader";
 import { RiDeleteBinLine } from "react-icons/ri";
 
-
 export const ConfirmDelete = ({ closeModal, id }) => {
-  const { DeleteAddress, GetAddressbook, GetAddress, getAddress } = useAuth();
+  const { DeleteAddress, GetAddress } = useAuth();
   const ref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true)
-    DeleteAddress(id)
-    closeModal()
-    setIsLoading(false);
-  };
 
   const handleClickOutside = (e) => {
     if (ref.current && !ref.current.contains(e.target)) {
@@ -32,10 +23,12 @@ export const ConfirmDelete = ({ closeModal, id }) => {
     };
   }, [handleClickOutside]);
 
-
   useEffect(() => {
-    GetAddress(id)
-  }, [])
+    setIsLoading(true);
+    GetAddress(id);
+    setIsLoading(false);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className="w-[100%] h-[88%] mt-[4rem] rounded-b-md top-0 left-0 flex justify-center items-center fixed">
@@ -69,13 +62,8 @@ export const ConfirmDelete = ({ closeModal, id }) => {
 };
 
 export const EditAddress = ({ id, closeModal }) => {
-  const {
-    UpdateAddress,
-    GetAddressbook,
-    getAddress,
-    setGetAddress,
-    GetAddress,
-  } = useAuth();
+  const { UpdateAddress, GetAddressbook, getAddress, setGetAddress } =
+    useAuth();
   const ref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -85,12 +73,10 @@ export const EditAddress = ({ id, closeModal }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    setIsLoading(true)
+    setIsLoading(true);
     UpdateAddress(id, getAddress);
-    setIsLoading(false)
+    setIsLoading(false);
   };
-
-  
 
   // useEffect(() => {
   //   GetAddress(id);
@@ -98,6 +84,7 @@ export const EditAddress = ({ id, closeModal }) => {
 
   useEffect(() => {
     GetAddressbook();
+    // eslint-disable-next-line
   }, []);
 
   const handleClickOutside = (e) => {
@@ -228,23 +215,18 @@ export const EditAddress = ({ id, closeModal }) => {
   );
 };
 
-
-
-
-
-
-const AddressBookCard = ({ fullName, address, emailAddress, phoneNumber, id }) => {
+const AddressBookCard = ({ fullName, address, phoneNumber, id }) => {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { SetDefault, getAddress, GetAddress, GetAddressbook, DeleteAddress } = useAuth();
+  const { SetDefault, getAddress, GetAddress } = useAuth();
 
   const [screenSize, setScreenSize] = useState(window.innerWidth);
 
   const handleResize = () => {
     setScreenSize(window.innerWidth);
   };
-  
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -252,82 +234,41 @@ const AddressBookCard = ({ fullName, address, emailAddress, phoneNumber, id }) =
 
   const handleDefault = (e) => {
     e.preventDefault();
-    setIsLoading(true)
-    SetDefault(id)
-    setIsLoading(false)
-  }
+    setIsLoading(true);
+    SetDefault(id);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    GetAddress(id)
-    console.log(getAddress)
-  }, [])
-
-
+    GetAddress(id);
+    console.log(getAddress);
+  }, []);
 
   return (
     <div className="">
       {screenSize > 768 ? (
-      <div className="p-3 shadow-md md:w-[330px] md:h-[180px] gap-2 border-[1px] rounded-md divide-y">
-        <div className="flex flex-col gap-2 pb-2">
-          <h5 className="text-[#7e6a17]">{fullName}</h5>
-          <div className="h-[40px]">
-            <p className="text-[0.8rem] line-clamp-2 ">{address}</p>
-          </div>
-          <p>{ phoneNumber }</p>
-        </div>
-        <div className="flex items-center justify-between pt-2">
-          <div>
-              {
-                  getAddress.isDefault === true ? 
-                  
-                  <button  className="text-[#5151cc] text-[0.8rem] cursor-not-allowed">
-                      SET AS DEFAULT
-                  </button>
-                  :
-                  <button onClick={handleDefault} className="text-[#5151cc] text-[0.8rem] cursor-pointer">
-                      SET AS DEFAULT
-                  </button>
-              }
-            
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setOpenEdit(!openEdit)}
-              className="text-[#5151cc] text-1xl"
-            >
-              <BsPencilFill />
-            </button>
-              <button type="button" onClick={() => setOpenConfirm(!openConfirm)}>< RiDeleteBinLine className="text-[red]" /></button>
-          </div>
-        </div>
-        {openConfirm && <ConfirmDelete id={id} closeModal={() => setOpenConfirm(false)} />}
-        {openEdit && <EditAddress id={id} closeModal={() => setOpenEdit(false)} />}
-        {isLoading && <Loader />}
-      </div>
-      ):(
-        <div className="p-3 w-full shadow-md border-2 bg-[white] mt-2 gap-2 divide-y">
+        <div className="p-3 shadow-md md:w-[330px] md:h-[180px] gap-2 border-[1px] rounded-md divide-y">
           <div className="flex flex-col gap-2 pb-2">
             <h5 className="text-[#7e6a17]">{fullName}</h5>
             <div className="h-[40px]">
               <p className="text-[0.8rem] line-clamp-2 ">{address}</p>
             </div>
-            <p>{ phoneNumber }</p>
+            <p>{phoneNumber}</p>
           </div>
           <div className="flex items-center justify-between pt-2">
             <div>
-                {
-                    getAddress.isDefault === true ? 
-                    
-                    <button  className="text-[#5151cc] text-[0.8rem] cursor-not-allowed">
-                        SET AS DEFAULT
-                    </button>
-                    :
-                    <button onClick={handleDefault} className="text-[#5151cc] text-[0.8rem] cursor-pointer">
-                        SET AS DEFAULT
-                    </button>
-                }
-              
+              {getAddress.isDefault === true ? (
+                <button className="text-[#5151cc] text-[0.8rem] cursor-not-allowed">
+                  SET AS DEFAULT
+                </button>
+              ) : (
+                <button
+                  onClick={handleDefault}
+                  className="text-[#5151cc] text-[0.8rem] cursor-pointer"
+                >
+                  SET AS DEFAULT
+                </button>
+              )}
             </div>
             <div className="flex items-center gap-3">
               <button
@@ -337,14 +278,71 @@ const AddressBookCard = ({ fullName, address, emailAddress, phoneNumber, id }) =
               >
                 <BsPencilFill />
               </button>
-                <button type="button" onClick={() => setOpenConfirm(!openConfirm)}>< RiDeleteBinLine className="text-[red]" /></button>
+              <button
+                type="button"
+                onClick={() => setOpenConfirm(!openConfirm)}
+              >
+                <RiDeleteBinLine className="text-[red]" />
+              </button>
             </div>
           </div>
-          {openConfirm && <ConfirmDelete id={id} closeModal={() => setOpenConfirm(false)} />}
-          {openEdit && <EditAddress id={id} closeModal={() => setOpenEdit(false)} />}
+          {openConfirm && (
+            <ConfirmDelete id={id} closeModal={() => setOpenConfirm(false)} />
+          )}
+          {openEdit && (
+            <EditAddress id={id} closeModal={() => setOpenEdit(false)} />
+          )}
           {isLoading && <Loader />}
         </div>
-        )}
+      ) : (
+        <div className="p-3 w-full shadow-md border-2 bg-[white] mt-2 gap-2 divide-y">
+          <div className="flex flex-col gap-2 pb-2">
+            <h5 className="text-[#7e6a17]">{fullName}</h5>
+            <div className="h-[40px]">
+              <p className="text-[0.8rem] line-clamp-2 ">{address}</p>
+            </div>
+            <p>{phoneNumber}</p>
+          </div>
+          <div className="flex items-center justify-between pt-2">
+            <div>
+              {getAddress.isDefault === true ? (
+                <button className="text-[#5151cc] text-[0.8rem] cursor-not-allowed">
+                  SET AS DEFAULT
+                </button>
+              ) : (
+                <button
+                  onClick={handleDefault}
+                  className="text-[#5151cc] text-[0.8rem] cursor-pointer"
+                >
+                  SET AS DEFAULT
+                </button>
+              )}
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setOpenEdit(!openEdit)}
+                className="text-[#5151cc] text-1xl"
+              >
+                <BsPencilFill />
+              </button>
+              <button
+                type="button"
+                onClick={() => setOpenConfirm(!openConfirm)}
+              >
+                <RiDeleteBinLine className="text-[red]" />
+              </button>
+            </div>
+          </div>
+          {openConfirm && (
+            <ConfirmDelete id={id} closeModal={() => setOpenConfirm(false)} />
+          )}
+          {openEdit && (
+            <EditAddress id={id} closeModal={() => setOpenEdit(false)} />
+          )}
+          {isLoading && <Loader />}
+        </div>
+      )}
     </div>
   );
 };

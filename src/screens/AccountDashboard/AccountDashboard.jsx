@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BiEditAlt } from "react-icons/bi";
-import { TbCurrencyNaira } from "react-icons/tb";
 import DashboardCard from "../../components/DashboardComponents/DashboardCard";
 import SideBar from "../../components/SideBar/SideBar";
 import { useAuth } from "../../context/authcontext";
 // import "./accountDashboard.css";
-import { ProtectCustomerRoute } from "../../context/ProtectRoute";
 
-export const MobileMenu = ({title, to}) => {
-  return(
+export const MobileMenu = ({ title, to }) => {
+  return (
     <div className="flex border-2 justify-between items-center px-2 py-3 shadow-sm">
       <Link to={to}>{title}</Link>
       <p> &#62; </p>
     </div>
-  )
-}
-
+  );
+};
 
 const AccountDashboard = () => {
   const [screenSize, setScreenSize] = useState(window.innerWidth);
@@ -25,32 +22,27 @@ const AccountDashboard = () => {
     setScreenSize(window.innerWidth);
   };
 
-  const { GetUser, getUser, setGetUser } = useAuth();
+  const { GetUser, getUser } = useAuth();
 
   //console.log(getUser);
 
-  const { GetWallet, getWallet, setGetWallet } = useAuth();
+  const { GetWallet, getWallet } = useAuth();
 
-  
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     GetUser();
+    // eslint-disable-next-line
   }, []);
 
- useEffect(() => {
-   GetWallet();
- }, []);
-
-
-  const onChange = (e) => {
-    e.preventDefault();
-    setGetUser({ ...getUser, [e.target.name]: e.target.value });
-    setGetWallet({...getWallet, [e.target.name]: e.target.value});
-  };
+  useEffect(() => {
+    GetWallet();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className="md:px-[5%] lg:py-[5%] pb-0">
@@ -101,9 +93,14 @@ const AccountDashboard = () => {
           <MobileMenu title="Orders" />
           <MobileMenu title="Favourites" />
           <MobileMenu title="Edit Profile" to="/dashboard-acc-info" />
-          <MobileMenu title="Address Book" to='/addressbook' />
+          <MobileMenu title="Address Book" to="/addressbook" />
           <MobileMenu title="Close Account" />
-          <button type="button" className="bg-[#7e6a17] self-center text-[white] py-2 px-4 mt-4 rounded-md">Logout</button>
+          <button
+            type="button"
+            className="bg-[#7e6a17] self-center text-[white] py-2 px-4 mt-4 rounded-md"
+          >
+            Logout
+          </button>
         </div>
       )}
     </div>

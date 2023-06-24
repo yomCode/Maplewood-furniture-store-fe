@@ -1,24 +1,20 @@
-import CategoryItem from './CategoryItem';
-import Card from '../Card/Card'
-import useCategory from '../../hooks/useCategory';
-import { Link } from 'react-router-dom';
-
+import CategoryItem from "./CategoryItem";
+import useCategory from "../../hooks/useCategory";
+import { Link } from "react-router-dom";
 
 const Categories = ({ displayCategories }) => {
-    const{ categories } = useCategory()
+  const { categories } = useCategory();
 
   return (
-    <div className={ displayCategories ? "dipsplay-none" : "div" } >
-        <div className="category-inner-div">
+    <div className={displayCategories ? "dipsplay-none" : "div"}>
+      <div className="category-inner-div">
         <h4>PRODUCT CATEGORIES</h4>
         <div className="cat-div">
-                {
-                  categories.map((category, index) => 
-                    <Link to={`/categories/viewByCategory/${category.id}`} key={ index }>
-                      <CategoryItem category={ category }/>
-                    </Link>
-                  )
-                }
+          {categories.map((category, index) => (
+            <Link to={`/categories/viewByCategory/${category.id}`} key={index}>
+              <CategoryItem category={category} />
+            </Link>
+          ))}
         </div>
       </div>
 

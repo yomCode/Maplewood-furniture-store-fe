@@ -10,15 +10,13 @@ import useCategory from "../../../hooks/useCategory";
 import useProduct from "../../../hooks/useProduct";
 
 const Widget = ({ type }) => {
-
-  const { personTotalElements } = usePerson()
-  const { pickupCenterSize } = useCategory()
-  const { totalElements, orderTotalElements } = useProduct()
+  const { personTotalElements } = usePerson();
+  const { pickupCenterSize } = useCategory();
+  const { orderTotalElements } = useProduct();
 
   let data;
 
   //temporary
-  const amount = 100;
   const diff = 10;
 
   switch (type) {
@@ -27,7 +25,7 @@ const Widget = ({ type }) => {
         title: "USERS",
         isMoney: false,
         value: personTotalElements,
-        link: (<Link to="/admin/users">"See all users"</Link>),
+        link: <Link to="/admin/users">"See all users"</Link>,
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -44,7 +42,7 @@ const Widget = ({ type }) => {
         title: "ORDERS",
         isMoney: false,
         value: orderTotalElements,
-        link: (<Link to="/admin/orders">"View all orders"</Link>),
+        link: <Link to="/admin/orders">"View all orders"</Link>,
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -61,7 +59,7 @@ const Widget = ({ type }) => {
         title: "PICKUP CEN.",
         isMoney: false,
         value: pickupCenterSize,
-        link: (<Link to="/admin/pickupCenter">"View pickup centers"</Link>),
+        link: <Link to="/admin/pickupCenter">"View pickup centers"</Link>,
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -74,7 +72,7 @@ const Widget = ({ type }) => {
       data = {
         title: "BALANCE",
         isMoney: true,
-        link: (<Link to="/admin">"See details"</Link>),
+        link: <Link to="/admin">"See details"</Link>,
         icon: (
           <AccountBalanceWalletOutlinedIcon
             className="icon"
@@ -86,7 +84,7 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-      default:
+    default:
       break;
   }
 

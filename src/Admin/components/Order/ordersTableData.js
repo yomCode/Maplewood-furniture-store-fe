@@ -1,56 +1,18 @@
-
-import { Button, message } from "antd";
-import {
-  DeleteOutlined,
-} from '@ant-design/icons';
-
-import PopupConfirm from "../../../components/PopupNotification/PopupConfirm";
-
-const HandleAddNewProductDetails = () => {
-  
-  return(
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "20px"}}>
-      <PopupConfirm 
-        description={"description"} 
-        confirm={() => confirmDeleteProduct()} 
-        cancel={() => cancelDeleteProduct()}
-        component={ <Button type="primary default" 
-        danger ghost icon={<DeleteOutlined />}></Button> }/>
-
-      {/* <PopupConfirm description={"description"} 
-        confirm={() => confirmEditProduct()}
-        cancel={() => cancelEditProduct()}
-        component={ <Button type="primary danger" 
-        ghost icon={<EditOutlined />}></Button> }/> */}
-    </div>
-  );
-}
-
-const confirmDeleteProduct = () => {
-};
-
-const cancelDeleteProduct = (e) => {
-  message.error('Click on No');
-};
-
-
-
-
 const productColumns = [
   {
     title: "FirstName",
     key: "firstName",
-    dataIndex: "firstName"
+    dataIndex: "firstName",
   },
   {
     title: "LastName",
     key: "lastName",
-    dataIndex: "lastName"
+    dataIndex: "lastName",
   },
   {
     title: "Phone Number",
     key: "phone",
-    dataIndex: "phone"
+    dataIndex: "phone",
   },
   {
     title: "Grand Total",
@@ -60,12 +22,12 @@ const productColumns = [
   {
     title: "Transaction",
     key: "status",
-    dataIndex: "status"
+    dataIndex: "status",
   },
   {
     title: "Pickup Center",
     key: "pickupCenterName",
-    dataIndex: "pickupCenterName"
+    dataIndex: "pickupCenterName",
   },
   {
     title: "Pickup Address",
@@ -85,4 +47,4 @@ const productColumns = [
   // },
 ];
 
-export { productColumns, }
+export { productColumns };

@@ -13,7 +13,6 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 export const UserMenuDropdown = ({ closeMenu }) => {
   const ref = useRef(null);
 
-
   const handleClickOutside = (e) => {
     if (ref.current && !ref.current.contains(e.target)) {
       closeMenu();
@@ -42,7 +41,7 @@ export const UserMenuDropdown = ({ closeMenu }) => {
 };
 
 const Navbar = () => {
-  const { Logout, localStorageValue, cartItems, GetAllCartItems, itemCount } = useAuth();
+  const { Logout, localStorageValue, GetAllCartItems, itemCount } = useAuth();
 
   const [nav, setNav] = useState(false);
   const [key, setKey] = useState(false);
@@ -58,26 +57,31 @@ const Navbar = () => {
     setSideBar(!sideBar);
   };
 
-  const [data, setData] = useState( localStorage.getItem("signature"));
+  const [data, setData] = useState(localStorage.getItem("signature"));
 
   useEffect(() => {
     const localStorageValue = localStorage.getItem("signature");
-    if (localStorageValue === null || localStorageValue.length <= 4 || localStorage.length === 0) {
+    if (
+      localStorageValue === null ||
+      localStorageValue.length <= 4 ||
+      localStorage.length === 0
+    ) {
       setKey(false);
     } else {
       setKey(true);
-      setData(localStorageValue)
+      setData(localStorageValue);
     }
   }, [localStorageValue]);
 
   useEffect(() => {
     GetUser();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    GetAllCartItems()
-  }, [GetAllCartItems])
-  
+    GetAllCartItems();
+  }, [GetAllCartItems]);
+
   // cartItems.items.length === 0 ? itemCount = 0 : itemCount = cartItems.items.length
 
   return (
@@ -116,13 +120,13 @@ const Navbar = () => {
         <ul className="hidden lg:flex w-[200px]">
           <li className="">
             <span style={{ color: "rgb(81, 81, 81)" }}>&nbsp;&nbsp;</span>
-            {data && 
-            (<Link to="/shopping-cart">
-              <Badge color="secondary" badgeContent={itemCount}>
-                <ShoppingCart className="text-[#403414]" />
-              </Badge>
-            </Link>)
-            }
+            {data && (
+              <Link to="/shopping-cart">
+                <Badge color="secondary" badgeContent={itemCount}>
+                  <ShoppingCart className="text-[#403414]" />
+                </Badge>
+              </Link>
+            )}
           </li>
         </ul>
         {!key ? (
@@ -136,10 +140,12 @@ const Navbar = () => {
           </ul>
         ) : (
           <ul className="hidden lg:flex w-[250px] items-center">
-            <li className="flex items-center text-[0.9rem]">Hi,&nbsp;
+            <li className="flex items-center text-[0.9rem]">
+              Hi,&nbsp;
               {getUser.firstName}{" "}
               <RiArrowDropDownLine
-                size={40} className='text-[#7e6a17] cursor-pointer'
+                size={40}
+                className="text-[#7e6a17] cursor-pointer"
                 onClick={() => setUserMenu(!userMenu)}
               />
             </li>
@@ -266,13 +272,13 @@ const Navbar = () => {
         </div>
         <div className="self-center hidden md:block lg:hidden">
           <span style={{ color: "rgb(81, 81, 81)" }}>₦0.00&nbsp;&nbsp;</span>
-          {data && 
-            (<Link to="/shopping-cart">
+          {data && (
+            <Link to="/shopping-cart">
               <Badge color="secondary" badgeContent={itemCount}>
                 <ShoppingCart className="text-[#403414]" />
               </Badge>
-            </Link>)
-          }
+            </Link>
+          )}
         </div>
 
         <div
@@ -290,7 +296,6 @@ const Navbar = () => {
           </div>
           {!key ? (
             <ul className="py-4 pl-8">
-
               <li className="p-2">
                 <Link to="/">HOME</Link>
               </li>
@@ -301,7 +306,7 @@ const Navbar = () => {
                 <Link to="/shop">SHOP</Link>
               </li>
               <li className="p-2">
-              <Link to="/favorites">FAVOURITES</Link>
+                <Link to="/favorites">FAVOURITES</Link>
               </li>
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
@@ -325,12 +330,14 @@ const Navbar = () => {
                 <Link to="/shop">SHOP</Link>
               </li>
               <li className="p-2">
-              <Link to="/favorites">FAVOURITES</Link>
+                <Link to="/favorites">FAVOURITES</Link>
               </li>
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
               </li>
-              <li className="flex items-center text-[0.7rem] p-2"><Link to='/dashboard'>DASHBOARD</Link></li>
+              <li className="flex items-center text-[0.7rem] p-2">
+                <Link to="/dashboard">DASHBOARD</Link>
+              </li>
               <li className="p-2">
                 <button onClick={Logout}>
                   <FiLogOut className="text-[1.3rem]" />
@@ -366,7 +373,6 @@ const Navbar = () => {
           </div>
           {!key ? (
             <ul className="py-4 pl-8">
-
               <li className="p-2">
                 <Link to="/">HOME</Link>
               </li>
@@ -377,7 +383,7 @@ const Navbar = () => {
                 <Link to="/shop">SHOP</Link>
               </li>
               <li className="p-2">
-              <Link to="/favorites">FAVOURITES</Link>
+                <Link to="/favorites">FAVOURITES</Link>
               </li>
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
@@ -401,12 +407,14 @@ const Navbar = () => {
                 <Link to="/shop">SHOP</Link>
               </li>
               <li className="p-2">
-              <Link to="/favorites">FAVOURITES</Link>
+                <Link to="/favorites">FAVOURITES</Link>
               </li>
               <li className="p-2">
                 <Link to="/contactus">CONTACT</Link>
               </li>
-              <li className="flex items-center text-[0.7rem] p-2"><Link to='/dashboard'>DASHBOARD</Link></li>
+              <li className="flex items-center text-[0.7rem] p-2">
+                <Link to="/dashboard">DASHBOARD</Link>
+              </li>
               <li className="p-2">
                 <button onClick={Logout}>
                   <FiLogOut className="text-[1.3rem]" />
