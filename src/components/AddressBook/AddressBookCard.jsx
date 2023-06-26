@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import { useEffect, useState } from "react";
 import { BsPencilFill } from "react-icons/bs";
 import { useAuth } from "../../context/authcontext";
@@ -10,11 +10,12 @@ export const ConfirmDelete = ({ closeModal, id }) => {
   const ref = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleClickOutside = (e) => {
+  const handleClickOutside = useCallback((e) => {
     if (ref.current && !ref.current.contains(e.target)) {
       closeModal();
     }
-  };
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
@@ -87,11 +88,12 @@ export const EditAddress = ({ id, closeModal }) => {
     // eslint-disable-next-line
   }, []);
 
-  const handleClickOutside = (e) => {
+  const handleClickOutside = useCallback((e) => {
     if (ref.current && !ref.current.contains(e.target)) {
       closeModal();
     }
-  };
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
@@ -241,8 +243,8 @@ const AddressBookCard = ({ fullName, address, phoneNumber, id }) => {
 
   useEffect(() => {
     GetAddress(id);
-    console.log(getAddress);
-  }, []);
+    // eslint-disable-next-line
+  }, [id]);
 
   return (
     <div className="">
