@@ -23,7 +23,7 @@ const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [pageElementSize, setPageElementSize] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [totalElements, setTotalElements] = useState(0);
   const [numOfElements, setNumOfElements] = useState(0);
   const [fetching, setFetching] = useState(true);
