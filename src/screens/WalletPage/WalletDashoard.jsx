@@ -1,6 +1,6 @@
 import { ArrowLeftTwoTone, ArrowRightTwoTone } from "@mui/icons-material";
 import { Empty } from "antd";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import Loader from "../../components/Loader/Loader";
@@ -22,11 +22,12 @@ export const ProcessPayment = ({ closeModal }) => {
     ProcessPayment(amount).then(() => setIsLoading(false));
   };
 
-  const handleClickOutside = (e) => {
+  const handleClickOutside = useCallback((e) => {
     if (ref.current && !ref.current.contains(e.target)) {
       closeModal();
     }
-  };
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);

@@ -1,7 +1,7 @@
 import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import { AiOutlineClose, AiOutlineMail, AiOutlineMenu } from "react-icons/ai";
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect, useRef, useCallback } from "react";
 import "./Navbar.css";
 import { ImFacebook2 } from "react-icons/im";
 import { BsClock, BsInstagram, BsTelephone, BsTwitter } from "react-icons/bs";
@@ -13,11 +13,12 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 export const UserMenuDropdown = ({ closeMenu }) => {
   const ref = useRef(null);
 
-  const handleClickOutside = (e) => {
+  const handleClickOutside = useCallback((e) => {
     if (ref.current && !ref.current.contains(e.target)) {
       closeMenu();
     }
-  };
+    // eslint-disable-next-line
+  }, []);
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
     return () => {
