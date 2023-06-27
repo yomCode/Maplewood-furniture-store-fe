@@ -297,49 +297,52 @@ const Navbar = () => {
           </div>
           {!key ? (
             <ul className="py-4 pl-8">
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/">HOME</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/">ABOUT US</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/shop">SHOP</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/favorites">FAVOURITES</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/contactus">CONTACT</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/signup">SIGNUP</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/login">SIGNIN</Link>
               </li>
             </ul>
           ) : (
             <ul className="py-4 pl-8">
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/">HOME</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/">ABOUT US</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/shop">SHOP</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/favorites">FAVOURITES</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/contactus">CONTACT</Link>
               </li>
-              <li className="flex items-center text-[0.7rem] p-2">
+              <li
+                className="flex items-center text-[0.7rem] p-2"
+                onClick={handleNav}
+              >
                 <Link to="/dashboard">DASHBOARD</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <button onClick={Logout}>
                   <FiLogOut className="text-[1.3rem]" />
                 </button>
@@ -374,49 +377,54 @@ const Navbar = () => {
           </div>
           {!key ? (
             <ul className="py-4 pl-8">
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/">HOME</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/">ABOUT US</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/shop">SHOP</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/favorites">FAVOURITES</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/contactus">CONTACT</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/signup">SIGNUP</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/login">SIGNIN</Link>
               </li>
             </ul>
           ) : (
             <ul className="py-4 pl-8">
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/">HOME</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/">ABOUT US</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/shop">SHOP</Link>
               </li>
-              <li className="p-2">
-                <Link to="/favorites">FAVOURITES</Link>
+              <li className="p-2" onClick={handleNav}>
+                <Link to="/favorites" onClick={handleNav}>
+                  FAVOURITES
+                </Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <Link to="/contactus">CONTACT</Link>
               </li>
-              <li className="flex items-center text-[0.7rem] p-2">
+              <li
+                className="flex items-center text-[0.7rem] p-2"
+                onClick={handleNav}
+              >
                 <Link to="/dashboard">DASHBOARD</Link>
               </li>
-              <li className="p-2">
+              <li className="p-2" onClick={handleNav}>
                 <button onClick={Logout}>
                   <FiLogOut className="text-[1.3rem]" />
                 </button>
