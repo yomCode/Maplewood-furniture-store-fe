@@ -20,7 +20,113 @@ const ProductProvider = ({ children }) => {
   const [favoriteUrl, setFavoriteUrl] = useState(
     "customer/products/favorites/viewAllFavorites"
   );
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+    {
+      id: 1,
+      name: "LAMP",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/NAM2CS@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 2,
+      name: "MODERN",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/Group-1@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 3,
+      name: "DRESSER",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/YMN7ZV@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 4,
+      name: "LAMP",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/NAM2CS@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 5,
+      name: "MODERN",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/Group-1@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 6,
+      name: "DRESSER",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/YMN7ZV@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 7,
+      name: "LAMP",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/NAM2CS@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 8,
+      name: "MODERN",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/Group-1@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 9,
+      name: "DRESSER",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/YMN7ZV@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 10,
+      name: "LAMP",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/NAM2CS@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 11,
+      name: "MODERN",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/Group-1@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 12,
+      name: "DRESSER",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/YMN7ZV@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 13,
+      name: "LAMP",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/NAM2CS@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 14,
+      name: "MODERN",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/Group-1@2x-300x300.jpg",
+      price: "100,000",
+    },
+    {
+      id: 15,
+      name: "DRESSER",
+      imageUrl:
+        "https://templatekit.jegtheme.com/funiture/wp-content/uploads/sites/18/2020/11/YMN7ZV@2x-300x300.jpg",
+      price: "100,000",
+    },
+  ]);
   const [pageNumber, setPageNumber] = useState(0);
   const [pageElementSize, setPageElementSize] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
